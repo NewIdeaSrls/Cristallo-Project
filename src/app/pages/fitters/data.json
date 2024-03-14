@@ -1,0 +1,192 @@
+[
+    {
+        "type": 10,
+        "data": [
+            {
+                "data": {
+                    "1": "CAMPORA ANDREA",
+                    "2": "VIASOLFERINO, 3",
+                    "3": "BASALUZZO",
+                    "4": "15060",
+                    "5": "AL",
+                    "6": "3917069757",
+                    "7": "ANDREA.87DED@ICLOUD.COM",
+                    "8": "GE041NL"
+                }
+            },
+            {
+                "data": {
+                    "1": "CATERINO GIUSEPPE",
+                    "2": "VIA NICHELINO, 5",
+                    "3": "TORINO",
+                    "4": "10100",
+                    "5": "TO",
+                    "6": "366 481 6332",
+                    "7": "GCBAUP77@GMAIL.COM",
+                    "8": "FT148KL"
+                }
+            },
+            {
+                "data": {
+                    "1": "DI FRAIA DOMENICO",
+                    "2": "VIA LANZO INT. 200",
+                    "3": "CIRIE'",
+                    "4": "10073",
+                    "5": "TO",
+                    "6": "3484493761",
+                    "7": "DIFRAIA.DOMENICO93@GMAIL.COM",
+                    "8": "FR233YZ"
+                }
+            },
+            {
+                "data": {
+                    "1": "GAZZA RICCARDO",
+                    "2": "VIA MONTELLO, 6",
+                    "3": "MONTEGROSSO D'ASTI",
+                    "4": "14048",
+                    "5": "AT",
+                    "6": "3452693898",
+                    "7": "RICCARDOGAZZA955@GMAIL.COM",
+                    "8": "FE209XM"
+                }
+            },
+            {
+                "data": {
+                    "1": "ILARDI SANTO",
+                    "2": "VIA SESTRIERE, 33",
+                    "3": "RIVOLI",
+                    "4": "10098",
+                    "5": "TO",
+                    "6": "3464176199",
+                    "7": "SABONZA10@GMAIL.COM ",
+                    "8": "FK757JD"
+                }
+            },
+            {
+                "data": {
+                    "1": "LOVESIO KENNY",
+                    "2": "STRADA ASTI 25",
+                    "3": "REVIGLIASCO D'ASTI",
+                    "4": "14010",
+                    "5": "AT",
+                    "6": "393 873 1983",
+                    "7": "KEINSDAY@GMAIL.COM",
+                    "8": "FP164XJ"
+                }
+            },
+            {
+                "data": {
+                    "1": "TRAPANOTTO SAMUEL",
+                    "2": "VIA GIOVENALE ANCINA, 43",
+                    "3": "FOSSANO",
+                    "4": "12045",
+                    "5": "CN",
+                    "6": "3479050070",
+                    "7": "SAMUELTRAPANOTTO@GMAIL.COM",
+                    "8": "FF149ND"
+                }
+            },
+            {
+                "data": {
+                    "1": "V_MARGARIA PAOLO",
+                    "2": "VIA STAMPERIA, 8",
+                    "3": "TORRE PELLICE",
+                    "4": "10066",
+                    "5": "TO",
+                    "6": "3496115328",
+                    "7": "PAOLOMARGARIA71@GMAIL.COM ",
+                    "8": "FL809PD"
+                }
+            },
+            {
+                "data": {
+                    "1": "V_TERNAVASIO MATTEO ",
+                    "2": "VIA PASCOLI, 8",
+                    "3": "CARMAGNOLA",
+                    "4": "10022",
+                    "5": "TO",
+                    "6": "3289777804",
+                    "7": "M.TERNAVASIO@GMAIL.COM ",
+                    "8": "ER434NC"
+                }
+            },
+            {
+                "data": {
+                    "1": "Z_BOSCASSO DAVIDE",
+                    "2": "VIA CERESOLE, 22 ",
+                    "3": "TORINO",
+                    "4": "10155",
+                    "5": "TO",
+                    "6": "3911198862",
+                    "8": "AA"
+                }
+            },
+            {
+                "data": {
+                    "1": "Z_CELIS SALAZAR OSCAR",
+                    "2": "FRAZIONE LOMBARNERO 24",
+                    "3": "CANISCHIO",
+                    "4": "10080",
+                    "5": "TO",
+                    "6": "3348656337",
+                    "8": "AA"
+                }
+            },
+            {
+                "data": {
+                    "1": "Z_LEONE ALESSANDRO",
+                    "2": "VIA SAURO, 15",
+                    "3": "COLLEGNO",
+                    "4": "10093",
+                    "5": "TO",
+                    "6": "3341074670",
+                    "8": "AA"
+                }
+            },
+            {
+                "data": {
+                    "1": "Z_MARGARIA LUCA",
+                    "2": "VIALE MAZZINI, 43",
+                    "3": "BARGE",
+                    "4": "12032",
+                    "5": "CN",
+                    "6": "3399080379",
+                    "8": "AA"
+                }
+            },
+            {
+                "data": {
+                    "1": "Z_OSCURAMENTO",
+                    "2": "VIA ",
+                    "3": "CARMAGNOLA",
+                    "4": "10022",
+                    "5": "TO",
+                    "6": "333333333333",
+                    "8": "AA"
+                }
+            },
+            {
+                "data": {
+                    "1": "Z_PALERMO MAURIZIO",
+                    "2": "PIAZZA CECILAI MORANDO, 7/B",
+                    "3": "MAGLIANO ALFIERI",
+                    "4": "12050",
+                    "5": "CN",
+                    "6": "3661816549",
+                    "8": "AA"
+                }
+            },
+            {
+                "data": {
+                    "1": "Z_SIGNORETTA GIOELE",
+                    "2": "VIA SAN FRANCESCO D'ASSISI 2",
+                    "3": "FOSSANO",
+                    "4": "12045",
+                    "5": "CN",
+                    "6": "3933714291",
+                    "8": "FT148KL"
+                }
+            }
+        ]
+    }
+]

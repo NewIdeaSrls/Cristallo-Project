@@ -1,0 +1,698 @@
+[
+    {
+        "type": 10,
+        "data": [
+            {
+                "data": {
+                    "1": "ABY SERVIZI SRL",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ADRIATIC ASSICURAZIONI",
+                    "2": "0409652883",
+                    "4": "SINISTRI@ADRIATIC-ASSICURAZIONI.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "AIG",
+                    "2": "0697270759",
+                    "4": "SINISTRI@SDMBROKER.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "AIOI NISSAY DOWA",
+                    "2": "800894046",
+                    "4": "CLIENTI@AIOINISSAYDOWA.EU",
+                    "5": "CRISTALLI@AIOINISSAYDOWA.EU",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ALLIANZ",
+                    "2": "800 68 68 68",
+                    "4": "MAILCLD800@ALLIANZ.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ALLIANZ DIRECT (EX GENIALLOYD)",
+                    "2": "0230459009",
+                    "4": "MAILCLD800@ALLIANZ.IT ",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "AMISSIMA",
+                    "2": "0362 355875",
+                    "5": "AMISSIMA@PEC.AMISSIMA.IT",
+                    "6": "RECLAMIVITA@AMISSIMAVITA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "AON",
+                    "2": "0245422607",
+                    "4": "DENUNCIA.SOGESSUR@AON.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ARCA ASSICURAZIONI",
+                    "2": "800849089",
+                    "5": "ARCAASSICURAZIONI@PEC.UNIPOL.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ARGO GLOBAL",
+                    "2": "01114703295",
+                    "4": "AREASINISTRI@EURORISARCIMENTI.IT",
+                    "6": "INFO@ARGO-GLOBAL.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ASSICURATRICE MILANESE",
+                    "2": "0597479111",
+                    "4": "UFFICIO.SINISTRI@ASSICURATRICEMILANESE.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ASSIMOCO",
+                    "2": "800 97 68 68",
+                    "4": "APERTURA.SINISTRI@ASSIMOCO.IT",
+                    "6": "UFFICIORECLAMISINISTRI@ASSIMOCO.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ASSISTANCE PLUS",
+                    "2": "800090351",
+                    "4": "SINISTRI@RETURNITALIA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "AUTOCRISTALLI",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "AVIVA",
+                    "2": "800 11 44 33",
+                    "5": "ALLIANZVIVA@LEGALMAIL.IT",
+                    "6": "RECLAMI.AVIVAITALIA@ALLIANZ.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "AXA",
+                    "2": "800 08 55 59",
+                    "5": "AXAASSICURAZIONI@AXA.LEGALMAIL.IT",
+                    "6": "CESARE.DELFINI@AXA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "AXA RCI",
+                    "4": "SINISTRIAUTO.RCI@AXA.IT",
+                    "7": "SINISTRIAUTO.RCI@AXA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "BENE ASSICURAZIONI",
+                    "2": "02465488115",
+                    "5": "BENEASSICURAZIONI@LEGALMAIL.IT",
+                    "6": "RECLAMI@BENE.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "CARGEAS",
+                    "2": "03 50 86 1051",
+                    "5": "SINISTRI@PEC.INTESASANPAOLOASSICURA.COM",
+                    "6": " RECLAMI@INTESASANPAOLOASSICURA.COM ",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "CATTOLICA",
+                    "2": "800 57 53 53",
+                    "5": "CATTOLICA.ASSICURAZIONI@PEC.GRUPPOCATTOLICA.IT",
+                    "6": "LIQUIDAZIONECONTACTCENTER.IT@GENERALI.COM",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "CON.TE",
+                    "2": "06 45 234523",
+                    "4": "GESTIONESINISTRI@CONTE.IT",
+                    "6": "DEBORA.VERDINO@CONTE.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "COVEA FIAT/OPEL",
+                    "5": "MACH1@REGISTERPEC.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "COVEA RENAULT/DACIA",
+                    "2": "800 19 69 20",
+                    "5": "ASSISTENZACLIENTI@MACH-1.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "COVEA VOLKSW/SEAT/AUDI/SKODA",
+                    "5": "VWFS@MACH-1.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "CREDIT AGRICOLE",
+                    "4": "UGS@CA-ASSICURAZIONI.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "CREDIT RAS",
+                    "2": "800 11 66 33",
+                    "4": "MAILCLD800@ALLIANZ.IT",
+                    "6": "RECLAMI@CREDITRASASSCIURAZIONI.IT",
+                    "8": true
+                }
+            },
+            {
+                "data": {
+                    "1": "CRYSTAL SHOCK VAN PLUS ",
+                    "4": "SINISTRI@OVERA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "DALLBOG INSURANCE",
+                    "2": "0249534090",
+                    "5": "SINISTRIDALLBOGG@LEGALMAIL.IT",
+                    "7": "RECLAMIDALLBOGG@LEGALMAIL.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "DARAG",
+                    "4": "SINISTRI.DARAG@MULTISERASS.COM ",
+                    "7": "DARAG@LEGALMAIL.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "DEUTSCHE BANK",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "DONAU",
+                    "2": "800978549",
+                    "4": "SINISTRI.DARAG@MULTISERASS.COM",
+                    "6": "RECLAMI@DONAUASSICURAZIONI.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "EUROHERC",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "EUROPE ASSISTANCE",
+                    "2": "800 904891",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "FATA",
+                    "2": "800 57 53 53",
+                    "5": "CATTOLICA.ASSICURAZIONI@PEC.GRUPPOCATTOLICA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "FIT2YOU",
+                    "2": "0381347018",
+                    "4": "GESTIONE.SINISTRI@FIT2YOU.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "GENERALI",
+                    "2": "800 880 880",
+                    "4": "LIQUIDAZIONECONTACTCENTER.IT@GENERALI.COM",
+                    "6": "RECLAMI.IT@GENERALI.COM",
+                    "7": "GENERALIITALIA@PEC.GENERALIGROUP.COM",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "GENERTEL",
+                    "2": "800 20 20 20",
+                    "5": "GENERTEL@PEC.GENERTEL.IT",
+                    "6": "QUALITY@GENERTEL.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "GENERTEL FCA",
+                    "4": " SINISTRICAAUTOBANK@DOUBLESINSURANCE.COM",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "GLOBAL ASSISTANCE",
+                    "2": "02433 35063",
+                    "5": "SERVIZIO.LIQUIDAZIONI@GLOBALASSISTANCE.IT",
+                    "6": "GESTIONE.RECLAMI@GLOBALASSISTANCE.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "GLOBAL SAFE",
+                    "2": "800129665",
+                    "4": "SINISTRI.GLOBALSAFE@GLOBALSAFE.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "GREENVAL INSURANCE DAC",
+                    "2": "024654741",
+                    "4": "SINISTRI.GREENVAL@MULTISERASS.COM",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "GROUPAMA",
+                    "2": "0289 663333",
+                    "4": "RICHIESTEDANNI@GROUPAMA.IT",
+                    "7": "ANTONELLA.POMPILI@GROUPAMA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "HDI",
+                    "2": "800 542002",
+                    "5": "HDI.ASSICURAZIONI@PEC.HDIA.IT",
+                    "6": "RECLAMI@PEC.HDIA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "HELVETIA",
+                    "2": "025 3511",
+                    "4": "INFO@HELVETIA.IT",
+                    "6": "ISPETTORATOSINISTRI.TORINO@HELVETIA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "HELVETIA ITALIA ",
+                    "2": "0253511",
+                    "4": "SINISTRI@HELVETIAITALIA.IT",
+                    "6": "ISPETTORATOSINISTRI.TORINO@HELVETIA.IT",
+                    "7": "HELVETIAITALIA@PEC.HELVETIA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "HYUNDAI CAPITAL - I DOUBLE S SERVICES SRL",
+                    "4": "SINISTRIHCBE@DOUBLESINSURANCE.COM",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "INFODRIVE",
+                    "2": "0692928532",
+                    "4": "GLASS@INFODRIVE.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "INSIDEA",
+                    "5": "PEC@PEC.INSIDE20.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "INTESA SAN PAOLO",
+                    "2": "800 124 124",
+                    "5": "SINISTRI@PEC.INTESASANPAOLOASSICURA.COM",
+                    "6": "RECLAMI@INTESASANPAOLOASSICURA.COM",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ITALIANA",
+                    "2": "800 101 313",
+                    "4": "UFFICIO.CRISTALLIVEICOLI@REALEMUTUA.IT",
+                    "6": "UFFICIO.CRISTALLIVEICOLI@REALEMUTUA.IT",
+                    "8": true
+                }
+            },
+            {
+                "data": {
+                    "1": "ITAS",
+                    "2": "0461896301",
+                    "4": "APERTURASINISTRI@GRUPPOITAS.IT",
+                    "6": "RECLAMI@GRUPPOITAS.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "LE ASSICURAZIONI DI ROMA",
+                    "2": "06 58781",
+                    "4": "SINISTRI@ADIR.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "LE ASSICURAZIONI DI ROMA",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "LIBERTY",
+                    "4": "SINISTRI.LSM@LEGALMAIL.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "LINEAR",
+                    "2": "800 475 999",
+                    "4": "SINISTRI@LINEAR.IT",
+                    "6": "RECLAMI@LINEAR.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "LLOYD'S",
+                    "5": "UIASINISTRI@PEC.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "NEMESI CRYSTAL",
+                    "2": "028002571",
+                    "4": "SINISTRI.CRYSTAL@NEMESIASSISTANCE.COM",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "NOBIS",
+                    "4": "CRISTALLI@NOBIS.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "NOBIS FILO DIRETTO",
+                    "2": "039 98 90001",
+                    "4": "CRISTALLI@NOBIS.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ONEY INSURANCE",
+                    "4": "ASSISTENZACLIENTI@PASSWAY.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ONEY INSURANCE - PASSWAY",
+                    "2": "800124884",
+                    "4": "ASSISTENZACLIENTI@PASSWAY.IT",
+                    "6": "ASSISTENZACLIENTI@PASSWAY.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "POSTE INSURANCE",
+                    "2": "800131811",
+                    "4": "SINISTRIPOSTE@LINEAR.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "PRIMA.IT",
+                    "2": "0272626464",
+                    "4": "SINISTRI@PRIMA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "QUI POLIZZA",
+                    "2": "028362711",
+                    "5": "QUIPOLIZZA@LEGALMAIL.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "QUIXA",
+                    "2": "0284252900",
+                    "4": "INFOSINISTRI@QUIXA.IT",
+                    "8": true
+                }
+            },
+            {
+                "data": {
+                    "1": "REALE MUTUA",
+                    "2": "800 092 092",
+                    "4": "UFFICIO.CRISTALLIVEICOLI@REALEMUTUA.IT",
+                    "8": true
+                }
+            },
+            {
+                "data": {
+                    "1": "RSA",
+                    "4": "SINISTRI@GRUPPOITAS.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "SARA",
+                    "2": "0684 751",
+                    "5": "SARAASSICURAZIONI@SARA.TELECOMPOST.IT",
+                    "6": "GEST.RECLAMI@SARA.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "SOGESSUR SRL",
+                    "2": "0243956001",
+                    "4": "DENUNCIA.SOGESSUR@AON.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "TELEPASS ASSICURA SRL",
+                    "2": "0283967100",
+                    "4": "SINISTRI@TELEPASSASSICURA.COM",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "TOYOTA ASSICURAZIONI",
+                    "2": "800894046",
+                    "4": "CRISTALLI@AIOINISSAYDOWA.EU",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "TUA ASSICURAZIONI",
+                    "2": "022 77 37 22",
+                    "4": "SERVIZIOCLIENTI@TUAASSICURAZIONI.IT",
+                    "5": "TUA.ASSICURAZIONI@PEC.GRUPPOCATTOLICA.IT",
+                    "6": "RECLAMI@TUAASSIRAZIONI.IT",
+                    "8": true
+                }
+            },
+            {
+                "data": {
+                    "1": "UNIPOLSAI",
+                    "2": "800 993388",
+                    "3": "800 030357",
+                    "4": "CALLCENTER.DIREZIONESINISTRI@UNIPOLSAI.IT",
+                    "6": "RECLAMI@UNIPOLSAI.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "UNIPOLSAI ICAR ",
+                    "4": "SINISTRI@UNIPOLSAIBO.IT",
+                    "6": "RECLAMI@UNIPOLSAI.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "UNIQA",
+                    "2": "800 25 27 47",
+                    "5": "UNIQAASSICURAZIONI@PEC.UNIQAGROUP.IT",
+                    "6": "RECLAMI@UNIQAGROUP.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "VERA ASSICURAZIONI",
+                    "2": "800550323",
+                    "4": "INVIODOC@CATTOLICAASSICURAZIONI.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "VERTI",
+                    "2": "02 36617 100",
+                    "4": "DENUNCIA.VERTI@VERTI.IT",
+                    "5": "VERTI@PEC.VERTI.IT",
+                    "6": "RECLAMI@VERTI.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "VITTORIA",
+                    "2": "800 016611",
+                    "5": "VITTORIAASSICURAZIONI@PEC.VITTORIAASSICURAZIONI.IT",
+                    "6": "SERVIZIORECLAMI@VITTORIAASSICURAZIONI.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "VOLKSWAGEN FINANCIAL SERVICES",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "WAKAM - PASSWAY",
+                    "2": "800124884",
+                    "4": "ASSISTENZACLIENTI@PASSWAY.IT ",
+                    "6": "ASSISTENZACLIENTI@PASSWAY.IT ",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "WEFOX MGA SRL",
+                    "4": "ASSISTENZA.CLIENTI@WEFOX.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "WIN WIN",
+                    "4": "INFO@WINWINSOLUTION.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ZURICH",
+                    "2": "0125 852120",
+                    "5": "ZURICH.INSURANCE.COMPANY@PEC.ZURICH.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ZURICH CONNECT",
+                    "2": "0283 430000",
+                    "4": "DOCUMENTI@ZURICH-CONNECT.IT",
+                    "6": "RECLAMI@ZURICH.IT",
+                    "8": false
+                }
+            },
+            {
+                "data": {
+                    "1": "ZURIGO'",
+                    "2": "0125 852120",
+                    "5": "ZURICH.INSURANCE.COMPANY@PEC.ZURICH.IT",
+                    "8": false
+                }
+            }
+        ]
+    }
+]

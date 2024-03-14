@@ -1,0 +1,12 @@
+<h2 translate mat-dialog-title>Attachments</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="grid gap-2 m-1 text-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+    <div *ngFor="let imgSrc of data['defaultValue']; let i = index">
+      <img class="z-auto" class="rounded-sm" [src]="imgSrc" alt="immagine" />
+    </div>
+  </div>
+  
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button translate mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

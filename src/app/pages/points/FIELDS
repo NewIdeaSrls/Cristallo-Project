@@ -1,0 +1,22 @@
+         
+                    "tipologia": "CRISTALLO",
+                    "nome": "AL_CASALE MONFERRATO_04_Z.E. PNEUMATICI",
+                    "indirizzo": "VIA G.BRODOLINI 76",
+                    "città": "CASALE MONFERRATO",
+                    "provincia": "AL",
+                    "cap": "15033",
+                    "telefono": "0142421041",
+                    "cellref": "331 789 0028",
+                    "cellResponsabile" :"",
+                    "email": "Z.E.PNEUMATICI@GMAIL.COM",
+                    "benvenuto inviato": true,
+                    "in data": "21/06/2021 16:15"
+                    
+                    + TIPO POINT (BCS,CRISTALLO,DEROGHE,etc)
+                    + STATO (ATTIVO,NON ATTIVO,DISATTIVATO,etc)
+                    + DOCUMENTO
+                    + ALLEGATI MULTIPLI
+                    + TIPO DOCUMENTO
+                    + MAPPA
+                    + ORARI APERTURA
+                    + ALTRE INFO

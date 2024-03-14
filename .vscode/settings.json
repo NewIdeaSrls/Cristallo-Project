@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.multiRootWorkspaceName": "cristallo-git",
+    "CodeGPT.apiKey": "OpenAI",
+    "rainbow_csv.enable_sticky_header": false,
+    "editor.hover.sticky": false,
+    "workbench.tree.enableStickyScroll": false
+}

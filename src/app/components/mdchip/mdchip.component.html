@@ -1,0 +1,15 @@
+<mat-form-field [ngStyle]="{'width':widthlist}">
+    <mat-select [formControl]="mdChipControl" multiple >
+      <mat-select-trigger>
+        <mat-chip-listbox>
+          <mat-chip-option *ngFor="let chip of mdChipControl.value"
+            [removable]="true" (removed)="onChipRemoved(chip)">
+            {{ chip }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </mat-select-trigger>
+      <mat-option  *ngFor="let chipElement of chiplist" [value]="chipElement">{{chipElement}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  

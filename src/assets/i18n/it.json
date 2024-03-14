@@ -1,0 +1,16 @@
+{
+    "Items per page":"Elementi per pagina",
+    "of":"di",
+    "INVALID_PAYLOAD": "Dati non validi",
+    "INVALID_CREDENTIALS" : "Credenziali non valide",
+    "'email' is not allowed to be empty" : "Campo Email non può essere vuoto",
+    "'password' is not allowed to be empty" : "Campo Password non può essere vuoto",
+    "Send email": "Invia email",
+    "title": "Titolo",
+    "description" : "Descrizione",
+    "brand": "Marca",
+    "category":"Categoria",
+    "price": "Prezzo",
+    "rating" : "Punteggio", 
+    "stock" : "Quantità"
+}

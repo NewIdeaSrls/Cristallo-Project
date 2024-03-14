@@ -1,0 +1,9 @@
+{
+    "Items per page":"Items per page",
+    "of":"of",
+    "INVALID_PAYLOAD": "Not Valid data",
+    "INVALID_CREDENTIALS" : "Invalid credentials",
+    "'email' is not allowed to be empty" : "Email field cannot be empty",
+    "'password' is not allowed to be empty" : "Password field cannot be empty",
+    "Send email": "Send email"
+}

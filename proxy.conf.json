@@ -1,0 +1,13 @@
+{
+  "/api": {
+    "target": {
+      "host": "localhost",
+      "protocol": "http",
+      "port": 8055
+    },
+    "secure": false,
+    "pathRewrite": {
+      "^/api": "/"
+    }
+  }
+}
