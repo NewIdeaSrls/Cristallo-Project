@@ -103,7 +103,7 @@
             <button mat-button (click)="ActionHandlerDelete(element)"><mat-icon>delete</mat-icon></button>
           </span>
           <span *ngIf="element.Action && element.Action.includes('menu')">
-            <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+            <button mat-icon-button (click)="ActionHandlerMenu(element,$event)" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
           </span>
 
           <mat-menu #menu="matMenu">

@@ -264,7 +264,8 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
     this.action.emit({ actionRequest: 'columns' });
   }
 
-  ActionHandlerMenu(element: any) {
+  ActionHandlerMenu(element: any,event:any) {
+    event.stopPropagation();
     this.action.emit({ actionRequest: 'menu', element });
   }
 

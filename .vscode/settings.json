@@ -3,5 +3,6 @@
     "CodeGPT.apiKey": "OpenAI",
     "rainbow_csv.enable_sticky_header": false,
     "editor.hover.sticky": false,
-    "workbench.tree.enableStickyScroll": false
+    "workbench.tree.enableStickyScroll": false,
+    "livePreview.defaultPreviewPath": "/src/app/components/mdtable/mdtable.component.html"
 }
