@@ -1,5 +1,4 @@
-1,2,5,7,9,4,6,8,3,10
-"AGCUORGNE'02622","02622","CUORGNE'","TO","012 4666745","","","","",""
+agencyIdentification,agencyCode,agencyCity,agencyProvince,agencyPhone,agencyAddress1,agencyCap,agencyEmail,agencyDescription,agencyfax
 "AGMONCALIERI016351","016351","MONCALIERI","TO","0116408016","VIA CAVOUR 5","10024","","",""
 "AGCHIVASSO","207601","CHIVASSO","TO","0119131185","VIA SICCARDI , 18, 10034, CHIVASSO","10034","","",""
 "AGCIGLIANO022361","022361","CIGLIANO","TO","0161424062","P.ZA DON EVASIO FERRARIS 4, 13043, CIGLIANO","13043","","",""
@@ -1787,10 +1786,6 @@
 "AGTORINO013","013","TORINO","  ","0112267912","","","","TORINO",""
 "AGTORINO077","077","TORINO","  ","0117791927","","","","TORINO",""
 "AGTORINO65242","65242","TORINO","  ","011 661 4576","","","","TORINO",""
-"AGTORINO54876","54876","TORINO","  ","011/19887380","","","","TORINO "STAMPATORI"",""
-"AG32137","32137","TORINO 1 ","  ","","","","","TORINO 1 ",""
-"AGTORINO61408","61408","TORINO","  ","011386242","","","","TORINO 10",""
-"AGTORINO 259679","59679","TORINO 2","  ","","","","","TORINO 2",""
 "AGTORINO 200664","00664","TORINO 2","  ","011502984","","","","TORINO 2",""
 "AG59697","59697","TORINO 3","  ","","","","","TORINO 3",""
 "AG64186","64186","TORINO 5","  ","","","","","TORINO 5",""
