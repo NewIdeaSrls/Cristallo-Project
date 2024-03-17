@@ -1,6 +1,4 @@
-1,8,11,2,4,5,6,7,9,3,10
-"P","  ","       ","","","","","","","",""
-"P","  ","       ","","","","","","","",""
+customerType,customerProvince,customerSDICode,customerDescription,customerPhone,customerAddress1,customerCity,customerZip,customerEmail,customerTaxCode,customerVatCode
 "P","  ","       "," ALBOREN LAZAJ","","","","","","",""
 "A","VB","       "," AUTOFFICINA TRAFFIUME E C. S.A.S.","00543660039","VIA MADONNA DELLE GRAZIE 164","CANNOBIO","28822"," GARAGE.TRAFFIUME@LIBERO.IT","",""
 "A","MI","       "," AUTOMAGENTA SRL","02740910159","VIA ROBECCO, 9","MAGENTA ","20013","ASSISTENZA.NOVARA@AUTOMAGENTA.IT","",""

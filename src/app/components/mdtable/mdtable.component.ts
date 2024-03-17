@@ -28,7 +28,7 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 export type DialogDataSubmitCallback<T> = (row: T) => void;
 
@@ -76,7 +76,10 @@ interface FilterState {
   ],
   templateUrl: './mdtable.component.html',
   styleUrl: './mdtable.component.scss',
-  providers: [{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill', floatLabel: 'always', hideRequiredMarker: true, color: 'accent', density: -2 } }
+  ],
 })
 export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
   // Input From Parent
@@ -246,6 +249,7 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
       this.data = this.data = new MatTableDataSource<any>(this.datasource);
       this.data.paginator = this.paginator;
     }
+    this.data.paginator = this.data;
   }
 
   ActionHandlerOpen(element: any) {
