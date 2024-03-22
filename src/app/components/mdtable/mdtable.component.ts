@@ -19,6 +19,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './custom-mat-paginator-intl';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 import { AutoResizeColumnsDirective } from './auto-resize-columns.directive';
 import { ElementRef } from '@angular/core';
@@ -46,6 +47,7 @@ interface FilterState {
   selector: 'app-mdtable',
   standalone: true,
   imports: [
+    MatProgressBarModule,
     MatDialogModule,
     MatSidenavModule,
     AutoResizeColumnsDirective,
@@ -98,7 +100,8 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
   columnFilters: any = {};
   toggleFilters = false;
   config: any[] = [];
-
+  pending:boolean = false
+ 
   dataSourceLenght = 0;
   dataLenght = 0;
 
@@ -118,6 +121,7 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit() {
     console.log('Init');
+    this.pending = true 
     this.data = new MatTableDataSource<any>(this.datasource);
     this.dataLenght = this.data.lenght;
     this.translate.addLangs(['en', 'it']);
@@ -147,7 +151,8 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.refreshData();
+    console.log("CHANGES:",changes);
+    this.refreshData()
   }
 
   toggleRow(row: any) {
@@ -179,25 +184,9 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
     console.log('RefreshData');
     this.data = new MatTableDataSource<any>(this.datasource);
     this.data.paginator = this.paginator;
-    // Load Storage configuration for MdTable localStorageMDTable
-    console.log(this.localStorageMDTable);
-    let storage: any = this.localStorageMDTable;
-    this.fromStorage = localStorage.getItem(storage);
-    if (this.fromStorage !== null) {
-      this.elementColumns = JSON.parse(this.fromStorage);
-      console.log('da localstorage:', this.elementColumns);
-    }
-    if (this.elementColumns.length == 0) {
-      console.log(this.datacolumns);
-      this.elementColumns = this.returnColumnsArray(this.datacolumns);
-      console.log(this.elementColumns);
-      this.saveresult(this.fromStorage, this.elementColumns);
-      console.log(this.elementColumns);
-    }
-
-    this.data.paginator = this.paginator;
     this.data.disableClear = true;
     this.data.sort = this.sort;
+    this.pending = false
   }
 
   getWidthForContent(content: string): string {
@@ -217,6 +206,7 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
 
   pageChanged($event: any) {
     console.log($event);
+    this.action.emit({ actionRequest: 'paginator', element: $event });
   }
 
   filter(event: Event, column: string) {
@@ -248,8 +238,8 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
     if (this.toggleFilters == false) {
       this.data = this.data = new MatTableDataSource<any>(this.datasource);
       this.data.paginator = this.paginator;
+      this.data.sort = this.sort;
     }
-    this.data.paginator = this.data;
   }
 
   ActionHandlerOpen(element: any) {
@@ -277,8 +267,11 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
     this.action.emit({ actionRequest: 'email', element });
   }
 
-  ActionHandlerReload() {
+  async ActionHandlerReload() {
+    this.pending = true;
+    await new Promise(resolve => setTimeout(resolve, 4000));
     this.action.emit({ actionRequest: 'reload' });
+    this.pending = false;
   }
 
   get displayedColumns(): string[] {

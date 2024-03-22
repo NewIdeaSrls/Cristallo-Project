@@ -82,8 +82,10 @@ export class GlobalService {
 		search?: string,
 	): Observable<any> {
 
-		let params = new HttpParams();
-		let tofilter: any = filter;
+	let params = new HttpParams();
+	let tofilter: any = filter;
+
+	console.log(this.prefixUrl + collection)
 
     if (fields) params = params.set("fields", fields.join(","));
     if (order) params = params.set("sort", order.join(","));
@@ -93,8 +95,8 @@ export class GlobalService {
     if (search) params = params.set("search", search.toString());
 
 		if (id) {
-      //console.log(params);
-			return this.http
+        console.log(params);
+			return  this.http
 				.get<any[]>(this.prefixUrl + collection + `/${id}`)
 				.pipe(catchError(this.handleError));
 		
@@ -114,10 +116,11 @@ export class GlobalService {
 				}
 			}
 
-			//console.log(params);
+			console.log(params);
 			return this.http
 				.get<any[]>(this.prefixUrl + collection, { params: params })
 				.pipe(catchError(this.handleError));
+				
 		}
   }
 	
