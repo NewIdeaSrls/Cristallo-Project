@@ -1,5 +1,6 @@
 
-  <mat-drawer-container #drawerAll class="columns-container" [autosize]="true">
+<mat-progress-bar *ngIf="pending" mode="indeterminate"></mat-progress-bar>
+<mat-drawer-container #drawerAll class="columns-container" [autosize]="true">
     <mat-drawer #drawer0 class="columns-sidenav">
       <div>
         <div *ngIf="elementColumns.length > 0">
@@ -90,7 +91,10 @@
             <span *ngIf="dataconfig && dataconfig.includes('columns')">
               <button  class ="align-middle"  mat-button (click)="toggleDraweradvComponent()"><mat-icon>view_column</mat-icon></button>
             </span>
-            <span *ngIf="dataconfig && dataconfig.includes('reload')">
+            <span *ngIf="dataconfig && dataconfig.includes('reload') && pending">
+              <button  class ="align-middle"  mat-button><mat-icon>sync_disabled</mat-icon></button>
+            </span>
+            <span *ngIf="dataconfig && dataconfig.includes('reload') && !pending">
               <button  class ="align-middle"  mat-button (click)="ActionHandlerReload()"><mat-icon>sync</mat-icon></button>
             </span>
           </div>
@@ -154,9 +158,16 @@
           </div>
         </td>
       </ng-container>
-
     </table>
   </div>
   <hr />
-  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons [pageSize]="10" (page)="pageChanged($event)"></mat-paginator>
+  <mat-paginator  
+  [disabled]="pending"
+  [pageSizeOptions]="[10,20, 50, 100,200,500]" 
+  showFirstLastButtons 
+  [pageSize]="10" 
+  (page)="pageChanged($event)"
+  >
+</mat-paginator>
+
 
