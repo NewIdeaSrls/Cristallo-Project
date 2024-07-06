@@ -25,34 +25,68 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 class NewPoint {
   pointCode: string;
+  pointDescription: string;
   pointAddress1: string;
   pointCity: string;
-  pointDescription: string;
+  pointProvince: string;
+  pointZip: string;
   pointEmail: string;
   pointHolderPhone: string;
   pointPhone: string;
-  pointProvince: string;
   pointRefererPhone: string;
   pointType: string;
   pointWelcome: string;
   pointWelcomeDate: string;
-  pointZip: string;
+  pointMultiLocation:Boolean;
+  pointCommercialReferer:string;
+  pointNotes:string;
+  linkedToFitters:string;
+  linkedToAgents:string;
+  linkedToPreferedSupplier:string;
+  pointInternalCodification:string;
+  pointSpecialNotes:string;
+  pointPeoplesReferer:string;
+  pointStartInDate:Date;
+  pointCommissionsFixedOn:Number;
+  pointTargetCommissionsEveryNDays:Number;
+  pointTargetCommissionsAlmost:Number;
+  pointVAT:Number;
+  pointLat:Number;
+  pointLon:Number;
+  pointEnabled:Boolean;
 
   constructor() {
     // Initialize the properties with default values if needed
-    this.pointAddress1 = '';
-    this.pointCity = '';
     this.pointCode = '';
     this.pointDescription = '';
+    this.pointAddress1 = '';
+    this.pointCity = '';
+    this.pointProvince = '';
+    this.pointZip = '';
     this.pointEmail = '';
     this.pointHolderPhone = '';
     this.pointPhone = '';
-    this.pointProvince = '';
     this.pointRefererPhone = '';
     this.pointType = '';
     this.pointWelcome = '';
     this.pointWelcomeDate = '';
-    this.pointZip = '';
+    this.pointMultiLocation = false;
+    this.pointCommercialReferer= '';
+    this.pointNotes= '';
+    this.linkedToFitters= '';
+    this.linkedToAgents= '';
+    this.linkedToPreferedSupplier= '';
+    this.pointInternalCodification= '';
+    this.pointSpecialNotes = '';
+    this.pointPeoplesReferer = '';
+    this.pointStartInDate = new Date();
+    this.pointCommissionsFixedOn = 60;
+    this.pointTargetCommissionsEveryNDays = 30;
+    this.pointTargetCommissionsAlmost = 3;
+    this.pointVAT = 22;
+    this.pointLat = 0;
+    this.pointLon = 0;
+    this.pointEnabled = true; 
   }
 }
 
@@ -94,69 +128,138 @@ export class PointsComponent implements OnInit {
   //Configure Fields on mdtable
 
   datacolumns = [
+    'pointCode',
+    'pointType',
+    'pointInternalCodification',
+    'pointDescription',
     'pointAddress1',
     'pointCity',
-    'pointCode',
-    'pointDescription',
+    'pointProvince',
+    'pointZip',
     'pointEmail',
     'pointHolderPhone',
     'pointPhone',
-    'pointProvince',
     'pointRefererPhone',
-    'pointType',
     'pointWelcome',
     'pointWelcomeDate',
-    'pointZip',
+    'pointMultiLocation',
+    'pointCommercialReferer',
+    'pointNotes',
+    'linkedToFitters',
+    'linkedToAgents',
+    'linkedToPreferedSupplier',
+    'pointSpecialNotes',
+    'pointPeoplesReferer',
+    'pointStartInDate',
+    'pointCommissionsFixedOn',
+    'pointTargetCommissionsEveryNDays',
+    'pointTargetCommissionsAlmost',
+    'pointVAT',
+    'pointLat',
+    'pointLon',
+    'pointEnabled'
   ];
+
   dataconfig = ['add', 'search', 'columns', 'reload'];
 
   datashow = [
+    'pointCode',
+    'pointType',
+    'pointInternalCodification',
+    'pointDescription',
     'pointAddress1',
     'pointCity',
-    'pointCode',
-    'pointDescription',
+    'pointProvince',
+    'pointZip',
     'pointEmail',
     'pointHolderPhone',
     'pointPhone',
-    'pointProvince',
     'pointRefererPhone',
-    'pointType',
     'pointWelcome',
     'pointWelcomeDate',
-    'pointZip',
+    'pointMultiLocation',
+    'pointCommercialReferer',
+    'pointNotes',
+    'linkedToFitters',
+    'linkedToAgents',
+    'linkedToPreferedSupplier',
+    'pointSpecialNotes',
+    'pointPeoplesReferer',
+    'pointStartInDate',
+    'pointCommissionsFixedOn',
+    'pointTargetCommissionsEveryNDays',
+    'pointTargetCommissionsAlmost',
+    'pointVAT',
+    'pointLat',
+    'pointLon',
+    'pointEnabled'
   ];
 
   localStorageMDTable: string = 'pointTable';
   // Configure Fields on Action in accounting
   addfieldsconfig = [
+    'pointCode',
+    'pointType',
+    'pointInternalCodification',
+    'pointDescription',
     'pointAddress1',
     'pointCity',
-    'pointCode',
-    'pointDescription',
+    'pointProvince',
+    'pointZip',
     'pointEmail',
     'pointHolderPhone',
     'pointPhone',
-    'pointProvince',
     'pointRefererPhone',
-    'pointType',
     'pointWelcome',
     'pointWelcomeDate',
-    'pointZip',
+    'pointMultiLocation',
+    'pointCommercialReferer',
+    'pointNotes',
+    'linkedToFitters',
+    'linkedToAgents',
+    'linkedToPreferedSupplier',
+    'pointSpecialNotes',
+    'pointPeoplesReferer',
+    'pointStartInDate',
+    'pointCommissionsFixedOn',
+    'pointTargetCommissionsEveryNDays',
+    'pointTargetCommissionsAlmost',
+    'pointVAT',
+    'pointLat',
+    'pointLon',
+    'pointEnabled'
   ];
   editfieldsconfig = [
+    'pointCode',
+    'pointType',
+    'pointInternalCodification',
+    'pointDescription',
     'pointAddress1',
     'pointCity',
-    'pointCode',
-    'pointDescription',
+    'pointProvince',
+    'pointZip',
     'pointEmail',
     'pointHolderPhone',
     'pointPhone',
-    'pointProvince',
     'pointRefererPhone',
-    'pointType',
     'pointWelcome',
     'pointWelcomeDate',
-    'pointZip',
+    'pointMultiLocation',
+    'pointCommercialReferer',
+    'pointNotes',
+    'linkedToFitters',
+    'linkedToAgents',
+    'linkedToPreferedSupplier',
+    'pointSpecialNotes',
+    'pointPeoplesReferer',
+    'pointStartInDate',
+    'pointCommissionsFixedOn',
+    'pointTargetCommissionsEveryNDays',
+    'pointTargetCommissionsAlmost',
+    'pointVAT',
+    'pointLat',
+    'pointLon',
+    'pointEnabled'
   ];
 
   selectedObj: any;

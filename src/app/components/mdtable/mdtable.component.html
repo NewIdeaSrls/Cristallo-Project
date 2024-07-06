@@ -1,5 +1,5 @@
 
-<mat-progress-bar *ngIf="pending" mode="indeterminate"></mat-progress-bar>
+<!--<mat-progress-bar *ngIf="pending" mode="indeterminate"></mat-progress-bar>-->
 <mat-drawer-container #drawerAll class="columns-container" [autosize]="true">
     <mat-drawer #drawer0 class="columns-sidenav">
       <div>
@@ -33,12 +33,15 @@
 
   <div class="table-container">
     <table mat-table [dataSource]="data" matSort multiTemplateDataRows>
+
       <ng-container *ngFor="let column of datacolumns; let i = index" [matColumnDef]="column">
-        <span *ngIf="column !== 'Action'">
+        
+       <span *ngIf="column !== 'Action'">
           <td
             mat-cell
             [ngStyle]="{ background: element['BGColor'], color: element['FGColor'] }"
-            *matCellDef="let element">
+            *matCellDef="let element"
+            [class.sticky-column]="i === 0">
 
             <div cursor-pointer *ngIf="column !== 'thumbnail' && column !== 'images'">
               {{ element[column] }}
@@ -63,28 +66,33 @@
         </span>
 
         <th mat-header-cell *matHeaderCellDef>
-          <span mat-sort-header>{{ column | translate }}</span>
-          <mat-form-field *ngIf="toggleFilters" [floatLabel]="'always'">
+         
+          <mat-form-field class="reduced" *ngIf="toggleFilters" >
+            <span mat-sort-header>{{ column | translate }}</span>
             <!--<mat-label *ngIf="toggleFilters">{{ column | translate }}</mat-label>-->
             <input matInput *ngIf="toggleFilters" (keyup)="filter($event, column)" />
           </mat-form-field>
         
         </th>
       </ng-container>
-
+      
       <tr>
-        <th *ngFor="let item of datacolumns">
+        <th *ngFor="let item of datacolumns; let i = index" [class.sticky-column]="i === 0">
           <input class="form-control" (keyup)="filter($event, item)" type="text" />
         </th>
       </tr>
 
       <!-- Call-to-action -->
+       
+         <!--<span *ngIf="dataconfig && dataconfig.includes('search')">
+              <button class ="align-middle" mat-button (click)="toggleFilter()"><mat-icon>search</mat-icon></button>
+          </span>-->
+            
       <ng-container matColumnDef="ctaColumn" class="sti z-1">
+        
         <th mat-header-cell *matHeaderCellDef style="text-align: right; min-width: 150px">
           <div class="pt-1">
-            <span *ngIf="dataconfig && dataconfig.includes('search')">
-              <button class ="align-middle" mat-button (click)="toggleFilter()"><mat-icon>search</mat-icon></button>
-            </span>
+          
             <span *ngIf="dataconfig && dataconfig.includes('add')">
               <button  class ="align-middle"  mat-button (click)="ActionHandlerAdd()"><mat-icon>add_box</mat-icon></button>
             </span>
@@ -98,6 +106,7 @@
               <button  class ="align-middle"  mat-button (click)="ActionHandlerReload()"><mat-icon>sync</mat-icon></button>
             </span>
           </div>
+          
         </th>
 
         <td mat-cell *matCellDef="let element" style="text-align: right" [ngStyle]="{ background: element['BGColor'], color: element['FGColor'] }">
@@ -137,7 +146,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns" pointer (click)="toggleRow(row)" class="transition duration-1000 ease-in-out bg-white border-b hover:bg-gray-200">
         <ng-container *ngFor="let column of displayedColumns">
           <td  mat-cell *matCellDef="let element">
-            <div>{{element[column]}}</div>
+            <div><span class="ellipsis">{{element[column]}}</span></div>
         </td>
         </ng-container>
       </tr>
@@ -148,14 +157,15 @@
 
       <!-- Colonna del dettaglio, nota che il colspan è uguale al numero di displayedColumns -->
       <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length" class="!bg-gray-300">
-          <h5 class="!mt-3 !ml-2 !mr-2">Dettaglio</h5>
+        <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length" class="!bg-slate-400">
+          <h3 class="!mt-3 !ml-2 !mr-2 text-white"><strong>Dati completi</strong></h3>
           <div class="grid gap-2 m-1 text-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
             <mat-form-field *ngFor="let variable of datashow; let index = index" class="">
               <mat-label>{{ variable | translate }}</mat-label>
-              <input name="{{ variable }}" disabled matInput value="{{ row[variable] }}" />
+              <input class="mt-6" name="{{ variable }}" disabled matInput value="{{ row[variable] }}" />
             </mat-form-field>
           </div>
+          <br>
         </td>
       </ng-container>
     </table>
@@ -169,5 +179,6 @@
   (page)="pageChanged($event)"
   >
 </mat-paginator>
+<mat-progress-bar *ngIf="pending" mode="indeterminate"></mat-progress-bar>
 
 

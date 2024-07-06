@@ -1,4 +1,9 @@
 <div class="w-full">
+  <div class="flex p-4">  
+    <mat-icon>storage</mat-icon>
+    <span class="px-1 text-lg font-bold text-decoration-line">POINTS</span>
+</div>
+  <hr>
     <app-mdtable
       [datasource]="data"
       [datacolumns]="datacolumns"
@@ -12,7 +17,7 @@
     <mat-drawer #draweredit class="columns-sidenav">
       <h3>Modifica</h3>
       <form #myForm="ngForm" (ngSubmit)="updateOnConfirm()">
-      <div class="grid gap-2 m-1 text-center xs:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
+      <div class="grid gap-2 m-1 text-center xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-6">
         <mat-form-field *ngFor="let variable of editfieldsconfig; let index = index" class="">
           <mat-label>{{ variable | translate }}</mat-label>
           <input name="{{ variable }}" matInput
@@ -29,7 +34,7 @@
     <mat-drawer #draweradd class="columns-sidenav">
       <h3>Inserisci</h3>
       <form #myForm="ngForm" (ngSubmit)="addOnConfirm()">
-        <div class="grid gap-2 m-1 text-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+        <div class="grid gap-2 m-1 text-center xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-6">
         <mat-form-field *ngFor="let variable of addfieldsconfig; let index = index" class="">
           <mat-label>{{ variable | translate }}</mat-label>
           <input name="{{ variable }}" [(ngModel)]="formData[variable]"  matInput

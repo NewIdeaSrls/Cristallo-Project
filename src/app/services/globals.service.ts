@@ -1,44 +1,46 @@
 // src/app/global.service.ts
-import { Injectable,inject } from "@angular/core";
-import {
-	HttpClient,
-	HttpParams,
-	HttpErrorResponse,
-} from "@angular/common/http";
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
-import { ToastrService } from "ngx-toastr";
-import { Observable, ObservableInput } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { ToastrService } from 'ngx-toastr';
+import { Observable, ObservableInput,of } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
-	providedIn: "root",
+  providedIn: 'root',
 })
 export class GlobalService {
+  token = sessionStorage.getItem('token');
+  prefixUrl = 'api/items/';
 
-	token = sessionStorage.getItem("token");
-	prefixUrl = "api/items/";
+  constructor(
+    private http: HttpClient,
+    public toastr: ToastrService
+  ) {}
 
-	constructor(private http: HttpClient,public toastr:ToastrService) {}
+  login(data: any): Observable<any> {
+    return this.http.post<any[]>('api/auth/login', data).pipe(catchError(this.handleError));
+  }
 
-	login(data: any): Observable<any> {
-		return this.http
-			.post<any[]>("api/auth/login", data)
-			.pipe(catchError(this.handleError));
-	}
+  addRecord(collection: string, data: any): Observable<any> {
+    const url = this.prefixUrl + collection;
+    console.log('Add URL:', url);
+    console.log('Data to send:', data);
+    return this.http.post<any[]>(url, data).pipe(catchError(this.handleError));
+  }
 
-	addRecord(collection: string, data: any): Observable<any> {
-		return this.http
-			.post<any[]>(this.prefixUrl + collection, data)
-			.pipe(catchError(this.handleError));
-	}
+  updateRecord(collection: string, id: number, data: any): Observable<any> {
+    const url = this.prefixUrl + collection + `/${id}`;
+    console.log('Update URL:', url);
+    console.log('Data to send:', data);
+    return this.http.patch<any[]>(url, data).pipe(catchError(this.handleError));
+  }
 
-	updateRecord(collection: string, id: number, data: any): Observable<any> {
-		return this.http
-			.put<any[]>(this.prefixUrl + collection + `/${id}`, data)
-			.pipe(catchError(this.handleError));
-	}
+  deleteRecord(collection: string, id: number): Observable<any> {
+    return this.http.delete<any[]>(this.prefixUrl + collection + `/${id}`).pipe(catchError(this.handleError));
+  }
 
-      /*
+  /*
   Filter Operators
   ##############################################################################################
   Equals							            _eq					Equal to
@@ -70,73 +72,52 @@ export class GlobalService {
   _regex [2]	Field has to match regex
   ##############################################################################################
   */
-	getRecord(
-		collection: string,
-		id?: number,
-		fields?: string[],
-		filter?: object,
-		order?: string[],
-		limit?: number,
-		page?: number,
-		offset?: number,
-		search?: string,
-	): Observable<any> {
+  getRecord(
+    collection: string,
+    id?: number,
+    fields?: string[],
+    filter?: object,
+    order?: string[],
+    limit?: number,
+    page?: number,
+    offset?: number,
+    search?: string
+  ): Observable<any> {
+    let params = new HttpParams();
+    let tofilter: any = filter;
 
-	let params = new HttpParams();
-	let tofilter: any = filter;
+    console.log(this.prefixUrl + collection);
 
-	console.log(this.prefixUrl + collection)
+    if (fields) params = params.set('fields', fields.join(','));
+    if (order) params = params.set('sort', order.join(','));
+    if (limit) params = params.set('limit', limit.toString());
+    if (page) params = params.set('page', page.toString());
+    if (offset) params = params.set('offset', offset.toString());
+    if (search) params = params.set('search', search.toString());
 
-    if (fields) params = params.set("fields", fields.join(","));
-    if (order) params = params.set("sort", order.join(","));
-    if (limit) params = params.set("limit", limit.toString());
-    if (page) params = params.set("page", page.toString());
-    if (offset) params = params.set("offset", offset.toString());
-    if (search) params = params.set("search", search.toString());
+    if (id) {
+      console.log(params);
+      return this.http.get<any[]>(this.prefixUrl + collection + `/${id}`).pipe(catchError(this.handleError));
+    } else {
+      if (tofilter) {
+        if (tofilter && Object.keys(tofilter).length) {
+          for (const key in tofilter) {
+            //console.log(key);
+            for (const op in tofilter[key]) {
+              params = params.append(`filter[${key}][${op}]`, tofilter[key][op]);
+            }
+          }
+        }
+      }
 
-		if (id) {
-        console.log(params);
-			return  this.http
-				.get<any[]>(this.prefixUrl + collection + `/${id}`)
-				.pipe(catchError(this.handleError));
-		
-      } else {
-		
-			if (tofilter) {
-				if (tofilter && Object.keys(tofilter).length) {
-					for (const key in tofilter) {
-						//console.log(key);
-						for (const op in tofilter[key]) {
-							params = params.append(
-								`filter[${key}][${op}]`,
-								tofilter[key][op],
-							);
-						}
-					}
-				}
-			}
-
-			console.log(params);
-			return this.http
-				.get<any[]>(this.prefixUrl + collection, { params: params })
-				.pipe(catchError(this.handleError));
-				
-		}
+      console.log(params);
+      return this.http.get<any[]>(this.prefixUrl + collection, { params: params }).pipe(catchError(this.handleError));
+    }
   }
-	
 
-	deleteRecord(collection: string, id: number): Observable<any> {
-		return this.http
-			.delete<any[]>(this.prefixUrl + collection + `/${id}`)
-			.pipe(catchError(this.handleError));
-	}
-
-	private handleError(error: HttpErrorResponse): ObservableInput<any> {
-   
-		if (error.error instanceof ErrorEvent) {
-			console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-		}
-    
-    throw new Error();
-	}
+  private handleError(error: HttpErrorResponse): Observable<any> {
+    console.log("Backend returned code :",error.status)
+    console.log(error.error.errors[0].message);
+    return of()
+  }
 }

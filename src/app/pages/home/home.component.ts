@@ -1,12 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { NgIf, NgFor, UpperCasePipe } from '@angular/common';
-import { Component, OnInit, OnDestroy ,AfterViewInit} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { NavigationEnd, RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { RouterLinkActive } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TranslateService } from '@ngx-translate/core';
+import { NgxTranslateModule } from '../../translation.module';
+import { ElementRef } from '@angular/core';
+import { MatSidenavModule, MAT_DRAWER_DEFAULT_AUTOSIZE } from '@angular/material/sidenav';
+import { MatDrawer } from '@angular/material/sidenav';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, ObservableInput } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+import { ViewportService } from '../../services/viewport.service';
 
 import { Subscription } from 'rxjs';
 import {} from '@angular/common';
@@ -16,7 +34,32 @@ import { GlobalService } from '../../services/globals.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, FormsModule, NgIf, NgFor],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    FormsModule,
+    NgIf,
+    NgFor,
+    MatIconModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    NgxTranslateModule,
+    MatCheckboxModule,
+    MatProgressBarModule,
+    MatSidenavModule,
+    FormsModule,
+    MatMenuModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    NgxTranslateModule,
+    CommonModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -32,11 +75,12 @@ export class HomeComponent implements OnInit {
   filterCompany = {};
   filterModuleSettings = {};
   modulesEnabled: any[] = [];
-  alreadyloaded : boolean = false
+  alreadyloaded: boolean = false;
 
   constructor(
+    private viewportService: ViewportService,
     private dataService: GlobalService,
-    private router: Router, 
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -54,6 +98,10 @@ export class HomeComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([this.route.url]);
+  }
+
+  isActiveRoute(route: string): boolean {
+    return this.router.url === route ;
   }
 
   fetchMenu() {
@@ -143,4 +191,15 @@ export class HomeComponent implements OnInit {
       };
     }
   }
+
+
+  public checkModuleExactlyInArray(moduleName: string, modulesEnabled: string[]): boolean {
+    for (let i = 0; i < modulesEnabled.length; i++) {
+        if (modulesEnabled[i] === moduleName) {
+            //console.log(modulesEnabled[i], moduleName)
+            return true;
+        } 
+    }
+    return false;
+}
 }

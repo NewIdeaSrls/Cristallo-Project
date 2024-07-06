@@ -1,3 +1,4 @@
+import { PaymentsComponent } from './pages/payments/payments.component';
 // app.routes.ts
 import { Routes } from '@angular/router';
 import { authGuard } from './services/auth.guard.service';
@@ -21,6 +22,13 @@ import { PracticesComponent } from './pages/practices/practices.component';
 import { CalendarsComponent } from './pages/calendars/calendars.component';
 import { AccountingComponent } from './pages/accounting/accounting.component';
 import { SuppliersComponent } from './pages/suppliers/suppliers.component';
+import { ExpertsComponent } from './pages/experts/experts.component';
+import { CarfleetsComponent } from './pages/carfleets/carfleets.component';
+import { OriginalpartsComponent } from './pages/originalparts/originalparts.component';
+import { CapsComponent } from './pages/caps/caps.component';
+import { FirstplantsComponent } from './pages/firstplants/firstplants.component';
+import { TemplatesComponent } from './pages/templates/templates.component';
+import { ResourcesComponent } from './pages/resources/resources.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -110,6 +118,54 @@ export const routes: Routes = [
       {
         path: 'accounting',
         component: AccountingComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'payments',
+        component: PaymentsComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'experts',
+        component: ExpertsComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'carfleets',
+        component: CarfleetsComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'firstplants',
+        component: FirstplantsComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'originalparts',
+        component: OriginalpartsComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'caps',
+        component: CapsComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'resources',
+        component: ResourcesComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'templates',
+        component: TemplatesComponent,
         canActivate: [authGuard, roleGuard],
         data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
       },

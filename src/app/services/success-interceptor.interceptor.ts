@@ -10,7 +10,7 @@ import { ToastrService } from "ngx-toastr";
 import { inject } from "@angular/core";
 
 export const successInterceptor: HttpInterceptorFn = (req, next) => {
-	const methods = ["PUT", "POST", "DELETE"];
+	const methods = ["PUT", "POST", "DELETE","PATCH"];
   let toastr = inject(ToastrService);
 	//console.log(req);
 	if (methods.includes(req.method)) {
@@ -30,6 +30,13 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
                break; 
             } 
             case "PUT": { 
+              toastr.success(
+                "Aggiornamento",
+                "Aggiornamento effettuato con successo",
+              );
+               break; 
+            } 
+            case "PATCH": { 
               toastr.success(
                 "Aggiornamento",
                 "Aggiornamento effettuato con successo",

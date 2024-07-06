@@ -11,6 +11,8 @@ import { NgIf, NgFor, UpperCasePipe } from "@angular/common";
 import { Sidenav, initTE, Collapse, Dropdown } from "tw-elements";
 import { Subscription } from 'rxjs';
 import { } from '@angular/common';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 
 @Component({
 	selector: "app-root",
@@ -18,6 +20,8 @@ import { } from '@angular/common';
 	templateUrl: "./app.component.html",
 	styleUrl: "./app.component.scss",
 	imports: [
+		FormlyMaterialModule,
+		FormlyModule,
 		CommonModule,
 		RouterOutlet,
 		RouterLink,
