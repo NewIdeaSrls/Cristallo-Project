@@ -20,29 +20,16 @@
 <mat-drawer-container #draweralledit class="columns-container xs:left-0 md:left-56">
   <mat-drawer #draweredit class="columns-sidenav">
     <h3 translate>edit_fitter</h3>
-
-    <!-- <form #myForm="ngForm" (ngSubmit)="updateOnConfirm()">
-      <div class="grid gap-2 m-1 text-center xs:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
-        <mat-form-field *ngFor="let variable of editfieldsconfig; let index = index" class="">
-          <mat-label>{{ variable | translate }}</mat-label>
-          <input name="{{ variable }}" matInput
-          [(ngModel)]="formData[variable]"
-          />
-        </mat-form-field>
-      </div>
-      <button mat-raised-button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Aggiorna</button>
-     </form>-->
-
     <!-- Formly -->
-    <form [formGroup]="form" (ngSubmit)="onSubmitEdit()">
-      <formly-form [form]="form" [fields]="fields" [model]="selectedObj" [options]="options"></formly-form>
+    <form [formGroup]="formEdit" (ngSubmit)="onSubmitEdit()">
+      <formly-form [form]="formEdit" [fields]="fieldsEdit" [model]="modelEdit" [options]="optionsEdit"></formly-form>
       <br />
       <hr />
       <br />
       <button translate
         type="submit"
         class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 border border-gray-900 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-full"
-        [disabled]="!form.valid">
+        [disabled]="!formEdit.valid">
         submit_fitter_dialog
       </button>
       <button translate (click)="this.draweredit.toggle()"
@@ -53,26 +40,24 @@
       </button>
     </form>
     <!-- Formly End -->
-    
-  </mat-drawer>
+  
+    </mat-drawer>
 </mat-drawer-container>
 
 <mat-drawer-container #draweralladd class="columns-container xs:left-0 md:left-56" autosize>
   <mat-drawer #draweradd class="columns-sidenav">
     <h3>Inserisci</h3>
-    <form #myForm="ngForm" (ngSubmit)="onSubmitAdd()">
-      <div class="grid gap-2 m-1 text-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
-        <mat-form-field *ngFor="let variable of addfieldsconfig; let index = index" class="">
-          <mat-label>{{ variable | translate }}</mat-label>
-          <input name="{{ variable }}" [(ngModel)]="formData[variable]" matInput />
-        </mat-form-field>
-      </div>
-
-      <button
-        mat-raised-button
+     <!-- Formly -->
+     <form [formGroup]="formNew" (ngSubmit)="onSubmitAdd()">
+      <formly-form [form]="formNew" [fields]="fieldsNew" [model]="modelNew" [options]="optionsNew"></formly-form>
+      <br />
+      <hr />
+      <br />
+      <button translate
         type="submit"
-        class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-        Inserisci
+        class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 border border-gray-900 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-full"
+        [disabled]="!formNew.valid">
+        submit_fitter_dialog
       </button>
       <button translate (click)="this.draweradd.toggle()"
         type="button" 
@@ -81,5 +66,7 @@
         exit_fitter_dialog
       </button>
     </form>
+    <!-- Formly End -->
+  
   </mat-drawer>
 </mat-drawer-container>

@@ -1,7 +1,7 @@
 import { AppModule } from './../../app.module';
 import { Element } from './../customers/element';
 import { AutoResizeColumnsDirective } from './../../components/mdtable/auto-resize-columns.directive';
-import { Component, OnInit, Input, ViewChild, NgModule } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, NgModule, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalService } from './../../services/globals.service';
 import { MDTableComponent } from '../../components/mdtable/mdtable.component';
@@ -30,51 +30,24 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormlyTailwindcssModule } from '@notiz/formly-tailwindcss';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 import { of } from 'rxjs';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormlyMaterialModule } from '@ngx-formly/material';
 import { MatFormFieldControl } from '@angular/material/form-field';
-
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AutocompleteTypeModule } from '../../components/formly-autocomplete/autocomplete-type.component';
 import { FileTypeModule } from '../../components/formly-fileType/file-type.component';
+import { DialogDeleteComponent } from '../../components/mdtable/dialog-delete/dialog-delete.component';
 
-class NewFitter {
-  status: string;
-  companyId: number;
-  companyName: string;
-  fitterCode: string;
-  fitterDescription: string;
-  fitterAddress1: string;
-  fitterCity: string;
-  fitterCap: string;
-  fitterProvince: string;
-  fitterPhone: string;
-  fitterEmail: string;
-  fitterVehiclePlate: string;
-
-  constructor() {
-    // Initialize the properties with default values if needed
-    this.status = 'published';
-    this.companyId = 1;
-    this.companyName = 'Cristallo Srls';
-    this.fitterCode = '';
-    this.fitterDescription = '';
-    this.fitterAddress1 = '';
-    this.fitterCity = '';
-    this.fitterCap = '';
-    this.fitterProvince = '';
-    this.fitterPhone = '';
-    this.fitterEmail = '';
-    this.fitterVehiclePlate = '';
-  }
-}
 @Component({
   selector: 'app-fitters',
   standalone: true,
   imports: [
     CommonModule,
     MatInputModule,
+    MatDialogModule,
     FormlyTailwindcssModule,
     FormlyMatDatepickerModule,
     MatNativeDateModule,
@@ -94,7 +67,7 @@ class NewFitter {
     NgxTranslateModule,
     MatCheckboxModule,
     AutocompleteTypeModule,
-    FileTypeModule
+    FileTypeModule,
   ],
   templateUrl: './fitters.component.html',
   styleUrl: './fitters.component.scss',
@@ -104,6 +77,7 @@ export class FittersComponent implements OnInit {
   @ViewChild('draweradd') draweradd!: MatDrawer;
 
   constructor(
+    public dialog: MatDialog,
     private router: Router,
     public globalService: GlobalService,
     private http: HttpClient,
@@ -119,8 +93,7 @@ export class FittersComponent implements OnInit {
 
   //Configure Fields on mdtable
 
-  datacolumns = [
-    'fitterCode',
+  datashow = [
     'fitterDescription',
     'fitterAddress1',
     'fitterCity',
@@ -129,155 +102,70 @@ export class FittersComponent implements OnInit {
     'fitterPhone',
     'fitterEmail',
     'fitterVehiclePlate',
+    'fitterAccidents',
+    'fitterAmountFines',
+    'fitterFinesSum',
+    'fitterDrivingLicensePoints',
+    'fitterIdentityDoc',
+    'fitterStartEmployment',
+    'fitterWorkOnSaturday',
+    'fitterWorkOnSunday',
+    'fitterCommissionsPercentual',
+    'fitterCommissionsFixedOn',
+    'fitterMileageReimbursement',
+    'fitterVATCode',
+    'fitterTAXCode',
+    'fitterVAT',
+    'fitterIBAN',
+  ];
+
+  datacolumns = [
+    'fitterDescription',
+    'fitterAddress1',
+    'fitterCity',
+    'fitterCap',
+    'fitterProvince',
+    'fitterPhone',
+    'fitterEmail',
+    'fitterVehiclePlate',
+    'fitterAccidents',
+    'fitterAmountFines',
+    'fitterFinesSum',
+    'fitterDrivingLicensePoints',
+    'fitterIdentityDoc',
+    'fitterStartEmployment',
+    'fitterWorkOnSaturday',
+    'fitterWorkOnSunday',
+    'fitterCommissionsPercentual',
+    'fitterCommissionsFixedOn',
+    'fitterMileageReimbursement',
+    'fitterVATCode',
+    'fitterTAXCode',
+    'fitterVAT',
+    'fitterIBAN',
   ];
 
   dataconfig = ['add', 'search', 'columns', 'reload'];
-
-  datashow = [
-    'fitterCode',
-    'fitterDescription',
-    'fitterAddress1',
-    'fitterCity',
-    'fitterCap',
-    'fitterProvince',
-    'fitterPhone',
-    'fitterEmail',
-    'fitterVehiclePlate',
-    'fitterAccidents',
-    'fitterFinesSum',
-    'fitterAmountFines',
-    'fitterDrivingLicensePoints',
-    'fitterIdentityDoc',
-    'fitterStartEmployment',
-  ];
-
   localStorageMDTable: string = 'fitterTable';
 
-  // Configure Fields on Action in accounting
-  addfieldsconfig = [
-    'fitterCode',
-    'fitterDescription',
-    'fitterAddress1',
-    'fitterCity',
-    'fitterCap',
-    'fitterProvince',
-    'fitterPhone',
-    'fitterEmail',
-    'fitterVehiclePlate',
-    'fitterAccidents',
-    'fitterFinesSum',
-    'fitterAmountFines',
-    'fitterDrivingLicensePoints',
-    'fitterIdentityDoc',
-    'fitterStartEmployment',
-  ];
-  editfieldsconfig = [
-    'fitterCode',
-    'fitterDescription',
-    'fitterAddress1',
-    'fitterCity',
-    'fitterCap',
-    'fitterProvince',
-    'fitterPhone',
-    'fitterEmail',
-    'fitterVehiclePlate',
-    'fitterAccidents',
-    'fitterFinesSum',
-    'fitterAmountFines',
-    'fitterDrivingLicensePoints',
-    'fitterIdentityDoc',
-    'fitterStartEmployment',
-  ];
-
   selectedObj: any;
-  toaddObject: any;
   backgroundColor = '';
   foregroundColor = '';
   brightness = 0;
   formData: any = {};
   pending: boolean = false;
-
   expandedElement: any | null = null;
+  elementToDelete: any;
 
   ////////////////////////////////////////////
+  // Preset Formly
+  ////////////////////////////////////////////
+  public formEdit = new FormGroup({});
+  public optionsEdit: FormlyFormOptions = {};
 
-  ////////////////////// formly definition //////////////////////////
-  states: any = [
-    'Alabama',
-    'Alaska',
-    'American Samoa',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'District Of Columbia',
-    'Federated States Of Micronesia',
-    'Florida',
-    'Georgia',
-    'Guam',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Marshall Islands',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Northern Mariana Islands',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Palau',
-    'Pennsylvania',
-    'Puerto Rico',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virgin Islands',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming',
-  ];
-
-  //define the functions using flat arrow, so you evit the "ugly" bind(this)
-  filterStates = (name: string) => {
-    if (!name) return this.states;
-    return this.states.filter((state: any) => state.toLowerCase().indexOf(name.toLowerCase()) === 0);
-  };
-  add = (value: string) => {
-    this.states.push(value);
-  };
-
-  public form = new FormGroup({});
-  public options: FormlyFormOptions = {};
-
-  public model: any = {
-    fitterCode: '',
+  public modelEdit: any = {
+    companyId: 1,
+    companyName: 'Cristallo srls',
     fitterDescription: '',
     fitterAddress1: '',
     fitterCap: '',
@@ -292,53 +180,67 @@ export class FittersComponent implements OnInit {
     fitterIdentityDoc: '',
     fitterStartEmployment: '',
     fitterVehiclePlate: '',
+    fitterCommissionsPercentual: 0,
+    fitterCommissionsFixedOn: 0,
+    fitterWorkOnSaturday: '0',
+    fitterWorkOnSunday: '0',
+    fitterMileageReimbursement: 0,
+    fitterVATCode: '',
+    fitterTAXCode: '',
+    fitterVAT: 22,
+    fitterIBAN: '',
+    status: 'published',
   };
 
+  public formNew = new FormGroup({});
+  public optionsNew: FormlyFormOptions = {};
+  public modelNew: any = {
+    companyId: 1,
+    companyName: 'Cristallo srls',
+    fitterDescription: '',
+    fitterAddress1: '',
+    fitterCap: '',
+    fitterCity: '',
+    fitterProvince: '',
+    fitterPhone: '',
+    fitterEmail: '',
+    fitterDrivingLicensePoints: '',
+    fitterAmountFines: '',
+    fitterFinesSum: '',
+    fitterAccidents: '',
+    fitterIdentityDoc: '',
+    fitterStartEmployment: '',
+    fitterVehiclePlate: '',
+    fitterCommissionsPercentual: 0,
+    fitterCommissionsFixedOn: 50,
+    fitterWorkOnSaturday: '0',
+    fitterWorkOnSunday: '0',
+    fitterMileageReimbursement: 10,
+    fitterVATCode: '',
+    fitterTAXCode: '',
+    fitterVAT: 22,
+    fitterIBAN: '',
+    status: 'published',
+  };
+
+  //////////////////////////////////////////////////////
+  // Definition Form Formly
+  //////////////////////////////////////////////////////
   // w-1/2 w-1/3 w-1/4 w-1/5 w-1/6 w-1/12 Columns
-  public fields: FormlyFieldConfig[] = [
+  public fieldsEdit: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'flex flex-wrap p2',
       fieldGroup: [
-        {
-          className: '2xl:w-1/2 px-2 sm:w-full',
-          key: 'fitterCode',
-          type: 'input',
-          templateOptions: {
-            translate: true,
-            label: 'Fitter Code',
-            placeholder: 'Fitter description',
-            required: true,
-            description: 'Fitter Code',
-            //minLength: 3,
-            //maxLength: 20,
-            //autosize: true
-            //type: 'text',
-            //defaultValue: '',
-            //hideExpression: '',
-            //pattern: /regex/
-          },
-          /*
-          validation: {
-            messages: {
-              pattern: "Ip address format invalid (xxx.xxx.xxx.xxx)"
-            }
-          },*/
-          expressionProperties: {
-            'templateOptions.placeholder': () => this.translate.instant('fitterCode_placeholder'),
-            'templateOptions.description': () => this.translate.instant('fitterCode_description'),
-            'templateOptions.label': () => this.translate.instant('fitterCode_insert_label'),
-          },
-        },
         {
           className: '2xl:w-1/2 px-2 sm:w-full',
           key: 'fitterDescription',
           type: 'input',
           templateOptions: {
             translate: true,
-            label: 'Fitter Description',
-            placeholder: 'Fitter name and surname',
-            required: true,
-            description: 'Fitter Description',
+            label: '',
+            placeholder: '',
+            required: false,
+            description: '',
             //minLength: 3,
             //maxLength: 20,
             //autosize: true
@@ -364,11 +266,11 @@ export class FittersComponent implements OnInit {
           key: 'fitterAddress1',
           type: 'input',
           templateOptions: {
-            label: 'Fitter Address',
-            placeholder: 'Fitter address',
-            required: true,
+            label: '',
+            placeholder: '',
+            required: false,
             type: 'text',
-            description: 'Fitter Address',
+            description: '',
             //minLength: 3,
             //maxLength: 20,
             //autosize: true
@@ -394,12 +296,12 @@ export class FittersComponent implements OnInit {
           key: 'fitterCity',
           type: 'input',
           templateOptions: {
-            label: 'Fitter City',
-            placeholder: 'Fitter City',
-            required: true,
+            label: '',
+            placeholder: '',
+            required: false,
             type: 'text',
             minLength: 4,
-            description: 'Fitter City',
+            description: '',
             //minLength: 3,
             //maxLength: 20,
             //autosize: true
@@ -425,12 +327,13 @@ export class FittersComponent implements OnInit {
           key: 'fitterCap',
           type: 'input',
           templateOptions: {
-            label: 'Fitter Cap',
-            placeholder: 'Fitter cap',
-            required: true,
+            label: '',
+            placeholder: '',
+            required: false,
             type: 'text',
             minLength: 5,
-            description: 'Fitter Cap',
+            maxLenght: 5,
+            description: '',
             //maxLength: 20,
             //autosize: true
             //type: 'text',
@@ -454,13 +357,13 @@ export class FittersComponent implements OnInit {
           key: 'fitterProvince',
           type: 'input',
           templateOptions: {
-            label: 'Fitter Province',
-            placeholder: 'Fitter Province',
-            required: true,
+            label: '',
+            placeholder: '',
+            required: false,
             type: 'text',
             minLength: 2,
             maxLength: 4,
-            description: 'Fitter Province',
+            description: '',
             //maxLength: 20,
             //autosize: true
             //type: 'text',
@@ -515,12 +418,12 @@ export class FittersComponent implements OnInit {
           key: 'fitterEmail',
           type: 'input',
           templateOptions: {
-            label: 'Fitter Email',
-            placeholder: 'Fitter Email',
-            required: true,
+            label: '',
+            placeholder: '',
+            required: false,
             type: 'text',
             minLength: 10,
-            description: 'Fitter Email',
+            description: '',
             //maxLength: 20,
             //autosize: true
             //type: 'text',
@@ -545,9 +448,9 @@ export class FittersComponent implements OnInit {
           type: 'select',
           templateOptions: {
             translate: true,
-            label: 'Fitter Vehicle Plate',
-            placeholder: 'Fitter Vehicle Plate',
-            description: 'Fitter Vehicle Plate',
+            label: '',
+            placeholder: '',
+            description: '',
             //required: true,
             options: this.dataFleet,
             /*options: [
@@ -569,9 +472,9 @@ export class FittersComponent implements OnInit {
           type: 'input',
           templateOptions: {
             translate: true,
-            description: 'Fitter Accidents',
-            placeholder: 'Fitter Accidents',
-            label: 'Fitter Accidents',
+            description: '',
+            placeholder: '',
+            label: '',
             required: false,
             type: 'number',
             //defaultValue: '',
@@ -653,9 +556,9 @@ export class FittersComponent implements OnInit {
           type: 'input',
           templateOptions: {
             translate: true,
-            description: 'Fitter Driving licence points',
-            placeholder: 'Fitter Driving licence points',
-            label: 'Fitter Driving licence points',
+            description: '',
+            placeholder: '',
+            label: '',
             required: false,
             type: 'number',
             //defaultValue: '',
@@ -675,15 +578,16 @@ export class FittersComponent implements OnInit {
             'templateOptions.label': () => this.translate.instant('fitterTotalPoints_insert_label'),
           },
         },
+
         {
           className: '2xl:w-1/2 px-2  sm:w-1/2',
           key: 'fitterIdentityDoc',
           type: 'input',
           templateOptions: {
             translate: true,
-            description: 'Fitter Identity Doc',
-            placeholder: 'Fitter Identity Doc',
-            label: 'Fitter Identity Doc',
+            description: '',
+            placeholder: '',
+            label: '',
             required: false,
             type: 'text',
             //defaultValue: '',
@@ -711,142 +615,805 @@ export class FittersComponent implements OnInit {
             'templateOptions.label': () => this.translate.instant('fitterStartEmployment_insert_label'),
           },
         },
+
         {
-          template: '<br><br><div class="mx-3"><strong>Esempio : tipologie altri campi possibili:</strong></div>',
-        },
-        {
-          className: '2xl:w-full px-2 sm:w-full',
-          key: 'motivation',
-          type: 'textarea',
-          defaultValue: 'Share experience',
-          //hideExpression: '!model.name',
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterMileageReimbursement',
+          type: 'input',
           templateOptions: {
-            //appearance: 'outline',
             translate: true,
-            label: 'What is your motivation for writing?',
-            placeholder: 'Type your answer',
-            description: 'Description',
-            autosize: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            maxLength: 2,
           },
-        },
-        {
-          className: '2xl:w-full px-2 sm:w-full',
-          key: 'state',
-          type: 'autocomplete',
-          wrappers: [],
-          props: {
-            required: true,
-            label: 'Autocomplete test',
-            placeholder: 'Placeholder',
-            description: 'Description',
-            add: this.add,
-            filterStates: this.filterStates,
+          validation: {
+            messages: {
+              pattern: 'Amount of Reimbursement KM',
+            },
           },
           expressionProperties: {
-            'templateOptions.placeholder': () => this.translate.instant('states_placeholder'),
-            'templateOptions.description': () => this.translate.instant('states_description'),
-            'templateOptions.label': () => this.translate.instant('states_insert_label'),
+            'templateOptions.placeholder': () => this.translate.instant('fitterMileageReimbursement_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterMileageReimbursement_description'),
+            'templateOptions.label': () => this.translate.instant('fitterMileageReimbursement_insert_label'),
           },
         },
+
         {
-          className: '2xl:w-full px-2 sm:w-full',
-          key: 'images',
-          type: 'input',
-          props: {
-            translate: true,
-            label: 'zz',
-            placeholder: 'zz',
-            required: true,
-            description: 'zz',
-          },
-          /*expressionProperties: {
-            'templateOptions.placeholder': () => this.translate.instant('states_placeholder'),
-            'templateOptions.description': () => this.translate.instant('states_description'),
-            'templateOptions.label': () => this.translate.instant('states_insert_label'),
-          },*/
-        },
-        {
-          className: '2xl:w-full px-2 sm:w-full',
-          key: 'content',
-          type: 'radio',
-          templateOptions: {
-            //appearance: 'outline',
-            translate: true,
-            label: 'What type of articles would you prefer to write?',
-            placeholder: 'Fill the type of content',
-            required: true,
-            description: 'Description',
-            options: [
-              { value: 1, label: 'Tutorial' },
-              { value: 2, label: 'Deep-dive' },
-              { value: 3, label: 'News' },
-              { value: 4, label: 'Reference' },
-            ],
-          },
-        },
-        {
-          className: '2xl:w-1/2 px-2 sm:w-full',
-          key: 'select_multi',
-          type: 'select',
-          templateOptions: {
-            //appearance: 'outline',
-            translate: true,
-            label: 'Select Multiple',
-            placeholder: 'Placeholder',
-            description: 'Description',
-            required: true,
-            multiple: true,
-            //source: this.chipsCollection(),
-            selectAllOption: 'Select All',
-            options: [
-              { value: 1, label: 'Option 1' },
-              { value: 2, label: 'Option 2' },
-              { value: 3, label: 'Option 3' },
-              { value: 4, label: 'Option 4', disabled: true },
-            ],
-          },
-        },
-        {
-          className: '2xl:w-1/2 px-2 sm:w-full',
-          key: 'technology',
-          type: 'select',
-          templateOptions: {
-            //appearance: 'outline',
-            translate: true,
-            label: 'Select your main technology',
-            description: 'Description',
-            options: [
-              { label: 'Javascript', value: '1' },
-              { label: 'Angular', value: '2' },
-              { label: 'React', value: '3' },
-              { label: 'Vue', value: '4' },
-              { label: 'Other', value: '5' },
-            ],
-          },
-        },
-        {
-          className: '2xl:w-1/2 px-2 sm:w-full',
-          key: 'policy',
+          className: '2xl:w-1/2 px-2  sm:w-1/2',
+          key: 'fitterWorkOnSaturday',
           type: 'checkbox',
           templateOptions: {
             //appearance: 'outline',
             translate: true,
-            description: 'Description',
-            label: "I don't mind receiving The Deep Dive newsletter",
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterWorkOnSaturday_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterWorkOnSaturday_description'),
+            'templateOptions.label': () => this.translate.instant('fitterWorkOnSaturday_insert_label'),
           },
         },
+
         {
-          className: '2xl:w-full px-2 sm:w-full',
-          key: 'Textarea',
-          type: 'textarea',
+          className: '2xl:w-1/2 px-2  sm:w-1/2',
+          key: 'fitterWorkOnSunday',
+          type: 'checkbox',
           templateOptions: {
             //appearance: 'outline',
             translate: true,
-            label: 'Textarea',
-            placeholder: 'Placeholder',
-            description: 'Description',
-            autosize: true,
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterWorkOnSunday_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterWorkOnSunday_description'),
+            'templateOptions.label': () => this.translate.instant('fitterWorkOnSunday_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterCommissionsPercentual',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            maxLength: 2,
+          },
+          validation: {
+            messages: {
+              pattern: 'Amount Commission %',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterCommissionsPercentual_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterCommissionsPercentual_description'),
+            'templateOptions.label': () => this.translate.instant('fitterCommissionsPercentual_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterCommissionsFixedOn',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            maxLength: 3,
+          },
+          validation: {
+            messages: {
+              pattern: 'Amount Commission fitterCommissionsFixedOn',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterCommissionsFixedOn_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterCommissionsFixedOn_description'),
+            'templateOptions.label': () => this.translate.instant('fitterCommissionsFixedOn_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitteVATCode',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'text',
+            maxLength: 11,
+          },
+          validation: {
+            messages: {
+              pattern: 'Fitter VatCode',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterVatCode_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterVatCode_description'),
+            'templateOptions.label': () => this.translate.instant('fitterVatCode_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterTAXCode',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'text',
+            maxLength: 16,
+          },
+          validation: {
+            messages: {
+              pattern: 'Fitter TaxCode',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterTaxCode_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterTaxCode_description'),
+            'templateOptions.label': () => this.translate.instant('fitterTaxCode_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterVAT',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            maxLength: 2,
+          },
+          validation: {
+            messages: {
+              pattern: 'Fitter Vat',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterVat_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterVat_description'),
+            'templateOptions.label': () => this.translate.instant('fitterVat_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterIBAN',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'text',
+            maxLength: 27,
+          },
+          validation: {
+            messages: {
+              pattern: 'Fitter IBAN',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterIban_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterIban_description'),
+            'templateOptions.label': () => this.translate.instant('fitterIban_insert_label'),
+          },
+        },
+      ],
+    },
+  ];
+
+  public fieldsNew: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'flex flex-wrap p2',
+      fieldGroup: [
+        {
+          className: '2xl:w-1/2 px-2 sm:w-full',
+          key: 'fitterDescription',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            label: '',
+            placeholder: '',
+            required: false,
+            description: '',
+            //minLength: 3,
+            //maxLength: 20,
+            //autosize: true
+            //type: 'text',
+            //defaultValue: '',
+            //hideExpression: '',
+            //pattern: /regex/
+          },
+          /*
+          validation: {
+            messages: {
+              pattern: "Ip address format invalid (xxx.xxx.xxx.xxx)"
+            }
+          },*/
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterDescription_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterDescription_description'),
+            'templateOptions.label': () => this.translate.instant('fitterDescription_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/2 px-2 sm:w-full',
+          key: 'fitterAddress1',
+          type: 'input',
+          templateOptions: {
+            label: '',
+            placeholder: '',
+            required: false,
+            type: 'text',
+            description: '',
+            //minLength: 3,
+            //maxLength: 20,
+            //autosize: true
+            //type: 'text',
+            //defaultValue: '',
+            //hideExpression: '',
+            //pattern: /regex/
+          },
+          /*
+          validation: {
+            messages: {
+              pattern: "Ip address format invalid (xxx.xxx.xxx.xxx)"
+            }
+          },*/
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterAddress1_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterAddress1_description'),
+            'templateOptions.label': () => this.translate.instant('fitterAddress1_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/2 px-2 sm:w-full',
+          key: 'fitterCity',
+          type: 'input',
+          templateOptions: {
+            label: '',
+            placeholder: '',
+            required: false,
+            type: 'text',
+            minLength: 4,
+            description: '',
+            //minLength: 3,
+            //maxLength: 20,
+            //autosize: true
+            //type: 'text',
+            //defaultValue: '',
+            //hideExpression: '',
+            //pattern: /regex/
+          },
+          /*
+          validation: {
+            messages: {
+              pattern: "Ip address format invalid (xxx.xxx.xxx.xxx)"
+            }
+          },*/
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterCity_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterCity_description'),
+            'templateOptions.label': () => this.translate.instant('fitterCity_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/4 px-2 sm:w-full',
+          key: 'fitterCap',
+          type: 'input',
+          templateOptions: {
+            label: '',
+            placeholder: '',
+            required: false,
+            type: 'text',
+            minLength: 5,
+            description: '',
+            //maxLength: 20,
+            //autosize: true
+            //type: 'text',
+            //defaultValue: '',
+            //hideExpression: '',
+            pattern: /^(?:\d{5})?$/,
+          },
+          validation: {
+            messages: {
+              pattern: 'Zip must be almost 5 digit',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterCap_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterCap_description'),
+            'templateOptions.label': () => this.translate.instant('fitterCap_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/4 px-2 sm:w-full',
+          key: 'fitterProvince',
+          type: 'input',
+          templateOptions: {
+            label: '',
+            placeholder: '',
+            required: false,
+            type: 'text',
+            minLength: 2,
+            maxLength: 4,
+            description: '',
+            //maxLength: 20,
+            //autosize: true
+            //type: 'text',
+            //defaultValue: '',
+            //hideExpression: '',
+            //pattern: /^(?:\d{5})?$/
+          },
+          /*
+          validation: {
+            messages: {
+              pattern: "Zip must be 5 digit"
+            }
+          },*/
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterProvince_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterProvince_description'),
+            'templateOptions.label': () => this.translate.instant('fitterProvince_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/2 px-2 sm:w-full',
+          key: 'fitterPhone',
+          type: 'input',
+          templateOptions: {
+            label: 'Fitter Phone',
+            placeholder: 'Fitter Phone',
             required: true,
+            type: 'text',
+            minLength: 10,
+            description: 'Fitter Phone',
+            //maxLength: 20,
+            //autosize: true
+            //type: 'text',
+            //defaultValue: '',
+            //hideExpression: '',
+            //pattern: /^(?:\d{5})?$/
+          },
+          /*
+          validation: {
+            messages: {
+              pattern: "Zip must be 5 digit"
+            }
+          },*/
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterPhone_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterPhone_description'),
+            'templateOptions.label': () => this.translate.instant('fitterPhone_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/2 px-2 sm:w-full',
+          key: 'fitterEmail',
+          type: 'input',
+          templateOptions: {
+            label: '',
+            placeholder: '',
+            required: true,
+            type: 'text',
+            minLength: 10,
+            description: '',
+            //maxLength: 20,
+            //autosize: true
+            //type: 'text',
+            //defaultValue: '',
+            //hideExpression: '',
+            pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+          },
+          validation: {
+            messages: {
+              pattern: 'Invalid email address format',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterEmail_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterEmail_description'),
+            'templateOptions.label': () => this.translate.instant('fitterEmail_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/2 px-2 sm:w-full',
+          key: 'fitterVehiclePlate',
+          type: 'select',
+          templateOptions: {
+            translate: true,
+            label: '',
+            placeholder: '',
+            description: '',
+            //required: true,
+            options: this.dataFleet,
+            /*options: [
+              { value: 1, label: 'Option 1' },
+              { value: 2, label: 'Option 2' },
+              { value: 3, label: 'Option 3' },
+              { value: 4, label: 'Option 4', disabled: true },
+            ],*/
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterVPlate_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterVPlate_description'),
+            'templateOptions.label': () => this.translate.instant('fitterVPlate_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/4 px-2 sm:w-1/2',
+          key: 'fitterAccidents',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            //defaultValue: '',
+            //hideExpression: '',
+            //minLength: 3,
+            maxLength: 2,
+            //pattern: /^(?:\d{2})?$/,
+          },
+          validation: {
+            messages: {
+              pattern: 'Number of Accidents must be numeric',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterAccidents_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterAccidents_description'),
+            'templateOptions.label': () => this.translate.instant('fitterAccidents_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/4 px-2 sm:w-1/2',
+          key: 'fitterFinesSum',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: 'Fitter Fines Sum',
+            placeholder: 'Fitter Fines Sum',
+            label: 'Fitter Fines Sum',
+            required: false,
+            type: 'number',
+            //defaultValue: '',
+            //hideExpression: '',
+            //minLength: 3,
+            //maxLength: 2,
+            //pattern: /^(?:\d{2})?$/,
+          },
+          validation: {
+            messages: {
+              pattern: 'Number of Total Fines',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterTotalFines_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterTotalFines_description'),
+            'templateOptions.label': () => this.translate.instant('fitterTotalFines_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/4 px-2 sm:w-1/2',
+          key: 'fitterAmountFines',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: 'Fitter Amount Fines',
+            placeholder: 'Fitter Amount Fines',
+            label: 'Fitter Amount Fines',
+            required: false,
+            type: 'number',
+            //defaultValue: '',
+            //hideExpression: '',
+            //minLength: 3,
+            //maxLength: 5,
+            //pattern: /^(?:\d{5})?$/,
+          },
+          validation: {
+            messages: {
+              pattern: 'Amount of Fines in euro',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterAmountFines_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterAmountFines_description'),
+            'templateOptions.label': () => this.translate.instant('fitterAmountFines_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/4 px-2 sm:w-1/2',
+          key: 'fitterDrivingLicensePoints',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            //defaultValue: '',
+            //hideExpression: '',
+            //minLength: 3,
+            maxLength: 2,
+            pattern: /^[1-9]|0[1-9]|1[0-9]|2[0]$/,
+          },
+          validation: {
+            messages: {
+              pattern: 'Number points on Driving Licence (1-20)',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterTotalPoints_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterTotalPoints_description'),
+            'templateOptions.label': () => this.translate.instant('fitterTotalPoints_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2  sm:w-1/2',
+          key: 'fitterIdentityDoc',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'text',
+            //defaultValue: '',
+            //hideExpression: '',
+            //minLength: 3,
+            //maxLength: 2,
+            //pattern: /^[1-9]|0[1-9]|1[0-9]|2[0]$/,
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterIdentityDoc_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterIdentityDoc_description'),
+            'templateOptions.label': () => this.translate.instant('fitterIdentityDoc_insert_label'),
+          },
+        },
+        {
+          className: '2xl:w-1/2 px-2  sm:w-1/2',
+          key: 'fitterStartEmployment',
+          type: 'datepicker',
+          templateOptions: {
+            required: false,
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterStartEmployment_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterStartEmployment_description'),
+            'templateOptions.label': () => this.translate.instant('fitterStartEmployment_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterMileageReimbursement',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            maxLength: 2,
+          },
+          validation: {
+            messages: {
+              pattern: 'Amount of Reimbursement KM',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterMileageReimbursement_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterMileageReimbursement_description'),
+            'templateOptions.label': () => this.translate.instant('fitterMileageReimbursement_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2  sm:w-1/2',
+          key: 'fitterWorkOnSaturday',
+          type: 'checkbox',
+          templateOptions: {
+            //appearance: 'outline',
+            translate: true,
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterWorkOnSaturday_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterWorkOnSaturday_description'),
+            'templateOptions.label': () => this.translate.instant('fitterWorkOnSaturday_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2  sm:w-1/2',
+          key: 'fitterWorkOnSunday',
+          type: 'checkbox',
+          templateOptions: {
+            //appearance: 'outline',
+            translate: true,
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterWorkOnSunday_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterWorkOnSunday_description'),
+            'templateOptions.label': () => this.translate.instant('fitterWorkOnSunday_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterCommissionsPercentual',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            maxLength: 2,
+          },
+          validation: {
+            messages: {
+              pattern: 'Amount Commission %',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterCommissionsPercentual_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterCommissionsPercentual_description'),
+            'templateOptions.label': () => this.translate.instant('fitterCommissionsPercentual_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterCommissionsFixedOn',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            maxLength: 3,
+          },
+          validation: {
+            messages: {
+              pattern: 'Amount Commission fitterCommissionsFixedOn',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterCommissionsFixedOn_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterCommissionsFixedOn_description'),
+            'templateOptions.label': () => this.translate.instant('fitterCommissionsFixedOn_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitteVATCode',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'text',
+            maxLength: 11,
+          },
+          validation: {
+            messages: {
+              pattern: 'Fitter VatCode',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterVatCode_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterVatCode_description'),
+            'templateOptions.label': () => this.translate.instant('fitterVatCode_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterTAXCode',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'text',
+            maxLength: 16,
+          },
+          validation: {
+            messages: {
+              pattern: 'Fitter TaxCode',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterTaxCode_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterTaxCode_description'),
+            'templateOptions.label': () => this.translate.instant('fitterTaxCode_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterVAT',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'number',
+            maxLength: 2,
+          },
+          validation: {
+            messages: {
+              pattern: 'Fitter Vat',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterVat_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterVat_description'),
+            'templateOptions.label': () => this.translate.instant('fitterVat_insert_label'),
+          },
+        },
+
+        {
+          className: '2xl:w-1/2 px-2 sm:w-1/2',
+          key: 'fitterIBAN',
+          type: 'input',
+          templateOptions: {
+            translate: true,
+            description: '',
+            placeholder: '',
+            label: '',
+            required: false,
+            type: 'text',
+            maxLength: 27,
+          },
+          validation: {
+            messages: {
+              pattern: 'Fitter IBAN',
+            },
+          },
+          expressionProperties: {
+            'templateOptions.placeholder': () => this.translate.instant('fitterIban_placeholder'),
+            'templateOptions.description': () => this.translate.instant('fitterIban_description'),
+            'templateOptions.label': () => this.translate.instant('fitterIban_insert_label'),
           },
         },
       ],
@@ -873,10 +1440,13 @@ export class FittersComponent implements OnInit {
   }
 
   public onSubmitEdit() {
-    if (this.form.valid) {
+    console.log('====== Aggiorno ======');
+    if (this.formEdit.valid) {
       // List the properties that you want to include in the submitted data
       const keysToInclude = [
         'id',
+        'companyId',
+        'companyName',
         'fitterCode',
         'fitterDescription',
         'fitterAddress1',
@@ -892,28 +1462,81 @@ export class FittersComponent implements OnInit {
         'fitterDrivingLicensePoints',
         'fitterIdentityDoc',
         'fitterStartEmployment',
+        'fitterWorkOnSaturday',
+        'fitterWorkOnSunday',
+        'fitterCommissionsPercentual',
+        'fitterCommissionsFixedOn',
+        'fitterMileageReimbursement',
+        'fitterVATCode',
+        'fitterTAXCode',
+        'fitterVAT',
+        'fitterIBAN',
+        'status',
       ];
-      console.log(this.form);
+      console.log(this.formEdit);
       // Build an object with only the selected keys
       let submittedData: any = {};
       keysToInclude.forEach(key => {
-        if (this.formData.hasOwnProperty(key)) {
-          submittedData[key] = this.formData[key];
+        if (this.modelEdit.hasOwnProperty(key)) {
+          submittedData[key] = this.modelEdit[key];
         }
       });
+      console.log('AGGIORNO');
       console.log(JSON.stringify(submittedData)); // model data to update
+      console.log(submittedData.id);
       this.updateRestapi('fitters', submittedData.id, submittedData);
       this.draweredit.toggle();
+      this.refreshMdTable();
     }
   }
 
   onSubmitAdd() {
     console.log('====== Inserisco ======');
-    this.data.push(this.formData);
-    this.addPropertyToDataOnInsert();
-    console.log(this.data);
-    this.addRestapi('fitters', this.formData);
-    this.draweradd.toggle();
+    if (this.formNew.valid) {
+      // List the properties that you want to include in the submitted data
+      const keysToInclude = [
+        'companyId',
+        'companyName',
+        'fitterCode',
+        'fitterDescription',
+        'fitterAddress1',
+        'fitterCity',
+        'fitterCap',
+        'fitterProvince',
+        'fitterPhone',
+        'fitterEmail',
+        'fitterVehiclePlate',
+        'fitterAccidents',
+        'fitterAmountFines',
+        'fitterFinesSum',
+        'fitterDrivingLicensePoints',
+        'fitterIdentityDoc',
+        'fitterWorkOnSaturday',
+        'fitterWorkOnSunday',
+        'fitterCommissionsPercentual',
+        'fitterCommissionsFixedOn',
+        'fitterMileageReimbursement',
+        'fitterVATCode',
+        'fitterTAXCode',
+        'fitterVAT',
+        'fitterIBAN',
+        'status',
+      ];
+      console.log(this.formNew);
+      // Build an object with only the selected keys
+      let submittedData: any = {};
+      keysToInclude.forEach(key => {
+        if (this.modelNew.hasOwnProperty(key)) {
+          submittedData[key] = this.modelNew[key];
+        }
+      });
+      console.log('INSERISCO');
+      this.addPropertyToDataOnInsert();
+      console.log(JSON.stringify(submittedData)); // model data to insert
+      this.addRestapi('fitters', submittedData);
+      this.draweradd.toggle();
+      this.refreshMdTable();
+    }
   }
 
   getOptions(): Observable<any[]> {
@@ -923,10 +1546,9 @@ export class FittersComponent implements OnInit {
   // Actions returned from MdTable
   fromMdtableChild(eventData: any) {
     console.log('Received from Mdtable:', eventData);
+
     if (eventData.actionRequest == 'open') {
-      this.selectedObj = eventData.element;
-      this.formData = eventData.element;
-      //this.model = eventData.element;
+      //// Leggi Dati Flotta /////
       this.getFromRestapiFleet(
         'flotta',
         undefined, // id
@@ -938,19 +1560,47 @@ export class FittersComponent implements OnInit {
         undefined, // offset
         undefined // search search in all fields and all records
       );
+      this.modelEdit = eventData.element;
+      this.selectedObj = eventData.element;
       this.draweredit.toggle();
     }
+
     if (eventData.actionRequest == 'add') {
-      this.formData = new NewFitter();
+      //// Leggi Dati Flotta /////
+      this.getFromRestapiFleet(
+        'flotta',
+        undefined, // id
+        ['*.*'], // fields es. ["companyName"] or ["*.*"]
+        undefined, // filter
+        undefined, // order by field  - = inverse es. ["-companyName"]
+        -1, // limit
+        undefined, // page
+        undefined, // offset
+        undefined // search search in all fields and all records
+      );
       this.draweradd.toggle();
+      this.modelEdit = this.selectedObj;
     }
+
     if (eventData.actionRequest == 'delete') {
-      this.selectedObj = eventData.element;
-      const idToDelete = this.selectedObj.id;
-      this.data = this.data.filter(obj => obj.id !== idToDelete);
+      this.elementToDelete = eventData.element;
+      console.log('Arrivata richiesta di cancellazione apro dialog per :', eventData.element);
+      this.openDeleteDialog();
     }
+
     if (eventData.actionRequest == 'paginator') {
+      console.log('Cambio Pagina');
     }
+  }
+
+  openDeleteDialog(): void {
+    const dialogRef = this.dialog.open(DialogDeleteComponent);
+    dialogRef.componentInstance.deleteEvent.subscribe(() => {
+      console.log('Confermata cancellazione');
+      this.deleteRestapi('fitters', this.elementToDelete.id);
+      console.log('Cancellazione Effettuata');
+      this.refreshMdTable();
+    });
   }
 
   // Add property 'Action' to array
@@ -966,20 +1616,35 @@ export class FittersComponent implements OnInit {
       return { ...object, Action: 'delete,menu' };
     });
   }
-
+  /*
   getValueFromSelected(variable: string) {
     let propertyName = variable;
     if (propertyName in this.selectedObj) {
       let propertyValue = this.selectedObj[propertyName];
       return propertyValue;
     }
+  }*/
+
+  
+  // Asynchronous function to await mseconds
+  async waitSeconds(mseconds:number) {
+    console.log('Start'); // Log a message before waiting
+    await this.delay(mseconds); // Wait for 2000 milliseconds (2 seconds)
+    console.log('End'); // Log a message after the 2-second delay
+  }
+  delay(ms:number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   // Reload Table from RestAPI
   refreshMdTable() {
+
+    this.waitSeconds(4000)
+
     this.pending = true;
     this.datasource = [];
     this.data = [];
+
     this.getFromRestapi(
       'fitters',
       undefined, // id
@@ -1003,6 +1668,18 @@ export class FittersComponent implements OnInit {
       )
       .subscribe((FittersUpdate: any) => {
         console.log(FittersUpdate);
+      });
+  }
+
+  // Delete Fitter
+  deleteRestapi(collection: string, id: number) {
+    this.globalService
+      .deleteRecord(
+        collection, //collection
+        id // id
+      )
+      .subscribe((FittersDelete: any) => {
+        console.log(FittersDelete);
       });
   }
 
@@ -1046,6 +1723,7 @@ export class FittersComponent implements OnInit {
         console.log('fitter data: ', Fitters['data']);
         console.log('fitter length: ', Fitters['data'].length);
         this.data = Fitters['data'];
+        this.datasource = Fitters['data'];
         this.addPropertyToDataOnInsert();
       });
   }
@@ -1077,6 +1755,7 @@ export class FittersComponent implements OnInit {
         console.log('fleet data: ', Fleets['data']);
         console.log('fleet length: ', Fleets['data'].length);
         this.fullDataFleet = Fleets['data'];
+        console.log(this.fullDataFleet);
         let options = Fleets['data'].map((item: { id: any; carFleetCarPlate: any; carFleetDescription: any }) => ({
           value: item.carFleetCarPlate,
           label: item.carFleetCarPlate + ' | ' + item.carFleetDescription,

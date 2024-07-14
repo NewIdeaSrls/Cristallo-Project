@@ -1,0 +1,6 @@
+
+:host ::ng-deep {
+    body .mat-body, .mat-body-2, .mat-typography .mat-body, .mat-typography .mat-body-2, .mat-typography {
+    overflow: hidden!important;
+}
+}

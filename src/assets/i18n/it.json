@@ -104,27 +104,12 @@
     "vehicleModel": "Modello",
     "vehicleRegistration": "Data.Imm",
 
-    "fitterCode": "Codice fitter",
-    "fitterDescription": "Nominativo",
-    "fitterAddress1": "Indirizzo",
-    "fitterCity": "Città",
-    "fitterCap": "Cap",
-    "fitterProvince": "Provincia",
-    "fitterPhone": "Telefono",
-    "fitterEmail": "Email",
-    "fitterVehiclePlate": "Targa Automezzo",
-    "fitterAccidents" : "Incidenti",
-    "fitterFinesSum" : "Multe",
-    "fitterAmountFines" : "Totale Multe",
-    "fitterDivingLicencePoints":"Punti Patente",
-    "fitterIdentityDoc": "Documento",
-    "fitterStartEmployment":"Data Assunzione",
-
     "edit_fitter": "Edita fitter",
     "insert_fitter": "Edita fitter",
     "submit_fitter_dialog" : "Salva fitter",
     "insert_fitter_dialog" : "Inserisci fitter",
     "exit_fitter_dialog":"Esci",
+
     "fitterCode_placeholder" : "Codice",
     "fitterCode_description" : "Codice Fitter",
     "fitterCode_insert_label" : "Codice",
@@ -164,19 +149,11 @@
     "fitterTotalPoints_placeholder" : "Punti patente",
     "fitterTotalPoints_description" : "Punti",
     "fitterTotalPoints_insert_label" : "Punti patente",
-
     "fitterDrivingLicensePoints" : "Punti patente",
-
     "fitterIdentityDoc_placeholder" : "Documento",
     "fitterIdentityDoc_description" : "Documento",
     "fitterIdentityDoc_insert_label" : "Documento",
     "fitterStartEmployment_placeholder" : "Data Assunzione",
     "fitterStartEmployment_description" : "Data",
-    "fitterStartEmployment_insert_label" : "Data Assunzione",
-
-    "states_placeholder" : "Esempio New York",
-    "states_description" : "Stato selezionato",
-    "states_insert_label" : "Stato"
-    
-
+    "fitterStartEmployment_insert_label" : "Data Assunzione"
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalService } from './../../services/globals.service';
 import { MDTableComponent } from '../../components/mdtable/mdtable.component';
@@ -20,12 +20,29 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, ObservableInput } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ViewEncapsulation } from '@angular/core';
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+import { BryntumButtonComponent, BryntumSchedulerComponent } from '@bryntum/schedulerpro-angular';
+import { Scheduler, DateHelper } from '@bryntum/schedulerpro';
+import { MyTimeRange } from './lib/MyTimeRange';
+import { BryntumSchedulerProModule } from '@bryntum/schedulerpro-angular';
+import { schedulerConfig } from './resources.config';
+// Scheduler API locales
+import '@bryntum/schedulerpro/locales/schedulerpro.locale.It.js';
+import { LocaleManager, LocaleHelper } from '@bryntum/schedulerpro';
 
-
+const locale = {
+    localeName : 'It',
+    localeDesc : 'Italiano',
+    localeCode : 'it-IT',
+};
+export default LocaleHelper.publishLocale(locale);
+LocaleManager.locale = 'It';
 @Component({
   selector: 'app-resources',
   standalone: true,
   imports: [
+    BryntumSchedulerProModule,
     MatProgressBarModule,
     MDTableComponent,
     MatSidenavModule,
@@ -40,8 +57,29 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatCheckboxModule,
   ],
   templateUrl: './resources.component.html',
-  styleUrl: './resources.component.scss'
+  styleUrl: './resources.component.scss',
+  encapsulation : ViewEncapsulation.None
 })
-export class ResourcesComponent {
 
+export class ResourcesComponent implements AfterViewInit {
+  
+    public schedulerConfig:any = schedulerConfig;
+    private scheduler!: Scheduler;
+
+    @ViewChild(BryntumSchedulerComponent, { static : true }) schedulerComponent!: BryntumSchedulerComponent;
+
+    /**
+     * Runs after the view (including the child scheduler) is initializes
+     */
+    ngAfterViewInit(): void {
+        this.scheduler = this.schedulerComponent.instance; 
+    }
+
+    zoomIn() {
+      this.scheduler.zoomIn() ;
+    }
+
+    zoomOut() {
+      this.scheduler.zoomOut() ;
+    }
 }

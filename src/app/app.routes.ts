@@ -29,6 +29,7 @@ import { CapsComponent } from './pages/caps/caps.component';
 import { FirstplantsComponent } from './pages/firstplants/firstplants.component';
 import { TemplatesComponent } from './pages/templates/templates.component';
 import { ResourcesComponent } from './pages/resources/resources.component';
+import { BrandsAndModelsComponent } from './pages/brands-and-models/brands-and-models.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -172,6 +173,12 @@ export const routes: Routes = [
       {
         path: 'suppliers',
         component: SuppliersComponent,
+        canActivate: [authGuard, roleGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
+        path: 'brandsAndModels',
+        component: BrandsAndModelsComponent,
         canActivate: [authGuard, roleGuard],
         data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
       },

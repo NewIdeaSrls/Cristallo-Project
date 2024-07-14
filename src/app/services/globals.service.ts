@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { ToastrService } from 'ngx-toastr';
-import { Observable, ObservableInput,of } from 'rxjs';
+import { Observable, ObservableInput, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -33,11 +33,14 @@ export class GlobalService {
     const url = this.prefixUrl + collection + `/${id}`;
     console.log('Update URL:', url);
     console.log('Data to send:', data);
-    return this.http.patch<any[]>(url, data).pipe(catchError(this.handleError));
+    return  this.http.patch<any[]>(url, data).pipe(catchError(this.handleError));
   }
 
   deleteRecord(collection: string, id: number): Observable<any> {
-    return this.http.delete<any[]>(this.prefixUrl + collection + `/${id}`).pipe(catchError(this.handleError));
+    const url = this.prefixUrl + collection + `/${id}`;
+    console.log('Delete URL:', url);
+    console.log('Cancellazione', id);
+    return this.http.delete<any[]>(url).pipe(catchError(this.handleError));
   }
 
   /*
@@ -116,8 +119,8 @@ export class GlobalService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<any> {
-    console.log("Backend returned code :",error.status)
+    console.log('Backend returned code :', error.status);
     console.log(error.error.errors[0].message);
-    return of()
+    return of();
   }
 }

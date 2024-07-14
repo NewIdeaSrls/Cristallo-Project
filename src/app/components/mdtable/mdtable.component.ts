@@ -1,5 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Inject,AfterViewInit, Component, Input, Output, OnInit, ViewChild, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+
+import { ElementRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatSortModule } from '@angular/material/sort';
@@ -12,25 +16,27 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CommonModule } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
 import { NgxTranslateModule } from '../../translation.module';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './custom-mat-paginator-intl';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { FormsModule } from '@angular/forms';
-import { AutoResizeColumnsDirective } from './auto-resize-columns.directive';
-import { ElementRef } from '@angular/core';
-import { MatSidenavModule, MAT_DRAWER_DEFAULT_AUTOSIZE } from '@angular/material/sidenav';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MatSidenavModule, MAT_DRAWER_DEFAULT_AUTOSIZE } from '@angular/material/sidenav';
+import { FormsModule } from '@angular/forms';
+
+import { AutoResizeColumnsDirective } from './auto-resize-columns.directive';
+
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DialogShowComponent } from '../mdtable/dialog-show/dialog-show.component';
+import { DialogDeleteComponent } from '../mdtable/dialog-delete/dialog-delete.component'
 
 export type DialogDataSubmitCallback<T> = (row: T) => void;
 
@@ -113,6 +119,7 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
   filterState: FilterState = {};
 
   expandedElement: any | null; //
+  showExpandedDetail: boolean = false;
 
   constructor(
     private translate: TranslateService,
@@ -122,7 +129,7 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    console.log('Init');
+    console.log('Init')
     this.pending = true 
     this.data = new MatTableDataSource<any>(this.datasource);
     this.dataLenght = this.data.lenght;
@@ -144,7 +151,9 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
       this.saveresult(this.fromStorage, this.elementColumns);
       console.log(this.elementColumns);
     }
+    console.log(this.datashow)
   }
+
 
   ngAfterViewInit(): void {
     this.data.paginator = this.paginator;
@@ -157,18 +166,52 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
     this.refreshData()
   }
 
+  openDialogData(): void {
+    console.log(this.expandedElement)
+    
+    
+    const dialogRef = this.dialog.open(DialogShowComponent, {
+      width: '70%',
+      data: {title: "Dettaglio",datatoshow: this.expandedElement, columnsOrder:this.datashow}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+      this.showExpandedDetail = false
+    });
+  }
+
+  openDialogDelete(): void {
+    console.log(this.expandedElement)
+    const dialogRef = this.dialog.open( DialogDeleteComponent, {
+      width: '70%',
+      data: {title: "Eliminazione dati",datatoshow: this.expandedElement}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+      this.showExpandedDetail = false
+    });
+  }
+
   toggleRow(row: any) {
-    console.log('Riga selezionata toggle', row);
-    this.expandedElement = this.expandedElement === row ? null : row;
+    console.log('Riga selezionata toggle/stato', row,this.showExpandedDetail);
+    this.showExpandedDetail = !this.showExpandedDetail
+    if (this.showExpandedDetail == true ) {
+        this.expandedElement = row
+        this.openDialogData()
+    } else {
+      this.expandedElement = null
+    }
   }
 
   openAttachements(event: MouseEvent, element: any,attach:any): void {
     console.log(event, element,attach);
     event.stopPropagation();
-    this.openDialog(attach['images']);
+    this.openDialogImage(attach['images']);
   }
 
-  openDialog(element:any) {
+  openDialogImage(element:any) {
     const dialogRef = this.dialog.open(DialogContent,{
       data: { callback: this.callBack.bind(this), defaultValue: element }
     });
@@ -249,6 +292,7 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ActionHandlerDelete(element: any) {
+    console.log("Da cancellare:",element)
     this.action.emit({ actionRequest: 'delete', element: element });
   }
 
@@ -278,7 +322,11 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
 
   get displayedColumns(): string[] {
     const dynamicColumns = this.elementColumns.filter(column => column.checked).map(column => column.title);
-    return Array.from(new Set([...dynamicColumns, 'ctaColumn']));
+    return Array.from(new Set(['ctaColumn',...dynamicColumns]));
+  }
+
+  isSticky (column: string): boolean {
+    return column === 'ctaColumn' ? true : false;
   }
 
   // datacolumns

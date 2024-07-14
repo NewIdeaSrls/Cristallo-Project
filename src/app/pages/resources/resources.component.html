@@ -1,8 +1,24 @@
 <div class="w-full">
-    <div class="flex p-4">
-      <mat-icon>storage</mat-icon>
-      <span class="px-1 text-lg font-bold text-decoration-line">FLOTTA/FITTERS</span>
-    </div>
-    <hr />
+  <div class="flex p-4">
+    <mat-icon>storage</mat-icon>
+    <span class="px-1 text-lg font-bold text-decoration-line">CALENDARIO FITTERS</span>
   </div>
-
+  <div class="flex p-4 bg-zinc-200">
+    <button (click)="zoomIn()" class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent">Zoom +</button>
+    <button (click)="zoomOut()"class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent">Zoom -</button>
+  </div>
+  <div id="content">
+    <bryntum-scheduler
+      #scheduler
+      [barMargin]="schedulerConfig.barMargin"
+      [eventStyle]="schedulerConfig.eventStyle"
+      [resourceImagePath]="schedulerConfig.resourceImagePath"
+      [timeRangesFeature]="schedulerConfig.features.timeRanges"
+      [columns]="schedulerConfig.columns"
+      [project]="schedulerConfig.project"
+      [crudManager]="schedulerConfig.crudManager"
+      [startDate]="schedulerConfig.startDate"
+      [endDate]="schedulerConfig.endDate"
+      [viewPreset]="schedulerConfig.viewPreset"></bryntum-scheduler>
+  </div>
+</div>

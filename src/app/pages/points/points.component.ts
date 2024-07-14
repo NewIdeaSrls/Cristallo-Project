@@ -128,7 +128,6 @@ export class PointsComponent implements OnInit {
   //Configure Fields on mdtable
 
   datacolumns = [
-    'pointCode',
     'pointType',
     'pointInternalCodification',
     'pointDescription',
@@ -163,7 +162,6 @@ export class PointsComponent implements OnInit {
   dataconfig = ['add', 'search', 'columns', 'reload'];
 
   datashow = [
-    'pointCode',
     'pointType',
     'pointInternalCodification',
     'pointDescription',
@@ -198,7 +196,6 @@ export class PointsComponent implements OnInit {
   localStorageMDTable: string = 'pointTable';
   // Configure Fields on Action in accounting
   addfieldsconfig = [
-    'pointCode',
     'pointType',
     'pointInternalCodification',
     'pointDescription',
@@ -230,7 +227,6 @@ export class PointsComponent implements OnInit {
     'pointEnabled'
   ];
   editfieldsconfig = [
-    'pointCode',
     'pointType',
     'pointInternalCodification',
     'pointDescription',

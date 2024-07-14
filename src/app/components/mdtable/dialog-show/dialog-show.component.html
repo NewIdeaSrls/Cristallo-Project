@@ -1,0 +1,12 @@
+<div class="p-4 bg-gray-200">
+  <h3 class="mt-3 ml-2 mr-2 text-black">
+    <strong>{{ data.title }}</strong>
+  </h3>
+
+  <div class="grid gap-2 m-1 text-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
+    <mat-form-field *ngFor="let variable of getDataKeys()" floatLabel="always">
+      <mat-label>{{ variable | translate }}</mat-label>
+      <input class="mt-6" name="{{ variable }}" disabled matInput value="{{ data['datatoshow'][variable] }}" />
+    </mat-form-field>
+  </div>
+</div>

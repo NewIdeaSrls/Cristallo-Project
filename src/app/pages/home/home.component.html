@@ -15,7 +15,6 @@
         </button>
 
         <button
-          data-drawer-target="sidebar-multi-level-sidebar"
           data-drawer-toggle="sidebar-multi-level-sidebar"
           aria-controls="sidebar-multi-level-sidebar"
           type="button"
@@ -66,7 +65,6 @@
 </div>
 
 <div>
-  <!-- xs:ml-0 sm:ml-0 md:ml-56 xl:lg-56 -->
   <aside
     id="sidebar-multi-level-sidebar"
     class="fixed top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full dark sm:translate-x-0"
@@ -79,16 +77,14 @@
           </div>
         </li>
         <li *ngIf="modulesEnabled.includes('dashboard')" [class.bg-gray-400]="isActiveRoute('/home/dashboard')">
-
           <a
             [routerLink]="['/home/dashboard']"
             class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-400 group">
             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
               <path fill="white" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
             </svg>
-            <span class="ms-3">Dashboard</span>
+            <span class="ms-3">Dashboard/Giornaliero</span>
           </a>
-
         </li>
 
         <li *ngIf="modulesEnabled.includes('practices')" [class.bg-gray-400]="isActiveRoute('/home/practices')">
@@ -96,7 +92,9 @@
             [routerLink]="['/home/practices']"
             class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-400 group">
             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 20 20">
-              <path fill="white" d="M10 2v4.5A1.5 1.5 0 0 0 11.5 8H16v8.5a1.5 1.5 0 0 1-1.5 1.5H8.329a4.5 4.5 0 0 0 1.422-2.021a1.5 1.5 0 0 0 0-2.958a4.51 4.51 0 0 0-2.772-2.772a1.5 1.5 0 0 0-2.958 0L4 10.256V3.5A1.5 1.5 0 0 1 5.5 2zm1 .25V6.5a.5.5 0 0 0 .5.5h4.25zM6 10.5a.5.5 0 0 0-1 0v.535A3.5 3.5 0 0 0 2.035 14H1.5a.5.5 0 0 0 0 1h.535A3.5 3.5 0 0 0 5 17.965v.535a.5.5 0 0 0 1 0v-.535A3.5 3.5 0 0 0 8.965 15H9.5a.5.5 0 0 0 0-1h-.535A3.5 3.5 0 0 0 6 11.035zm2 4a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0m-1.5 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0" />
+              <path
+                fill="white"
+                d="M10 2v4.5A1.5 1.5 0 0 0 11.5 8H16v8.5a1.5 1.5 0 0 1-1.5 1.5H8.329a4.5 4.5 0 0 0 1.422-2.021a1.5 1.5 0 0 0 0-2.958a4.51 4.51 0 0 0-2.772-2.772a1.5 1.5 0 0 0-2.958 0L4 10.256V3.5A1.5 1.5 0 0 1 5.5 2zm1 .25V6.5a.5.5 0 0 0 .5.5h4.25zM6 10.5a.5.5 0 0 0-1 0v.535A3.5 3.5 0 0 0 2.035 14H1.5a.5.5 0 0 0 0 1h.535A3.5 3.5 0 0 0 5 17.965v.535a.5.5 0 0 0 1 0v-.535A3.5 3.5 0 0 0 8.965 15H9.5a.5.5 0 0 0 0-1h-.535A3.5 3.5 0 0 0 6 11.035zm2 4a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0m-1.5 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0" />
             </svg>
             <span class="flex-1 ms-3 whitespace-nowrap">Pratiche</span>
           </a>
@@ -107,7 +105,9 @@
             [routerLink]="['/home/calendars']"
             class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-400 group">
             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 512 512">
-              <path fill="white" d="M362.7 320H320v42.7h42.7zm-85.4-170.7h-42.7V192h42.7zm85.4 256H320V448h42.7zm0-256H320V192h42.7zM149.3 0h-42.7v64h42.7zM448 149.3h-42.7V192H448zm-170.7 85.4h-42.7v42.7h42.7zm170.7 0h-42.7v42.7H448zm0 85.3h-42.7v42.7H448zm-85.3-85.3H320v42.7h42.7zm-256 0H64v42.7h42.7zm0 85.3H64v42.7h42.7zm320-320v85.3h-85.3V0H170.7v85.3H85.3V0H0v512h512V0zm42.6 469.3H42.7V128h426.7v341.3zm-362.6-64H64V448h42.7zM277.3 320h-42.7v42.7h42.7zM192 405.3h-42.7V448H192zm85.3 0h-42.7V448h42.7zm-85.3-256h-42.7V192H192zm0 85.4h-42.7v42.7H192zm0 85.3h-42.7v42.7H192zM405.3 0h-42.7v64h42.7z" />
+              <path
+                fill="white"
+                d="M362.7 320H320v42.7h42.7zm-85.4-170.7h-42.7V192h42.7zm85.4 256H320V448h42.7zm0-256H320V192h42.7zM149.3 0h-42.7v64h42.7zM448 149.3h-42.7V192H448zm-170.7 85.4h-42.7v42.7h42.7zm170.7 0h-42.7v42.7H448zm0 85.3h-42.7v42.7H448zm-85.3-85.3H320v42.7h42.7zm-256 0H64v42.7h42.7zm0 85.3H64v42.7h42.7zm320-320v85.3h-85.3V0H170.7v85.3H85.3V0H0v512h512V0zm42.6 469.3H42.7V128h426.7v341.3zm-362.6-64H64V448h42.7zM277.3 320h-42.7v42.7h42.7zM192 405.3h-42.7V448H192zm85.3 0h-42.7V448h42.7zm-85.3-256h-42.7V192H192zm0 85.4h-42.7v42.7H192zm0 85.3h-42.7v42.7H192zM405.3 0h-42.7v64h42.7z" />
             </svg>
             <span class="flex-1 ms-3 whitespace-nowrap">Calendario Impegni</span>
           </a>
@@ -118,7 +118,9 @@
             [routerLink]="['/home/accounting']"
             class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-400 group">
             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 50 50">
-              <path fill="white" d="M41 1H9C6.8 1 5 2.8 5 5v40c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V5c0-2.2-1.8-4-4-4M17 41c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm12 16c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm12 16c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-9c0 1.1-.9 2-2 2H11c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2h28c1.1 0 2 .9 2 2z" />
+              <path
+                fill="white"
+                d="M41 1H9C6.8 1 5 2.8 5 5v40c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V5c0-2.2-1.8-4-4-4M17 41c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm12 16c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm12 16c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-8c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2zm0-9c0 1.1-.9 2-2 2H11c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2h28c1.1 0 2 .9 2 2z" />
             </svg>
             <span class="flex-1 ms-3 whitespace-nowrap">Amministrazione</span>
           </a>
@@ -132,7 +134,9 @@
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example">
             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 28 28">
-              <path fill="white" d="M3 6.75A3.75 3.75 0 0 1 6.75 3h6.5v9.955a4 4 0 0 0-.295.295H3zM22.25 12A3.74 3.74 0 0 1 25 13.2V6.75A3.75 3.75 0 0 0 21.25 3h-6.5v9.135a3.8 3.8 0 0 1 1-.135zM12 15.75c0-.346.047-.682.135-1H3v6.5A3.75 3.75 0 0 0 6.75 25h6.45a3.74 3.74 0 0 1-1.2-2.75zm1 0A2.75 2.75 0 0 1 15.75 13h6.5A2.75 2.75 0 0 1 25 15.75v6.5A2.75 2.75 0 0 1 22.25 25h-6.5A2.75 2.75 0 0 1 13 22.25z" />
+              <path
+                fill="white"
+                d="M3 6.75A3.75 3.75 0 0 1 6.75 3h6.5v9.955a4 4 0 0 0-.295.295H3zM22.25 12A3.74 3.74 0 0 1 25 13.2V6.75A3.75 3.75 0 0 0 21.25 3h-6.5v9.135a3.8 3.8 0 0 1 1-.135zM12 15.75c0-.346.047-.682.135-1H3v6.5A3.75 3.75 0 0 0 6.75 25h6.45a3.74 3.74 0 0 1-1.2-2.75zm1 0A2.75 2.75 0 0 1 15.75 13h6.5A2.75 2.75 0 0 1 25 15.75v6.5A2.75 2.75 0 0 1 22.25 25h-6.5A2.75 2.75 0 0 1 13 22.25z" />
             </svg>
             <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Tabelle Base</span>
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -140,7 +144,6 @@
             </svg>
           </button>
           <ul id="dropdown-example" class="hidden py-2 space-y-2">
-
             <li *ngIf="checkModuleExactlyInArray('points', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/points')">
               <a
                 [routerLink]="['/home/points']"
@@ -164,12 +167,32 @@
                 <span class="ms-3">Fitters</span>
               </a>
             </li>
+
+            <li *ngIf="checkModuleExactlyInArray('resources', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/resources')">
+              <a
+                [routerLink]="['/home/resources']"
+                class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
+                  <path
+                    fill="none"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 21H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5m-4-9v4M8 3v4m-4 4h16m-2.999 8a2 2 0 1 0 4 0a2 2 0 1 0-4 0m2-3.5V17m0 4v1.5m3.031-5.25l-1.299.75m-3.463 2l-1.3.75m0-3.5l1.3.75m3.463 2l1.3.75" />
+                </svg>
+                <span class="ms-3">Fitters Calendario</span>
+              </a>
+            </li>
+
             <li *ngIf="checkModuleExactlyInArray('agents', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/agents')">
               <a
                 [routerLink]="['/home/agents']"
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
-                  <path fill="white" d="M18.72 14.76c.35-.85.54-1.76.54-2.76c0-.72-.11-1.41-.3-2.05c-.65.15-1.33.23-2.04.23A9.07 9.07 0 0 1 9.5 6.34a9.2 9.2 0 0 1-4.73 4.88c-.04.25-.04.52-.04.78A7.27 7.27 0 0 0 12 19.27c1.05 0 2.06-.23 2.97-.64c.57 1.09.83 1.63.81 1.63c-1.64.55-2.91.82-3.78.82c-2.42 0-4.73-.95-6.43-2.66a9 9 0 0 1-2.24-3.69H2v-4.55h1.09a9.09 9.09 0 0 1 15.33-4.6a9 9 0 0 1 2.47 4.6H22v4.55h-.06L18.38 18l-5.3-.6v-1.67h4.83zm-9.45-2.99c.3 0 .59.12.8.34a1.136 1.136 0 0 1 0 1.6c-.21.21-.5.33-.8.33c-.63 0-1.14-.5-1.14-1.13s.51-1.14 1.14-1.14m5.45 0c.63 0 1.13.51 1.13 1.14s-.5 1.13-1.13 1.13s-1.14-.5-1.14-1.13a1.14 1.14 0 0 1 1.14-1.14" />
+                  <path
+                    fill="white"
+                    d="M18.72 14.76c.35-.85.54-1.76.54-2.76c0-.72-.11-1.41-.3-2.05c-.65.15-1.33.23-2.04.23A9.07 9.07 0 0 1 9.5 6.34a9.2 9.2 0 0 1-4.73 4.88c-.04.25-.04.52-.04.78A7.27 7.27 0 0 0 12 19.27c1.05 0 2.06-.23 2.97-.64c.57 1.09.83 1.63.81 1.63c-1.64.55-2.91.82-3.78.82c-2.42 0-4.73-.95-6.43-2.66a9 9 0 0 1-2.24-3.69H2v-4.55h1.09a9.09 9.09 0 0 1 15.33-4.6a9 9 0 0 1 2.47 4.6H22v4.55h-.06L18.38 18l-5.3-.6v-1.67h4.83zm-9.45-2.99c.3 0 .59.12.8.34a1.136 1.136 0 0 1 0 1.6c-.21.21-.5.33-.8.33c-.63 0-1.14-.5-1.14-1.13s.51-1.14 1.14-1.14m5.45 0c.63 0 1.13.51 1.13 1.14s-.5 1.13-1.13 1.13s-1.14-.5-1.14-1.13a1.14 1.14 0 0 1 1.14-1.14" />
                 </svg>
                 <span class="ms-3">Agenti</span>
               </a>
@@ -180,29 +203,35 @@
                 [routerLink]="['/home/insurances']"
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
-                  <path fill="white" d="M14.42 7.5L16 11H8l1.42-3.5zM9 12c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1m6 0c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1m6-7v6c0 5.55-3.84 10.74-9 12c-5.16-1.26-9-6.45-9-12V5l9-4zm-3 7l-2.16-5c-.2-.58-.76-1-1.42-1h-5C8.76 6 8.2 6.42 8 7l-2 5v4c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h6v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1z" />
-                </svg>                <span class="ms-3">Assicurazioni</span>
+                  <path
+                    fill="white"
+                    d="M14.42 7.5L16 11H8l1.42-3.5zM9 12c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1m6 0c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1m6-7v6c0 5.55-3.84 10.74-9 12c-5.16-1.26-9-6.45-9-12V5l9-4zm-3 7l-2.16-5c-.2-.58-.76-1-1.42-1h-5C8.76 6 8.2 6.42 8 7l-2 5v4c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h6v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1z" />
+                </svg>
+                <span class="ms-3">Assicurazioni</span>
               </a>
             </li>
 
-            
-           <li *ngIf="checkModuleExactlyInArray('insurancesoffices', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/insurancesoffices')">
-            <a
-              [routerLink]="['/home/insurancesoffices']"
-              class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 50 50">
-                <path fill="white" d="M25.511 2.892L1.268 23H7v24h36V23h6.268zM30.942 40H19.593l2.38-10.711c-1.439-1-2.38-2.506-2.38-4.35c0-3.038 2.541-5.439 5.674-5.439c3.135 0 5.675 2.493 5.675 5.531c0 1.845-.941 3.245-2.379 4.242z" />
-              </svg>
-              <span class="ms-3">Agenzie</span>
-            </a>
-          </li>
-          
+            <li *ngIf="checkModuleExactlyInArray('insurancesoffices', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/insurancesoffices')">
+              <a
+                [routerLink]="['/home/insurancesoffices']"
+                class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 50 50">
+                  <path
+                    fill="white"
+                    d="M25.511 2.892L1.268 23H7v24h36V23h6.268zM30.942 40H19.593l2.38-10.711c-1.439-1-2.38-2.506-2.38-4.35c0-3.038 2.541-5.439 5.674-5.439c3.135 0 5.675 2.493 5.675 5.531c0 1.845-.941 3.245-2.379 4.242z" />
+                </svg>
+                <span class="ms-3">Agenzie</span>
+              </a>
+            </li>
+
             <li *ngIf="checkModuleExactlyInArray('experts', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/experts')">
               <a
                 [routerLink]="['/home/experts']"
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
-                  <path fill="white" d="M12 5a3.5 3.5 0 0 0-3.5 3.5A3.5 3.5 0 0 0 12 12a3.5 3.5 0 0 0 3.5-3.5A3.5 3.5 0 0 0 12 5m0 2a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 10a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 7M5.5 8A2.5 2.5 0 0 0 3 10.5c0 .94.53 1.75 1.29 2.18c.36.2.77.32 1.21.32s.85-.12 1.21-.32c.37-.21.68-.51.91-.87A5.42 5.42 0 0 1 6.5 8.5v-.28c-.3-.14-.64-.22-1-.22m13 0c-.36 0-.7.08-1 .22v.28c0 1.2-.39 2.36-1.12 3.31c.12.19.25.34.4.49a2.48 2.48 0 0 0 1.72.7c.44 0 .85-.12 1.21-.32c.76-.43 1.29-1.24 1.29-2.18A2.5 2.5 0 0 0 18.5 8M12 14c-2.34 0-7 1.17-7 3.5V19h14v-1.5c0-2.33-4.66-3.5-7-3.5m-7.29.55C2.78 14.78 0 15.76 0 17.5V19h3v-1.93c0-1.01.69-1.85 1.71-2.52m14.58 0c1.02.67 1.71 1.51 1.71 2.52V19h3v-1.5c0-1.74-2.78-2.72-4.71-2.95M12 16c1.53 0 3.24.5 4.23 1H7.77c.99-.5 2.7-1 4.23-1" />
+                  <path
+                    fill="white"
+                    d="M12 5a3.5 3.5 0 0 0-3.5 3.5A3.5 3.5 0 0 0 12 12a3.5 3.5 0 0 0 3.5-3.5A3.5 3.5 0 0 0 12 5m0 2a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 10a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 7M5.5 8A2.5 2.5 0 0 0 3 10.5c0 .94.53 1.75 1.29 2.18c.36.2.77.32 1.21.32s.85-.12 1.21-.32c.37-.21.68-.51.91-.87A5.42 5.42 0 0 1 6.5 8.5v-.28c-.3-.14-.64-.22-1-.22m13 0c-.36 0-.7.08-1 .22v.28c0 1.2-.39 2.36-1.12 3.31c.12.19.25.34.4.49a2.48 2.48 0 0 0 1.72.7c.44 0 .85-.12 1.21-.32c.76-.43 1.29-1.24 1.29-2.18A2.5 2.5 0 0 0 18.5 8M12 14c-2.34 0-7 1.17-7 3.5V19h14v-1.5c0-2.33-4.66-3.5-7-3.5m-7.29.55C2.78 14.78 0 15.76 0 17.5V19h3v-1.93c0-1.01.69-1.85 1.71-2.52m14.58 0c1.02.67 1.71 1.51 1.71 2.52V19h3v-1.5c0-1.74-2.78-2.72-4.71-2.95M12 16c1.53 0 3.24.5 4.23 1H7.77c.99-.5 2.7-1 4.23-1" />
                 </svg>
                 <span class="ms-3">Periti</span>
               </a>
@@ -213,17 +242,19 @@
                 [routerLink]="['/home/suppliers']"
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
-                  <path fill="white" d="M17 7v2h-2V7zm-4 0v2H7V7zm0 4H7v2h6zm2 0v2h2v-2zm6 11l-3-2l-3 2l-3-2l-3 2l-3-2l-3 2V3h18zm-2-3.74V5H5v13.26l1-.66l3 2l3-2l3 2l3-2z" />
+                  <path
+                    fill="white"
+                    d="M17 7v2h-2V7zm-4 0v2H7V7zm0 4H7v2h6zm2 0v2h2v-2zm6 11l-3-2l-3 2l-3-2l-3 2l-3-2l-3 2V3h18zm-2-3.74V5H5v13.26l1-.66l3 2l3-2l3 2l3-2z" />
                 </svg>
                 <span class="ms-3">Fornitori</span>
               </a>
             </li>
-            
+
             <li *ngIf="checkModuleExactlyInArray('vehicles', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/vehicles')">
               <a
                 [routerLink]="['/home/vehicles']"
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
-                <svg class="w-[15px] h-[15px]"  fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-[15px] h-[15px]" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M165.4 96H346.6c13.6 0 25.7 8.6 30.2 21.4L402.9 192H109.1l26.1-74.6c4.5-12.8 16.6-21.4 30.2-21.4zm-90.6 .3L39.6 196.8C16.4 206.4 0 229.3 0 256v80c0 23.7 12.9 44.4 32 55.4V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V400H384v48c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V391.4c19.1-11.1 32-31.7 32-55.4V256c0-26.7-16.4-49.6-39.6-59.2L437.2 96.3C423.7 57.8 387.4 32 346.6 32H165.4c-40.8 0-77.1 25.8-90.6 64.3zM208 272h96c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H208c-8.8 0-16-7.2-16-16V288c0-8.8 7.2-16 16-16zM48 280c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H72c-13.3 0-24-10.7-24-24zm360-24h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H408c-13.3 0-24-10.7-24-24s10.7-24 24-24z"></path>
                 </svg>
@@ -237,8 +268,11 @@
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
                   <g fill="none">
-                    <path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
-                    <path fill="white" d="M16.42 4a2 2 0 0 1 1.649.868l.087.14l3.58 6.265a2 2 0 0 1 .256.82l.008.173v4.498a2 2 0 0 1-.136.725l-.075.17l-1.118 2.235a2 2 0 0 1-1.628 1.1l-.161.006H17a2 2 0 0 1-1.995-1.85L15 19H9a2 2 0 0 1-1.85 1.995L7 21H5.118a2 2 0 0 1-1.71-.964l-.079-.142l-1.118-2.236a2 2 0 0 1-.202-.709L2 16.764v-4.498a2 2 0 0 1 .184-.838l.08-.155l3.58-6.265a2 2 0 0 1 1.572-1.001L7.58 4zm0 2H7.58L4 12.266v4.498L5.118 19H7v-.9a1.1 1.1 0 0 1 .98-1.094L8.1 17h7.8a1.1 1.1 0 0 1 1.094.98l.006.12v.9h1.882L20 16.764v-4.498zm.134 5.105a1 1 0 0 1 1.34.448a1.01 1.01 0 0 1-.448 1.342C15.802 13.715 13.81 14 12 14c-1.846 0-3.77-.282-5.442-1.103a1.017 1.017 0 0 1-.452-1.344a1.01 1.01 0 0 1 1.24-.489l.267.115l.244.097l.219.08l.26.086l.302.092l.34.091l.377.09l.411.082A12.4 12.4 0 0 0 12 12c1.516 0 3.169-.232 4.555-.895Z" />
+                    <path
+                      d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                    <path
+                      fill="white"
+                      d="M16.42 4a2 2 0 0 1 1.649.868l.087.14l3.58 6.265a2 2 0 0 1 .256.82l.008.173v4.498a2 2 0 0 1-.136.725l-.075.17l-1.118 2.235a2 2 0 0 1-1.628 1.1l-.161.006H17a2 2 0 0 1-1.995-1.85L15 19H9a2 2 0 0 1-1.85 1.995L7 21H5.118a2 2 0 0 1-1.71-.964l-.079-.142l-1.118-2.236a2 2 0 0 1-.202-.709L2 16.764v-4.498a2 2 0 0 1 .184-.838l.08-.155l3.58-6.265a2 2 0 0 1 1.572-1.001L7.58 4zm0 2H7.58L4 12.266v4.498L5.118 19H7v-.9a1.1 1.1 0 0 1 .98-1.094L8.1 17h7.8a1.1 1.1 0 0 1 1.094.98l.006.12v.9h1.882L20 16.764v-4.498zm.134 5.105a1 1 0 0 1 1.34.448a1.01 1.01 0 0 1-.448 1.342C15.802 13.715 13.81 14 12 14c-1.846 0-3.77-.282-5.442-1.103a1.017 1.017 0 0 1-.452-1.344a1.01 1.01 0 0 1 1.24-.489l.267.115l.244.097l.219.08l.26.086l.302.092l.34.091l.377.09l.411.082A12.4 12.4 0 0 0 12 12c1.516 0 3.169-.232 4.555-.895Z" />
                   </g>
                 </svg>
                 <span class="ms-3">Flotta</span>
@@ -251,8 +285,14 @@
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
                   <g fill="none">
-                    <path fill="white" d="M3.75 18a.75.75 0 0 0-1.5 0zm-1.5-4a.75.75 0 0 0 1.5 0zM7 8.75c.964 0 1.612.002 2.095.067c.461.062.659.169.789.3l1.06-1.062c-.455-.455-1.022-.64-1.65-.725c-.606-.082-1.372-.08-2.294-.08zM11.75 12c0-.922.002-1.688-.08-2.294c-.084-.628-.27-1.195-.726-1.65l-1.06 1.06c.13.13.237.328.3.79c.064.482.066 1.13.066 2.094zM7 7.25c-.922 0-1.688-.002-2.294.08c-.628.084-1.195.27-1.65.725l1.06 1.061c.13-.13.328-.237.79-.3c.482-.064 1.13-.066 2.094-.066zM3.75 12c0-.964.002-1.612.067-2.095c.062-.461.169-.659.3-.789l-1.062-1.06c-.455.455-.64 1.022-.725 1.65c-.082.606-.08 1.372-.08 2.294zm0 10v-4h-1.5v4zm0-8v-2h-1.5v2z" />
-                    <path stroke="white" stroke-linecap="round" stroke-width="1.5" d="M7 22v-6c0-1.886 0-2.828.586-3.414C8.172 12 9.114 12 11 12h2c1.886 0 2.828 0 3.414.586c.472.471.564 1.174.582 2.414M17 22v-2.75m4-11.478c0-1.34 0-2.011-.356-2.525c-.356-.514-.984-.75-2.24-1.22c-2.455-.921-3.682-1.381-4.543-.785C13 3.84 13 5.15 13 7.772V12m8 10V12M4 8V6.5c0-.943 0-1.414.293-1.707C4.586 4.5 5.057 4.5 6 4.5h2c.943 0 1.414 0 1.707.293C10 5.086 10 5.557 10 6.5V8M7 4V2m15 20H2m8-7h.5m3.5 0h-1.5M10 18h4" />
+                    <path
+                      fill="white"
+                      d="M3.75 18a.75.75 0 0 0-1.5 0zm-1.5-4a.75.75 0 0 0 1.5 0zM7 8.75c.964 0 1.612.002 2.095.067c.461.062.659.169.789.3l1.06-1.062c-.455-.455-1.022-.64-1.65-.725c-.606-.082-1.372-.08-2.294-.08zM11.75 12c0-.922.002-1.688-.08-2.294c-.084-.628-.27-1.195-.726-1.65l-1.06 1.06c.13.13.237.328.3.79c.064.482.066 1.13.066 2.094zM7 7.25c-.922 0-1.688-.002-2.294.08c-.628.084-1.195.27-1.65.725l1.06 1.061c.13-.13.328-.237.79-.3c.482-.064 1.13-.066 2.094-.066zM3.75 12c0-.964.002-1.612.067-2.095c.062-.461.169-.659.3-.789l-1.062-1.06c-.455.455-.64 1.022-.725 1.65c-.082.606-.08 1.372-.08 2.294zm0 10v-4h-1.5v4zm0-8v-2h-1.5v2z" />
+                    <path
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-width="1.5"
+                      d="M7 22v-6c0-1.886 0-2.828.586-3.414C8.172 12 9.114 12 11 12h2c1.886 0 2.828 0 3.414.586c.472.471.564 1.174.582 2.414M17 22v-2.75m4-11.478c0-1.34 0-2.011-.356-2.525c-.356-.514-.984-.75-2.24-1.22c-2.455-.921-3.682-1.381-4.543-.785C13 3.84 13 5.15 13 7.772V12m8 10V12M4 8V6.5c0-.943 0-1.414.293-1.707C4.586 4.5 5.057 4.5 6 4.5h2c.943 0 1.414 0 1.707.293C10 5.086 10 5.557 10 6.5V8M7 4V2m15 20H2m8-7h.5m3.5 0h-1.5M10 18h4" />
                   </g>
                 </svg>
                 <span class="ms-3">Cap Italiani</span>
@@ -264,7 +304,9 @@
                 [routerLink]="['/home/payments']"
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1rem" viewBox="0 0 640 512">
-                  <path fill="white" d="M535 41c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l64 64c4.5 4.5 7 10.6 7 17s-2.5 12.5-7 17l-64 64c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l23-23l-174-.2c-13.3 0-24-10.7-24-24s10.7-24 24-24h174.1zM105 377l-23 23h174c13.3 0 24 10.7 24 24s-10.7 24-24 24H81.9l23 23c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L7 441c-4.5-4.5-7-10.6-7-17s2.5-12.5 7-17l64-64c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM96 64h241.9c-3.7 7.2-5.9 15.3-5.9 24c0 28.7 23.3 52 52 52h117.4c-4 17 .6 35.5 13.8 48.8c20.3 20.3 53.2 20.3 73.5 0l19.3-19.3V384c0 35.3-28.7 64-64 64H302.1c3.7-7.2 5.9-15.3 5.9-24c0-28.7-23.3-52-52-52H138.6c4-17-.6-35.5-13.8-48.8c-20.3-20.3-53.2-20.3-73.5 0L32 342.5V128c0-35.3 28.7-64 64-64m64 64H96v64c35.3 0 64-28.7 64-64m384 192c-35.3 0-64 28.7-64 64h64zm-224 32a96 96 0 1 0 0-192a96 96 0 1 0 0 192" />
+                  <path
+                    fill="white"
+                    d="M535 41c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l64 64c4.5 4.5 7 10.6 7 17s-2.5 12.5-7 17l-64 64c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l23-23l-174-.2c-13.3 0-24-10.7-24-24s10.7-24 24-24h174.1zM105 377l-23 23h174c13.3 0 24 10.7 24 24s-10.7 24-24 24H81.9l23 23c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L7 441c-4.5-4.5-7-10.6-7-17s2.5-12.5 7-17l64-64c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM96 64h241.9c-3.7 7.2-5.9 15.3-5.9 24c0 28.7 23.3 52 52 52h117.4c-4 17 .6 35.5 13.8 48.8c20.3 20.3 53.2 20.3 73.5 0l19.3-19.3V384c0 35.3-28.7 64-64 64H302.1c3.7-7.2 5.9-15.3 5.9-24c0-28.7-23.3-52-52-52H138.6c4-17-.6-35.5-13.8-48.8c-20.3-20.3-53.2-20.3-73.5 0L32 342.5V128c0-35.3 28.7-64 64-64m64 64H96v64c35.3 0 64-28.7 64-64m384 192c-35.3 0-64 28.7-64 64h64zm-224 32a96 96 0 1 0 0-192a96 96 0 1 0 0 192" />
                 </svg>
                 <span class="ms-3">Pagamenti</span>
               </a>
@@ -275,7 +317,9 @@
                 [routerLink]="['/home/originalparts']"
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 512 512">
-                  <path fill="white" d="M255.99 8c-14.46 0-28.915 3.167-39.89 9.51L69.398 102.207c-21.941 12.675-39.89 43.754-39.89 69.084v169.42c0 25.336 17.949 56.425 39.89 69.094l146.704 84.714c10.974 6.324 25.436 9.482 39.89 9.482c14.465 0 28.928-3.158 39.889-9.482l146.723-84.714c21.935-12.669 39.89-43.758 39.89-69.094V171.29c0-25.33-17.955-56.41-39.89-69.084L295.89 17.511C284.916 11.167 270.456 8 255.99 8m-58.058 145.737L256 176.605l58.096-22.868l100.08 40.8l-58.068 22.857v100.098L256 358.272l-100.098-40.78V217.394l-58.087-22.858Zm-42.03 63.657L256 258.164l100.108-40.77L256 176.604Z" />
+                  <path
+                    fill="white"
+                    d="M255.99 8c-14.46 0-28.915 3.167-39.89 9.51L69.398 102.207c-21.941 12.675-39.89 43.754-39.89 69.084v169.42c0 25.336 17.949 56.425 39.89 69.094l146.704 84.714c10.974 6.324 25.436 9.482 39.89 9.482c14.465 0 28.928-3.158 39.889-9.482l146.723-84.714c21.935-12.669 39.89-43.758 39.89-69.094V171.29c0-25.33-17.955-56.41-39.89-69.084L295.89 17.511C284.916 11.167 270.456 8 255.99 8m-58.058 145.737L256 176.605l58.096-22.868l100.08 40.8l-58.068 22.857v100.098L256 358.272l-100.098-40.78V217.394l-58.087-22.858Zm-42.03 63.657L256 258.164l100.108-40.77L256 176.604Z" />
                 </svg>
                 <span class="ms-3">Parti Originali</span>
               </a>
@@ -286,23 +330,14 @@
                 [routerLink]="['/home/firstplants']"
                 class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="0.88rem" height="1rem" viewBox="0 0 448 512">
-                  <path fill="white" d="M48 32C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm175.994 64c9.333 0 18.66 2.044 25.74 6.137l94.655 54.64c14.151 8.178 25.736 28.229 25.736 44.57V310.65c0 16.347-11.585 36.405-25.736 44.579l-94.66 54.654c-7.072 4.08-16.402 6.117-25.735 6.117c-9.324 0-18.656-2.037-25.736-6.117l-94.647-54.654c-14.155-8.174-25.736-28.232-25.736-44.579V201.348c0-16.342 11.58-36.393 25.736-44.57l94.647-54.641c7.08-4.093 16.407-6.137 25.736-6.137m-37.457 94.023l-64.592 26.323l37.475 14.748L224 204.777zM224 204.777l64.586 26.317l37.463-14.748l-64.569-26.323zm64.586 26.317L224 257.396l-64.58-26.302v64.578l64.58 26.31l64.586-26.31z" />
+                  <path
+                    fill="white"
+                    d="M48 32C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm175.994 64c9.333 0 18.66 2.044 25.74 6.137l94.655 54.64c14.151 8.178 25.736 28.229 25.736 44.57V310.65c0 16.347-11.585 36.405-25.736 44.579l-94.66 54.654c-7.072 4.08-16.402 6.117-25.735 6.117c-9.324 0-18.656-2.037-25.736-6.117l-94.647-54.654c-14.155-8.174-25.736-28.232-25.736-44.579V201.348c0-16.342 11.58-36.393 25.736-44.57l94.647-54.641c7.08-4.093 16.407-6.137 25.736-6.137m-37.457 94.023l-64.592 26.323l37.475 14.748L224 204.777zM224 204.777l64.586 26.317l37.463-14.748l-64.569-26.323zm64.586 26.317L224 257.396l-64.58-26.302v64.578l64.58 26.31l64.586-26.31z" />
                 </svg>
                 <span class="ms-3">Primi Impianti</span>
               </a>
             </li>
 
-            <li *ngIf="checkModuleExactlyInArray('resources', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/resources')">
-              <a
-                [routerLink]="['/home/resources']"
-                class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
-                  <path fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5m-4-9v4M8 3v4m-4 4h16m-2.999 8a2 2 0 1 0 4 0a2 2 0 1 0-4 0m2-3.5V17m0 4v1.5m3.031-5.25l-1.299.75m-3.463 2l-1.3.75m0-3.5l1.3.75m3.463 2l1.3.75" />
-                </svg>
-                <span class="ms-3">Flotta/Fitters</span>
-              </a>
-            </li>
-            
             <li *ngIf="checkModuleExactlyInArray('templates', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/templates')">
               <a
                 [routerLink]="['/home/templates']"
@@ -312,6 +347,18 @@
                   <path fill="white" d="M6 4h12v2H6zm0 4h7v2H6zm2 12h8l-4-3zm11-1v-6l-5 3zM6 13v6l4-3zm10-1H8l4 3z" />
                 </svg>
                 <span class="ms-3">Modelli</span>
+              </a>
+            </li>
+
+            <li *ngIf="checkModuleExactlyInArray('brandsAndModels', modulesEnabled)" [class.bg-gray-400]="isActiveRoute('/home/brandsAndModels')">
+              <a
+                [routerLink]="['/home/brandsAndModels']"
+                class="flex items-center w-full p-2 pl-5 text-gray-900 transition duration-75 group hover:bg-gray-300 dark:text-white dark:hover:bg-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24">
+                  <path fill="white" d="M20 0H4a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 22H4V2h16Z" />
+                  <path fill="white" d="M6 4h12v2H6zm0 4h7v2H6zm2 12h8l-4-3zm11-1v-6l-5 3zM6 13v6l4-3zm10-1H8l4 3z" />
+                </svg>
+                <span class="ms-3">Marche/Modelli</span>
               </a>
             </li>
 
@@ -326,16 +373,13 @@
                 <span class="ms-3">Prodotti</span>
               </a>
             </li>-->
-
           </ul>
         </li>
-        
-       
       </ul>
     </div>
   </aside>
 
-  <div class="xs:ml-0 sm:ml-0 md:ml-56 xl:lg-56 ">
+  <div class="xs:ml-0 sm:ml-56 md:ml-56 xl:xl:ml-56">
     <router-outlet></router-outlet>
   </div>
 </div>

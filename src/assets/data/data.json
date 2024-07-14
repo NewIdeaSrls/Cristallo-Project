@@ -1,0 +1,95 @@
+{
+  "success"   : true,
+  "resources" : {
+    "rows" : [ 
+      {
+        "id"         : "1",
+        "name"       : "CATERINO GIUSEPPE",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "2",
+        "name"       : "GAZZA RICCARDO",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "3",
+        "name"       : "GAZZA RICCARDO",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "4",
+        "name"       : "ILARDI SANTO",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "5",
+        "name"       : "LOVESIO KENNY",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "6",
+        "name"       : "TRAPANOTTO SAMUEL",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "7",
+        "name"       : "MARGARIA PAOLO",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "8",
+        "name"       : "TERNAVASIO MATTEO ",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      }, 
+      {
+        "id"         : "9",
+        "name"       : "CELIS SALAZAR OSCAR",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "10",
+        "name"       : "LEONE ALESSANDRO",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "11",
+        "name"       : "OSCURAMENTO",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      },
+      {
+        "id"         : "12",
+        "name"       : "PALERMO MAURIZIO",
+        "type"       : "unavailable",
+        "eventColor" : "red",
+        "showImage"  : false
+      }
+    ]
+  },
+  "events" : {
+    "rows" : [
+    ]
+  }
+}
