@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    initFlowbite();
+    //initFlowbite();
     initTE({ Sidenav, Collapse, Dropdown });
     this.fetchMenu();
   }

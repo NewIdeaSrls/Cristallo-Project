@@ -158,12 +158,12 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
       },
-      {
+      /*{
         path: 'resources',
         component: ResourcesComponent,
         canActivate: [authGuard, roleGuard],
         data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
-      },
+      },*/
       {
         path: 'templates',
         component: TemplatesComponent,

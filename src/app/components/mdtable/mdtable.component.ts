@@ -171,7 +171,7 @@ export class MDTableComponent implements OnInit, AfterViewInit, OnChanges {
     
     
     const dialogRef = this.dialog.open(DialogShowComponent, {
-      width: '70%',
+      width: '100%',
       data: {title: "Dettaglio",datatoshow: this.expandedElement, columnsOrder:this.datashow}
     });
 

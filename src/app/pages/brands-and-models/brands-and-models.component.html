@@ -1,7 +1,12 @@
 <div class="w-full">
-    <div class="flex p-4">
-      <mat-icon>storage</mat-icon>
-      <span class="px-1 text-lg font-bold text-decoration-line">MARCHE/MODELLI</span>
-    </div>
-    <hr />
+  <div class="flex p-4">
+    <mat-icon>storage</mat-icon>
+    <span class="px-1 text-lg font-bold text-decoration-line">MARCHE/MODELLI</span>
   </div>
+  <hr />
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+  </form>
+  
+  <pre>{{ model | json }}</pre>
+</div>
