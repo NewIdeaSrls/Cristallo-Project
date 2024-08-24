@@ -19,6 +19,7 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { VehiclesComponent } from './pages/vehicles/vehicles.component';
 import { PracticesComponent } from './pages/practices/practices.component';
+import { PracticeDetailComponent } from './pages/practice-detail/practice-detail.component';
 import { CalendarsComponent } from './pages/calendars/calendars.component';
 import { AccountingComponent } from './pages/accounting/accounting.component';
 import { SuppliersComponent } from './pages/suppliers/suppliers.component';
@@ -105,6 +106,12 @@ export const routes: Routes = [
         data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
       },
       {
+        path: 'practice-detail',
+        component: PracticeDetailComponent,
+        canActivate: [authGuard],
+        data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
+      },
+      {
         path: 'practices',
         component: PracticesComponent,
         canActivate: [authGuard],
@@ -158,12 +165,12 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
       },
-      /*{
+      {
         path: 'resources',
         component: ResourcesComponent,
         canActivate: [authGuard, roleGuard],
         data: { expectedRoles: ['ADMIN', 'USER', 'ACCOUNTING', 'MANAGER'] },
-      },*/
+      },
       {
         path: 'templates',
         component: TemplatesComponent,

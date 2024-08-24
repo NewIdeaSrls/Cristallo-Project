@@ -34,6 +34,7 @@
     "ngrx-store-localstorage": "^16.1.0",
     "ngx-cookie-service": "^17.0.1",
     "ngx-toastr": "^18.0.0",
+    "pdf-lib": "^1.17.1",
     "rxjs": "~7.8.0",
     "saturn-datepicker": "^8.0.5",
     "tslib": "^2.3.0",

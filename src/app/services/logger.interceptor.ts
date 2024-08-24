@@ -21,7 +21,7 @@ export const loggerInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next
       sessionStorage.removeItem('email');
       router.navigateByUrl('/login');
     } else {
-      console.log('Inject Token');
+      //console.log('Inject Token');
       req = req.clone({
         url: req.url,
         setHeaders: {

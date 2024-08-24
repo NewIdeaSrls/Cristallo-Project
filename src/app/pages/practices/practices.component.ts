@@ -499,7 +499,7 @@ export class PracticesComponent implements OnInit {
 /*****************************************************************************/
   getPractices() {
     this.getFromRestapi(
-      'pratiche',
+      'practices',
       undefined, // id
       ['*.*'], // fields es. ["companyName"] or ["*.*"]
       undefined, // filter
@@ -517,11 +517,12 @@ export class PracticesComponent implements OnInit {
     if (eventData.actionRequest == 'open') {
       this.selectedObj = eventData.element;
       this.formData = eventData.element;
-      this.draweredit.toggle();
+      this.router.navigate(['home/practice-detail'], { queryParams: { practice : this.selectedObj.id } });
+      //this.draweredit.toggle();
     }
     if (eventData.actionRequest == 'add') {
       //this.formData = new NewCustomer();
-      this.draweradd.toggle();
+      //this.draweradd.toggle();
     }
     if (eventData.actionRequest == 'delete') {
       this.selectedObj = eventData.element;

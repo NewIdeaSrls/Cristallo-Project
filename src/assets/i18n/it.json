@@ -155,5 +155,18 @@
     "fitterIdentityDoc_insert_label" : "Documento",
     "fitterStartEmployment_placeholder" : "Data Assunzione",
     "fitterStartEmployment_description" : "Data",
-    "fitterStartEmployment_insert_label" : "Data Assunzione"
+    "fitterStartEmployment_insert_label" : "Data Assunzione",
+    "FILE_UPLOAD" : "CARICAMENTO IMMAGINI",
+    "name":"METTI IL NOME",
+    "FORM.VALIDATION.REQUIRED": "Campo obbligatorio per salvataggio",
+    "surname":"Soparannome",
+    "FIRST_ACCORDION": "PRIMO PANNELLO",
+    "SECOND_ACCORDION": "secondo PANNELLO",
+    "Documents":" DOCUMENTI",
+    "FILE_NAME":"nome del file",
+    "FILE_REMOVE_ALL":"Rimuovi tutti i file caricati",
+    "FILE_REMOVE_SINGLE": "sssssssss",
+    "multicheckbox": "Seleciona qualcosa",
+    "Option_1" : "Prima opzione",
+    "Option_2" : "Seconda Opzione"
 }

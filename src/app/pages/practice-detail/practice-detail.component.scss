@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+  }
+
+.columns-container {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    visibility: hidden;
+    bottom: 0px;
+    position: absolute;
+    overflow: auto;
+  }
+  
+.columns-sidenav{
+    padding: 15px;
+  }
+
+  mat-drawer-container { flex: 1 1 auto; }
+
+  .mat-mdc-raised-button {
+    --mdc-protected-button-container-height: 28px;
+}
+

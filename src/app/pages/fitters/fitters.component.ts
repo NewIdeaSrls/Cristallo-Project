@@ -13,7 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { NgxTranslateModule } from '../../translation.module';
+import { NgxTranslateModule } from '../..//translation.module';
 import { FormsModule } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { MatSidenavModule, MAT_DRAWER_DEFAULT_AUTOSIZE } from '@angular/material/sidenav';
@@ -237,7 +237,7 @@ export class FittersComponent implements OnInit {
           type: 'input',
           templateOptions: {
             translate: true,
-            label: '',
+            label: 'fitterDescription_description',
             placeholder: '',
             required: false,
             description: '',

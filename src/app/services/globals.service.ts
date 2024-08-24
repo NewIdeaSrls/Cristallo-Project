@@ -89,7 +89,7 @@ export class GlobalService {
     let params = new HttpParams();
     let tofilter: any = filter;
 
-    console.log(this.prefixUrl + collection);
+    //console.log(this.prefixUrl + collection);
 
     if (fields) params = params.set('fields', fields.join(','));
     if (order) params = params.set('sort', order.join(','));
@@ -113,7 +113,7 @@ export class GlobalService {
         }
       }
 
-      console.log(params);
+      //console.log(params);
       return this.http.get<any[]>(this.prefixUrl + collection, { params: params }).pipe(catchError(this.handleError));
     }
   }

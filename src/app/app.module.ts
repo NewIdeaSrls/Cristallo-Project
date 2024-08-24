@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormlyModule } from '@ngx-formly/core';
@@ -13,10 +12,11 @@ import { FormlyMatTextAreaModule } from '@ngx-formly/material/textarea';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { FormlyMatInputModule } from '@ngx-formly/material/input';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
+import { FORMLY_CONFIG } from '@ngx-formly/core';
 import { FormlyFieldTabs } from './tabs.type';
-import { ObjectTypeComponent } from './obje.ct.type';
+import { ObjectTypeComponent } from './object.type';
 import { NullTypeComponent } from './null.type';
-import { FileUploadFieldComponent  } from './file-type.component';
+import { FileUploadFieldComponent } from './file-type.component';
 import { AccordionTypeComponent } from './accordions.type';
 import { AutocompleteTypeComponent } from './autocomplete-type.component';
 import { ViewportService } from './services/viewport.service';
@@ -27,7 +27,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -68,10 +68,36 @@ import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxTranslateModule } from './translation.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateService } from '@ngx-translate/core';
+import { registerTranslateExtension } from './translate.extension';
+import { FormlyWrapperCard } from './panel.wrapper.component';
+
+import { FormlyWrapperAddons } from './addon.wrapper';
+import { addonsExtension } from './addon.extension';
+import { AutocompleteTypeButtonComponent } from './autocomplete-type-button.component';
+import { TypeheadSelectComponent } from './selectwithsearch.type.component';
+import { MatFormFieldControl } from '@angular/material/form-field';
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
-    FileUploadFieldComponent,FormlyFieldTabs,AutocompleteTypeComponent,AccordionTypeComponent,ObjectTypeComponent,NullTypeComponent],
+    FileUploadFieldComponent,
+    FormlyFieldTabs,
+    AutocompleteTypeComponent,
+    AutocompleteTypeButtonComponent,
+    AccordionTypeComponent,
+    ObjectTypeComponent,
+    NullTypeComponent,
+    FormlyWrapperCard,
+    FormlyWrapperAddons,
+    TypeheadSelectComponent
+  ],
   exports: [
     CommonModule,
     NgxTranslateModule,
@@ -132,8 +158,9 @@ import { NgxTranslateModule } from './translation.module';
     FormlyMatToggleModule,
     FormlyMatInputModule,
     FormlyMatSliderModule,
+    MatFormFieldModule,
     FormlyModule,
-    FormlyModule],
+  ],
   imports: [
     CommonModule,
     NgxTranslateModule,
@@ -194,30 +221,54 @@ import { NgxTranslateModule } from './translation.module';
     FormlyMatToggleModule,
     FormlyMatInputModule,
     FormlyMatSliderModule,
-    FormlyModule,
+    MatFormFieldModule,
     FormlyModule.forRoot({
       validationMessages: [{ name: 'required', message: 'Campo obbligatorio' }],
+      wrappers: [
+        { name: 'card', component: FormlyWrapperCard },
+        { name: 'addons', component: FormlyWrapperAddons },
+      ],
+      extensions: [{ name: 'addons', extension: { onPopulate: addonsExtension } }],
       types: [
-        { name: 'tabs', component: FormlyFieldTabs },
-        { name: 'object', component: ObjectTypeComponent },
         {
-          name: 'null',
-          component: NullTypeComponent,
-          wrappers: ['form-field'],
+          name: 'typehead-select',
+          component: TypeheadSelectComponent
         },
-        { name: 'file-upload', component: FileUploadFieldComponent},
-        { name: 'accordion', component: AccordionTypeComponent},
         {
           name: 'autocomplete',
           component: AutocompleteTypeComponent,
           wrappers: ['form-field'],
         },
+        {
+          name: 'autocompletebutton',
+          component:  AutocompleteTypeButtonComponent,
+          wrappers: ['form-field'],
+        },
+        {
+          name: 'null',
+          component: NullTypeComponent,
+          wrappers: ['form-field'],
+        },
+        { name: 'tabs', component: FormlyFieldTabs },
+        { name: 'object', component: ObjectTypeComponent },
+        { name: 'file-upload', component: FileUploadFieldComponent },
+        { name: 'accordion', component: AccordionTypeComponent },
+        
       ],
     }),
-    
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
-  providers: [ViewportService],
-  bootstrap: []
+    providers: [ViewportService, {
+      provide: MatFormFieldControl,
+      useExisting: TypeheadSelectComponent,
+    },{ provide: FORMLY_CONFIG, multi: true, useFactory: registerTranslateExtension, deps: [TranslateService] }],
+  bootstrap: [],
 })
-
-export class AppModule { }
+export class AppModule {}

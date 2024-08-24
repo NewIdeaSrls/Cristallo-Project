@@ -2,19 +2,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { ElementRef } from '@angular/core';
-import { MatTable } from '@angular/material/table';
-
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { ChangeDetectorRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
-//import { PDFDocument } from 'pdf-lib';
+import { PDFDocument } from 'pdf-lib';
 
-import {
-  HttpClient,
-  HttpParams,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { data } from 'jquery';
@@ -22,15 +17,10 @@ import { data } from 'jquery';
 @Component({
   selector: 'app-file-upload-field',
   template: `
-    <div
-      class="upload-wrapper"
-      (dragover)="onDragOver($event)"
-      (drop)="onDrop($event)"
-    >
+    <div class="upload-wrapper" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
       <div class="file-container">
-        <!--
-        # show preview #
-        <div class="file" *ngFor="let file of selectedFiles; let i = index">
+        <!--# show preview #-->
+        <!--<div class="file" *ngFor="let file of selectedFiles; let i = index">
           <img [src]="getSanitizedImageUrl(file)" />
           <span class="delete-button" (click)="onDelete(i)">X</span>
         </div>-->
@@ -49,109 +39,85 @@ import { data } from 'jquery';
           type="file"
           [formlyAttributes]="field"
           (change)="onChange($event)"
-          accept=".png,.jpg"
-          style="display: none"
-        />
+          accept=".pdf,.png,.jpg"
+          style="display: none" />
       </div>
     </div>
-    <div>
-      <button
-        mat-icon-button
-        (click)="mergeFiles($event)"
-        matTooltip="Generate Pdf of selected"
-      >
-        <mat-icon>picture_as_pdf</mat-icon>
-      </button>
+    <div></div>
+    <div class="table-container mat-elevation-z8">
+      <table #table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <button mat-icon-button (click)="mergeFiles($event)" matTooltip="Generate Pdf of selected">
+              <mat-icon>picture_as_pdf</mat-icon>
+            </button>
+            <!--<mat-checkbox (change)="masterToggle()"></mat-checkbox>-->
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (change)="$event ? selectIt(row) : null" [checked]="selection.isSelected(row)"></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>id</th>
+          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="date_created">
+          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_DATE' | translate}}</th>
+          <td mat-cell *matCellDef="let row">
+            <!--{{ row.date_created | date : 'yyyy/MM/dd HH:mm' }}-->
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fileName">
+          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_NAME' | translate}}</th>
+          <td mat-cell *matCellDef="let row">{{ row.fileName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fileMime">
+          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_MIME' | translate}}</th>
+          <td mat-cell *matCellDef="let row">{{ row.fileMime }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fileSize">
+          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_SIZE' | translate}}</th>
+          <td mat-cell *matCellDef="let row">{{ row.fileSize }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="remove">
+          <th mat-header-cell *matHeaderCellDef>
+            <button mat-icon-button (click)="removeAll($event)" matTooltip="{{ 'FILE_REMOVE_ALL' | translate }}">
+              <mat-icon>clear_all</mat-icon>
+            </button>
+          </th>
+          <td mat-cell *matCellDef="let score; let i = index">
+            <button mat-icon-button (click)="remove($event)" matTooltip="{{ 'FILE_REMOVE_SINGLE' | translate}}">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let file; columns: displayedColumns"></tr>
+      </table>
     </div>
-    <table mat-table [dataSource]="files" class="mat-elevation-z8">
-      <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="masterToggle()"></mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <mat-checkbox
-            (change)="$event ? selectIt(row) : null"
-            [checked]="selection.isSelected(row)"
-          >
-          </mat-checkbox>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>id</th>
-        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="date_created">
-        <th mat-header-cell *matHeaderCellDef>Date</th>
-        <td mat-cell *matCellDef="let row">
-          <!--{{ row.date_created | date : 'yyyy/MM/dd HH:mm' }}-->
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="fileName">
-        <th mat-header-cell *matHeaderCellDef>Nome file</th>
-        <td mat-cell *matCellDef="let row">{{ row.fileName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="fileMime">
-        <th mat-header-cell *matHeaderCellDef>Tipo</th>
-        <td mat-cell *matCellDef="let row">{{ row.fileMime }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="fileSize">
-        <th mat-header-cell *matHeaderCellDef>Dimensione</th>
-        <td mat-cell *matCellDef="let row">{{ row.fileSize }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="remove">
-        <th mat-header-cell *matHeaderCellDef>
-          <button
-            mat-icon-button
-            (click)="removeAll($event)"
-            matTooltip="Remove all files"
-          >
-            <mat-icon>clear_all</mat-icon>
-          </button>
-        </th>
-        <td mat-cell *matCellDef="let score; let i = index">
-          <button
-            mat-icon-button
-            (click)="remove($event)"
-            matTooltip="Remove this file"
-          >
-            <mat-icon>clear</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let file; columns: displayedColumns"></tr>
-    </table>
+    <mat-paginator #paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons></mat-paginator>
   `,
   styleUrls: ['./file-type.component.scss'],
 })
-export class FileUploadFieldComponent
-  extends FieldType
-  implements OnInit, AfterViewInit
-{
+export class FileUploadFieldComponent extends FieldType implements OnInit, AfterViewInit {
   @ViewChild('fileinput') el!: ElementRef;
-  @ViewChild(MatTable) table!: MatTable<any>;
+  @ViewChild('table') table!: MatTable<any>;
+  @ViewChild('paginator') paginator!: MatPaginator;
 
+  dataSource: any;
   selectedFiles: File[] = [];
   files!: any[];
   selection = new SelectionModel<any>(true, []);
   image: any;
 
-  displayedColumns: string[] = [
-    'select',
-    'id',
-    'date_created',
-    'fileName',
-    'fileMime',
-    'fileSize',
-    'remove',
-  ];
+  displayedColumns: string[] = ['select', 'id', 'date_created', 'fileName', 'fileMime', 'fileSize', 'remove'];
 
   constructor(
     private http: HttpClient,
@@ -182,9 +148,7 @@ export class FileUploadFieldComponent
   /*######################################################*/
 
   masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.files.forEach((row) => this.selection.select(row));
+    this.isAllSelected() ? this.selection.clear() : this.files.forEach(row => this.selection.select(row));
     console.log(this.selection.selected);
   }
 
@@ -232,7 +196,7 @@ export class FileUploadFieldComponent
   async inserimentoMassivo() {
     if (this.selectedFiles.length > 0) {
       console.log(this.selectedFiles);
-      this.selectedFiles.forEach(async (file) => {
+      this.selectedFiles.forEach(async file => {
         try {
           console.log(file);
 
@@ -247,9 +211,7 @@ export class FileUploadFieldComponent
             fileData: dataBase64,
           };
 
-          const response = await this.http
-            .post('/api/items/documentsRepository', dataToSend)
-            .toPromise();
+          const response = await this.http.post('/api/items/documentsRepository', dataToSend).toPromise();
           if (!response) {
             throw new Error("Errore durante l'inserimento del file");
           } else {
@@ -265,12 +227,11 @@ export class FileUploadFieldComponent
 
   async reloaddata() {
     try {
-      const response = await this.http
-        .get<any>('/api/items/documentsRepository')
-        .toPromise();
+      const response = await this.http.get<any>('/api/items/documentsRepository').toPromise();
       this.files = (response as any)['data'];
-      this.table.dataSource = this.files;
       console.log('ReadAll files from Backend');
+      this.dataSource = new MatTableDataSource<any>(this.files);
+      this.dataSource.paginator = this.paginator;
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Error retrieving documents:', error);
@@ -289,107 +250,10 @@ export class FileUploadFieldComponent
         }
       };
 
-      reader.onerror = (error) => reject(error);
+      reader.onerror = error => reject(error);
       reader.readAsArrayBuffer(file);
     });
   }
-
-  /*async uploadFilesToApi() {
-    console.log(this.selectedFiles);
-    console.log(this.selectedFiles.length);
-
-    if (this.selectedFiles.length > 0) {
-      const uploadPromises = Array.from(this.selectedFiles).map((file) => {
-        return new Promise<void>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const blobData = new Blob([reader.result as ArrayBuffer]);
-            const identifier = 'test';
-            try {
-              this.uploadFileToApi(
-                blobData,
-                file.name,
-                file.size,
-                file.type,
-                identifier
-              );
-              resolve(); // Resolve after successful upload
-            } catch (error) {
-              reject(error); // Reject if upload fails
-            }
-          };
-          reader.readAsArrayBuffer(file);
-        });
-      });
-
-      try {
-        // Waiting for all upload promises to complete before continuing
-        await Promise.all(uploadPromises);
-        console.log('All files uploaded successfully');
-      } catch (error) {
-        console.error('Error uploading files:', error);
-      }
-    } else {
-      console.log('No files selected for upload');
-    }
-  }*/
-
-  /*async uploadFileToApi(
-    blob: Blob,
-    name: string,
-    size: number,
-    type: string,
-    identifier: string
-  ) {
-    const reader = new FileReader();
-
-    return new Promise((resolve, reject) => {
-      reader.onload = () => {
-        const base64String = (reader.result as string).split(',')[1];
-
-        const fileData = {
-          fileName: name,
-          fileSize: size,
-          fileMime: type,
-          fileReferer: identifier,
-          fileData: base64String,
-        };
-
-        console.log(base64StringToBlob(base64String, type));
-
-        try {
-          this.http.post<any>('/items/documentsRepository', fileData).subscribe(
-            (response) => {
-              resolve(response);
-            },
-            (error) => {
-              console.error('Error uploading file:', error);
-              reject(error);
-            }
-          );
-        } catch (error) {
-          console.error('Error uploading file:', error);
-          reject(error);
-        }
-      };
-
-      reader.readAsDataURL(blob);
-      this.cdr.detectChanges();
-    });*/
-  /*
-    function base64StringToBlob(base64String: string, type: string): Blob {
-      const byteCharacters = atob(base64String);
-      const byteNumbers = new Array(byteCharacters.length);
-
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-
-      return new Blob([byteArray], { type: type });
-    }
-  }*/
 
   // Handle dragover event
   onDragOver(event: DragEvent): void {
@@ -423,17 +287,13 @@ export class FileUploadFieldComponent
       this.selectedFiles = Array.from(event.dataTransfer?.files || []);
       this.inserimentoMassivo();
     } else {
-      this.selectedFiles = Array.from(
-        (event.target as HTMLInputElement).files || []
-      );
+      this.selectedFiles = Array.from((event.target as HTMLInputElement).files || []);
       this.inserimentoMassivo();
     }
   }
 
   getSanitizedImageUrl(file: File) {
-    return this.sanitizer.bypassSecurityTrustUrl(
-      window.URL.createObjectURL(file)
-    );
+    return this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
   }
   isImage(file: File): boolean {
     return /^image\//.test(file.type);

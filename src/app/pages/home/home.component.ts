@@ -85,13 +85,14 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //initFlowbite();
-    initTE({ Sidenav, Collapse, Dropdown });
-    this.fetchMenu();
+   
   }
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit - called after the component’s view (and child views) has been initialized');
+    initFlowbite();
+    initTE({ Sidenav, Collapse, Dropdown });
+    this.fetchMenu();
+    //console.log('ngAfterViewInit - called after the component’s view (and child views) has been initialized');
   }
 
   reloadComponent() {
@@ -182,6 +183,7 @@ export class HomeComponent implements OnInit {
           undefined // search search in all fields and all records
         )
         .subscribe((modules: any) => {
+          console.log(modules['data'][0])
           resultModulesEnabled(modules['data'][0]);
         });
 
@@ -196,7 +198,7 @@ export class HomeComponent implements OnInit {
   public checkModuleExactlyInArray(moduleName: string, modulesEnabled: string[]): boolean {
     for (let i = 0; i < modulesEnabled.length; i++) {
         if (modulesEnabled[i] === moduleName) {
-            //console.log(modulesEnabled[i], moduleName)
+            console.log(modulesEnabled[i], moduleName)
             return true;
         } 
     }

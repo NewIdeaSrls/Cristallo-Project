@@ -6,7 +6,7 @@ import { distinctUntilChanged, startWith, switchMap, debounceTime } from 'rxjs/o
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
-  selector: 'formly-autocomplete-type',
+  selector: 'formly-autocomplete-button-type',
   template: `
     <input matInput [matAutocomplete]="auto" [formControl]="formControl" [formlyAttributes]="field" [placeholder]="to.placeholder!" />
     <!--<mat-icon matSuffix class="absolute top-5 right-0 text-black hover:text-red-500">queue</mat-icon>-->
@@ -15,9 +15,30 @@ import { ErrorStateMatcher } from '@angular/material/core';
         {{ option }}
       </mat-option>
     </mat-autocomplete>
+    <button mat-button type="button" class="autocompletebutton-position" (click)="to['onButtonClick']($event)">{{ to['actionLabel']}}</button>
   `,
-})
-export class AutocompleteTypeComponent extends FieldType<FieldTypeConfig> implements OnInit {
+  styles: [`
+    .autocompletebutton-position {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 64px;
+    border: none;
+    outline: azure;
+    line-height: inherit;
+    user-select: none;
+    -webkit-appearance: none;
+    overflow: visible;
+    vertical-align: middle;
+    background: rgba(0, 0, 0, 0);
+    right: 0px;
+    top: 10px;
+  }
+  `],
+  })
+export class AutocompleteTypeButtonComponent extends FieldType<FieldTypeConfig> implements OnInit {
   
   filter!: Observable<any>;
 

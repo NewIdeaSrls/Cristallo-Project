@@ -1,0 +1,18 @@
+<div class="w-full">
+  <div class="flex p-4">
+    <mat-icon>storage</mat-icon>
+    <span class="px-1 text-lg font-bold text-decoration-line">DETTAGLIO PRATICA</span>
+    <div>
+      <div class="mt-3 ml-auto">
+        <button class="flex mr-2" mat-raised-button color="primary" (click)="submitdata($event)" *ngIf="form" [disabled]="!form || !form.valid">
+          Submit
+        </button>
+      </div>
+    </div>
+    <hr />
+  </div>
+  <hr>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+  </form>
+</div>
