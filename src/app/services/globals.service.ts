@@ -5,6 +5,7 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular
 import { ToastrService } from 'ngx-toastr';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+import { data } from 'jquery';
 
 @Injectable({
   providedIn: 'root',
@@ -85,7 +86,7 @@ export class GlobalService {
     page?: number,
     offset?: number,
     search?: string
-  ): Observable<any> {
+  ){
     let params = new HttpParams();
     let tofilter: any = filter;
 
@@ -99,7 +100,7 @@ export class GlobalService {
     if (search) params = params.set('search', search.toString());
 
     if (id) {
-      console.log(params);
+      //console.log(params);
       return this.http.get<any[]>(this.prefixUrl + collection + `/${id}`).pipe(catchError(this.handleError));
     } else {
       if (tofilter) {

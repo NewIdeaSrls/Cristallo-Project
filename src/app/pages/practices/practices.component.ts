@@ -328,7 +328,7 @@ export class PracticesComponent implements OnInit {
                 required: false,
               },
             },
-            {
+            /*{
               key: 'Autocomplete',
               type: 'autocomplete',
               templateOptions: {
@@ -339,7 +339,7 @@ export class PracticesComponent implements OnInit {
                 placeholder: 'Search...',
                 filter: (input: any) => of(this.filteredData(input)),
               },
-            },
+            },*/
           ],
         },
       ],

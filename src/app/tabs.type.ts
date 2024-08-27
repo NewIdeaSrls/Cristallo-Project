@@ -76,9 +76,47 @@ export class FormlyFieldTabs extends FieldType {
     },
   ];
 
-  enableTabsOn(t: any) {
-    //console.log(t.fieldGroup);
-    return true;
+  enableTabsOn(typeTab: any) {
+    console.log(typeTab.props.label);
+    console.log(this.model.practiceType);
+    switch (this.model.practiceType) {
+      case 'insurance':
+        return true;
+        break;
+      case 'point':
+        if (typeTab.props.label == 't_insurance') return false;
+        if (typeTab.props.label == 't_feasibility') return false;
+        if (typeTab.props.label == 't_intermediary') return false;
+        if (typeTab.props.label == 't_appointment') return false;
+        if (typeTab.props.label == 't_activityPlanning') return false;
+        break;
+      case 'laboronly':
+        if (typeTab.props.label == 't_insurance') return false;
+        if (typeTab.props.label == 't_feasibility') return false;
+        if (typeTab.props.label == 't_intermediary') return false;
+        break;
+      case 'preventive':
+        if (typeTab.props.label == 't_insurance') return false;
+        if (typeTab.props.label == 't_feasibility') return false;
+        if (typeTab.props.label == 't_intermediary') return false;
+        if (typeTab.props.label == 't_activityPlanning') return false;
+        break;
+      case 'sale':
+        if (typeTab.props.label == 't_insurance') return false;
+        if (typeTab.props.label == 't_feasibility') return false;
+        if (typeTab.props.label == 't_intermediary') return false;
+        if (typeTab.props.label == 't_appointment') return false;
+        if (typeTab.props.label == 't_activityPlanning') return false;
+        if (typeTab.props.label == 't_vehicle') return false;
+        break;
+      case 'darkering':
+        if (typeTab.props.label == 't_insurance') return false;
+        if (typeTab.props.label == 't_feasibility') return false;
+        if (typeTab.props.label == 't_intermediary') return false;
+        if (typeTab.props.label == 't_appointment') return false;
+        break;
+    }
+    return true
   }
 
   submitdata($event: Event, form: any) {

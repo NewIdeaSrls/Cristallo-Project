@@ -2,7 +2,8 @@
     "liveServer.settings.multiRootWorkspaceName": "cristallo-git",
     "CodeGPT.apiKey": "CodeGPT Plus Beta",
     "rainbow_csv.enable_sticky_header": false,
-    "editor.hover.sticky": false,
+    "editor.hover.sticky": true,
     "workbench.tree.enableStickyScroll": false,
-    "livePreview.defaultPreviewPath": "/src/app/components/mdtable/mdtable.component.html"
+    "livePreview.defaultPreviewPath": "/src/app/components/mdtable/mdtable.component.html",
+    "console-ninja.allowConsoleLogToTriggerPredictions": false
 }

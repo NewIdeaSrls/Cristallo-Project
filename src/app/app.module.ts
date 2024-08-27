@@ -78,8 +78,9 @@ import { FormlyWrapperCard } from './panel.wrapper.component';
 import { FormlyWrapperAddons } from './addon.wrapper';
 import { addonsExtension } from './addon.extension';
 import { AutocompleteTypeButtonComponent } from './autocomplete-type-button.component';
-import { TypeheadSelectComponent } from './selectwithsearch.type.component';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { HeadTypeComponent } from './typhead.type';
+import { ButtonComponent } from './button.type.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -96,9 +97,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     NullTypeComponent,
     FormlyWrapperCard,
     FormlyWrapperAddons,
-    TypeheadSelectComponent
+    HeadTypeComponent,
+    ButtonComponent
   ],
   exports: [
+    
     CommonModule,
     NgxTranslateModule,
     ReactiveFormsModule,
@@ -162,6 +165,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FormlyModule,
   ],
   imports: [
+
     CommonModule,
     NgxTranslateModule,
     ReactiveFormsModule,
@@ -231,17 +235,23 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       extensions: [{ name: 'addons', extension: { onPopulate: addonsExtension } }],
       types: [
         {
-          name: 'typehead-select',
-          component: TypeheadSelectComponent
-        },
-        {
-          name: 'autocomplete',
-          component: AutocompleteTypeComponent,
+          name: 'headtype',
+          component: HeadTypeComponent,
           wrappers: ['form-field'],
         },
         {
+          name: 'button',
+          component: ButtonComponent,
+          wrappers: ['form-field'],
+        },
+       /* {
+          name: 'autocomplete',
+          component: AutocompleteTypeComponent,
+          wrappers: ['form-field'],
+        },*/
+        {
           name: 'autocompletebutton',
-          component:  AutocompleteTypeButtonComponent,
+          component: AutocompleteTypeButtonComponent,
           wrappers: ['form-field'],
         },
         {
@@ -253,7 +263,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         { name: 'object', component: ObjectTypeComponent },
         { name: 'file-upload', component: FileUploadFieldComponent },
         { name: 'accordion', component: AccordionTypeComponent },
-        
       ],
     }),
     HttpClientModule,
@@ -265,10 +274,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       },
     }),
   ],
-    providers: [ViewportService, {
-      provide: MatFormFieldControl,
-      useExisting: TypeheadSelectComponent,
-    },{ provide: FORMLY_CONFIG, multi: true, useFactory: registerTranslateExtension, deps: [TranslateService] }],
+  providers: [
+    ViewportService,
+    { provide: FORMLY_CONFIG, multi: true, useFactory: registerTranslateExtension, deps: [TranslateService] },
+  ],
   bootstrap: [],
 })
 export class AppModule {}

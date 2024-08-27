@@ -1,10 +1,10 @@
+import { VehiclesComponent } from './../vehicles/vehicles.component';
 import { Observable } from 'rxjs';
 import { AccordionTypeComponent } from './../../accordions.type';
 import { state, transition } from '@angular/animations';
 import { OnInit, VERSION, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MDTableComponent } from '../../components/mdtable/mdtable.component';
-import { of } from 'rxjs';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Component, ViewChild } from '@angular/core';
 import { AppModule } from '../../app.module';
@@ -21,11 +21,22 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { of } from 'rxjs';
+import { map } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { response } from 'express';
+
+import { MatDialogTitle, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+
+export interface DialogData {
+  alert: string;
+}
 
 @Component({
   selector: 'app-practice-detail',
   standalone: true,
-  imports: [CommonModule, AppModule, NgxTranslateModule],
+  imports: [CommonModule, AppModule, NgxTranslateModule, MatDialogTitle, MatDialogContent],
   templateUrl: './practice-detail.component.html',
   styleUrl: './practice-detail.component.scss',
 })
@@ -37,27 +48,25 @@ export class PracticeDetailComponent {
   model: any;
   oprions: any;
 
-  datasource: any[] = [];
-  dataPractice = new BehaviorSubject<any[]>([]);
   data: any[] = [];
-  fullDataFleet: any[] = [];
+
   selectedObj: any;
   backgroundColor = '';
   foregroundColor = '';
   brightness = 0;
   formData: any = {};
   pending: boolean = false;
-  expandedElement: any | null = null;
-  elementToDelete: any;
   practiceNumber: any;
 
   allCustomers: string[] = [];
   tempResult: any[] = [];
 
+  showAlertDialog = false;
+  alertMessage = '';
+
   fields: FormlyFieldConfig[] = [
     {
       type: 'tabs',
-
       fieldGroup: [
         {
           props: {
@@ -222,6 +231,38 @@ export class PracticeDetailComponent {
           fieldGroupClassName: 'flex flex-wrap p2',
           fieldGroup: [
             {
+              className: 'w-full  px-2 ',
+              key: 'selectedVehicle',
+              type: 'headtype',
+              props: {
+                translate: true,
+                description: 'Digita il veicolo da cercare',
+                label: ' ',
+                options: this.http.get<[]>('api/items/vehicles'),
+                labelToShow: ['vehiclePlate', 'vehicleType'],
+              },
+              hooks: {
+                onInit: field => {
+                  const control = field.formControl;
+                  control?.valueChanges.subscribe(async (selectedValue: string) => {
+                    this.http.get<[]>('api/items/vehicles/' + selectedValue).subscribe((data: any[]) => {
+                      let x: any = data; // Assign the array received from the API to this.Options
+                      let vehicle = x['data'];
+                      let row = vehicle;
+                      console.log(row);
+                      field.form?.get('vehicleType')?.patchValue(row.vehicleType);
+                      field.form?.get('vehicleBrand')?.patchValue(row.vehicleBrand);
+                      field.form?.get('vehicleModel')?.patchValue(row.vehicleModel);
+                      field.form?.get('vehiclePlate')?.patchValue(row.vehiclePlate);
+                      field.form?.get('vehicleDischarge')?.patchValue(row.vehicleDischarge);
+                      field.form?.get('vehicleImported')?.patchValue(row.vehicleImported);
+                      field.form?.get('vehicleRegistrationDate')?.patchValue(row.vehicleRegistrationDate);
+                    });
+                  });
+                },
+              },
+            },
+            {
               className: '2xl:full xl:w-full lg:w-full xs:w-full sm:w-full  px-2 ',
               key: 'vehicleType',
               type: 'radio',
@@ -242,29 +283,65 @@ export class PracticeDetailComponent {
             },
             {
               className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-1/3 sm:w-full  px-2 ',
-              key: 'vehicleCarPlate',
+              key: 'vehiclePlate',
               type: 'input',
               props: {
                 translate: true,
-                label: 'p_vehicleCarPlate',
+                label: 'p_vehiclePlate',
                 required: false,
                 disabled: false,
-                description: 'p_vehicleCarPlate_Description',
+                description: 'p_vehiclePlate_Description',
               },
             },
             {
               className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
-              key: 'vehicleCarBrand',
+              key: 'vehicleBrand',
               type: 'select',
               props: {
                 translate: true,
                 label: 'p_vehicleCarBrand',
                 description: 'p_vehicleCarBrand_Description',
                 required: false,
+                value: 3,
                 disabled: false,
-                options: this.http.get<{ title: string; id: string }[]>('https://jsonplaceholder.typicode.com/todos'),
-                valueProp: 'id',
-                labelProp: 'title',
+                options: this.http.get<any>('api/items/vehicleBrands').pipe(map(response => response.data)),
+              },
+              expressionProperties: {
+                'templateOptions.disabled': '!model.vehicleType',
+              },
+              hooks: {
+                onInit: field => {
+                  const typeControl = this.form.get('vehicleType'); //async
+                  typeControl?.valueChanges.subscribe((changedValues: string) => {
+                    const control = field.formControl;
+
+                    const vehicleTypeField = field.form?.get('vehicleType');
+                    const vehicleTypeId = vehicleTypeField?.value;
+                    console.log(vehicleTypeId);
+
+                    const vehicleBrandField = field.form?.get('vehicleBrand');
+                    const vehicleBrandId = vehicleBrandField?.value;
+                    console.log(vehicleBrandId);
+
+                    const vehicleModelField = field.form?.get('vehicleModel');
+                    const vehicleModelFieldId = vehicleModelField?.value;
+                    console.log(vehicleModelFieldId);
+                    
+                    //if (vehicleBrandField) {
+                      //vehicleBrandField.patchValue(null);
+                      this.http.get<any>('api/items/vehicleBrands').subscribe(response => {
+                        console.log(response.data);
+                        let x = response.data;
+                        console.log(vehicleTypeId,)
+                        const filteredData = x.filter((item: any) => item.vehicleType === vehicleTypeId);
+                        console.log(filteredData);
+                        const xoptions = filteredData.map((item: any) => ({ label: item.vehicleBrand, value: item.id }));
+                        console.log(xoptions);
+                        field.props!.options = [...xoptions];
+                      });
+                    //}
+                  });
+                },
               },
             },
             {
@@ -277,9 +354,44 @@ export class PracticeDetailComponent {
                 description: 'p_vehicleModel_Description',
                 required: false,
                 disabled: false,
-                options: this.http.get<{ title: string; id: string }[]>('https://jsonplaceholder.typicode.com/todos'),
-                valueProp: 'id',
-                labelProp: 'title',
+                options: this.http.get<any>('api/items/vehicleModels').pipe(map(response => response.data)),
+              },
+              expressionProperties: {
+                'templateOptions.disabled': '!model.vehicleType',
+              },
+              hooks: {
+                onInit: field => {
+                  const brandControl = this.form.get('vehicleBrand'); //async
+                  brandControl?.valueChanges.subscribe((changedValues: string) => {
+                    
+                    const control = field.formControl;
+
+                    const vehicleTypeField = field.form?.get('vehicleType');
+                    const vehicleTypeId = vehicleTypeField?.value;
+                    console.log(vehicleTypeId);
+
+                    const vehicleCarBrandField = field.form?.get('vehicleBrand');
+                    const vehicleBrandId = vehicleCarBrandField?.value;
+                    console.log(vehicleBrandId);
+                    const vehicleModelField = field.form?.get('vehicleModel');
+                    const vehicleModelFieldId = vehicleModelField?.value;
+                    console.log(vehicleModelFieldId);
+
+                    //if (vehicleModelField) {
+                      //vehicleModelField.patchValue(null);
+                      this.http.get<any>('api/items/vehicleModels').subscribe(response => {
+                        console.log(response.data);
+                        let x = response.data;
+                        const filteredData = x.filter((item: any) => item.vehicleModelBrand === vehicleBrandId && item.vehicleModelType === vehicleTypeId);
+                        console.log(filteredData);
+                        const xoptions = filteredData.map((item: any) => ({ label: item.vehicleModel, value: item.id }));
+                        console.log(xoptions);
+                        field.props!.options = [...xoptions];
+                      });
+                      
+                    //}
+                  });
+                },
               },
             },
             {
@@ -287,13 +399,14 @@ export class PracticeDetailComponent {
               key: 'vehicleRegistrationDate',
               type: 'datepicker',
               props: {
+                disabled:false,
                 label: 'p_vehicleRegistrationDate',
                 description: 'p_vehicleRegistrationDate_Description',
                 dateFormat: 'yy/mm/dd',
                 hourFormat: '24',
                 numberOfMonths: 2,
                 selectionMode: 'single',
-                required: false,
+                required: true,
                 readonlyInput: false,
                 showTime: true,
                 showButtonBar: true,
@@ -312,6 +425,7 @@ export class PracticeDetailComponent {
               type: 'input',
               props: {
                 translate: true,
+                className: 'pt-0 pb-0 ',
                 type: 'number',
                 label: 'p_vehicleDischarge',
                 addonLeft: {
@@ -322,6 +436,7 @@ export class PracticeDetailComponent {
                 disabled: false,
               },
             },
+            { template: '<br>' },
             {
               className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
               key: 'vehicleImported',
@@ -344,6 +459,51 @@ export class PracticeDetailComponent {
           fieldGroupClassName: 'flex flex-wrap p2',
           fieldGroup: [
             {
+              className: 'w-full  px-2 ',
+              key: 'selectedCustomer',
+              type: 'headtype',
+              props: {
+                translate: true,
+                description: 'Digita il cliente da cercare',
+                label: ' ',
+                /*options: [
+                  { id: 'private', label: 'Privato',info:'Hey' },
+                  { id: 'company', label: 'Azienda',info:'Hello' },
+                  { id: 'public', label: 'Pubblica Amministrazione',info:'Urrà' },
+                  { id: 'association', label: 'Associazione no-profit',info:'E vai' },
+                  { id: 'individual', label: 'Ditta individuale',info:'Ganzo' },
+                  { id: 'workshop', label: 'Officina/PuntoVendita',info:'Top' },
+                ],*/
+                options: this.http.get<[]>('api/items/customers'),
+                labelToShow: ['customerDescription', 'customerTown', 'customerProvince'],
+              },
+              hooks: {
+                onInit: field => {
+                  const control = field.formControl;
+                  control?.valueChanges.subscribe(async (selectedValue: string) => {
+                    this.http.get<[]>('api/items/customers/' + selectedValue).subscribe((data: any[]) => {
+                      let x: any = data; // Assign the array received from the API to this.Options
+                      let customers = x['data'];
+                      let row = customers;
+                      console.log(row);
+                      field.form?.get('customerType')?.patchValue(row.customerType);
+                      field.form?.get('customerDescription')?.patchValue(row.customerDescription);
+                      field.form?.get('customerAddress')?.patchValue(row.customerAddress);
+                      field.form?.get('customerTown')?.patchValue(row.customerTown);
+                      field.form?.get('customerZip')?.patchValue(row.customerZip);
+                      field.form?.get('customerProvince')?.patchValue(row.customerProvince);
+                      field.form?.get('customerEmail')?.patchValue(row.customerEmail);
+                      field.form?.get('customerPec')?.patchValue(row.customerPec);
+                      field.form?.get('customerVatcode')?.patchValue(row.customerVatcode);
+                      field.form?.get('customerSDI')?.patchValue(row.customerSDI);
+                      field.form?.get('customerCIG')?.patchValue(row.customerCIG);
+                      field.form?.get('customerPACode')?.patchValue(row.customerPACode);
+                    });
+                  });
+                },
+              },
+            },
+            {
               className: '2xl:full xl:w-full lg:w-full xs:w-full sm:w-full  px-2 ',
               key: 'customerType',
               type: 'radio',
@@ -351,7 +511,7 @@ export class PracticeDetailComponent {
                 translate: true,
                 label: 'p_customerType',
                 description: 'p_customerType_Description',
-                required: false,
+                required: true,
                 disabled: false,
                 options: [
                   { value: 'private', label: 'p_customerType_Private' },
@@ -363,38 +523,8 @@ export class PracticeDetailComponent {
                 ].map(option => ({ ...option, label: this.translate.instant(option.label) })),
               },
             },
-            {
-              className: '2xl:full xl:w-full lg:w-full xs:w-full sm:w-full px-2 ',
-              key: 'selectField',
-              type: 'typehead-select',
-              props: {
-                translate: true,
-                placeholder: 'Type to search...',
-                description: 'p_customerDescription_Description',
-                label: 'ricerca',
-                options: [
-                  { value: 'private', label: 'p_customerType_Private' },
-                  { value: 'company', label: 'p_customerType_Company' },
-                  { value: 'public', label: 'p_customerType_Public' },
-                  { value: 'association', label: 'p_customerType_association' },
-                  { value: 'individual', label: 'p_customerType_Individual' },
-                  { value: 'workshop', label: 'p_customerType_Workshop' },
-                ]
-              },
-              hooks: {
-                onInit: field => {
-                  let optionslist: any[] = [];
-                  this.asyncgenericGetFromRestapi('customers', undefined, ['*.*'], undefined, undefined, -1, undefined, undefined, undefined).then(result => {
-                    console.log("DATI CUSTOMERS:",this.tempResult); // Make sure the data is retrieved successfully
-                    if (field && field.props) {
-                      //field.props?.options? = result;
-                    }
-                    //field.props?.options? = optionslist;
-                  });
-                },
-              },
-            },
-            {
+          
+            /*{
               className: '2xl:w-1/2 xl:w-1/2 lg:w-1/2 xs:w-full sm:w-full  px-2 ',
               key: 'customerDescription',
               type: 'autocompletebutton',
@@ -463,6 +593,18 @@ export class PracticeDetailComponent {
                   });
                 },
               },
+            },*/
+            {
+              className: '2xl:w-1/2 xl:w-1/2 lg:w-1/2 xs:w-full sm:w-full  px-2 ',
+              key: 'customerDescription',
+              type: 'input',
+              props: {
+                translate: true,
+                label: 'p_customerDescription',
+                required: false,
+                disabled: false,
+                description: 'p_customerDescription_Description',
+              },
             },
             {
               className: '2xl:w-1/2 xl:w-1/2 lg:w-1/2 xs:w-full sm:w-full  px-2 ',
@@ -514,6 +656,36 @@ export class PracticeDetailComponent {
               },
             },
             {
+              className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+              key: 'customerVatcode',
+              type: 'input',
+              props: {
+                translate: true,
+                label: 'p_customerVatcode',
+                required: false,
+                disabled: false,
+                description: 'p_customerVatcode_Description',
+              },
+              expressions: {
+                hide: "model?.customerType === 'private'",
+              },
+            },
+            {
+              className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+              key: 'customerSDI',
+              type: 'input',
+              props: {
+                translate: true,
+                label: 'p_customerSDI',
+                required: false,
+                disabled: false,
+                description: 'p_customerSDI_Description',
+              },
+              expressions: {
+                hide: "model?.customerType === 'private' ",
+              },
+            },
+            {
               className: '2xl:w-1/2 xl:w-1/2 lg:w-1/2 xs:w-full sm:w-full  px-2 ',
               key: 'customerEmail',
               type: 'input',
@@ -537,31 +709,11 @@ export class PracticeDetailComponent {
                 disabled: false,
                 description: 'p_customerPec_Description',
               },
-            },
-            {
-              className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
-              key: 'customerVatcode',
-              type: 'input',
-              props: {
-                translate: true,
-                label: 'p_customerVatcode',
-                required: false,
-                disabled: false,
-                description: 'p_customerVatcode_Description',
+              expressions: {
+                hide: "model?.customerType === 'private'",
               },
             },
-            {
-              className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
-              key: 'customerSDI',
-              type: 'input',
-              props: {
-                translate: true,
-                label: 'p_customerSDI',
-                required: false,
-                disabled: false,
-                description: 'p_customerSDI_Description',
-              },
-            },
+
             {
               className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
               key: 'customerCIG',
@@ -572,6 +724,9 @@ export class PracticeDetailComponent {
                 required: false,
                 disabled: false,
                 description: 'p_customerCIG_Description',
+              },
+              expressions: {
+                hide: "model?.customerType !== 'public'",
               },
             },
             {
@@ -585,13 +740,28 @@ export class PracticeDetailComponent {
                 disabled: false,
                 description: 'p_customerPACode_Description',
               },
+              expressions: {
+                hide: "model?.customerType !== 'public'",
+              },
             },
           ],
         },
+
+        /*
+        # practiceType
+        { value: 'insurance', label: 'p_practiceType_Insurance' },
+        { value: 'point', label: 'p_practiceType_Point' },
+        { value: 'laboronly', label: 'p_practiceType_Laboronly' },
+        { value: 'preventive', label: 'p_practiceType_preventive' },
+        { value: 'sale', label: 'p_practiceType_Sale' },
+        { value: 'darkening', label: 'p_practiceType_Darkening' },
+        */
+
         {
           props: {
             translate: true,
             label: 't_insurance',
+            hide:true,
           },
         },
         {
@@ -658,92 +828,13 @@ export class PracticeDetailComponent {
     }
   };
 
-  options: FormlyFormOptions = {
-    formState: {
-      selectOptionsData: {
-        teams: [
-          { id: '1', name: 'Bayern Munich', sportId: '1' },
-          { id: '2', name: 'Real Madrid', sportId: '1' },
-          { id: '3', name: 'Cleveland', sportId: '2' },
-          { id: '4', name: 'Miami', sportId: '2' },
-        ],
-        players: [
-          { id: '1', name: 'Bayern Munich (Player 1)', teamId: '1' },
-          { id: '2', name: 'Bayern Munich (Player 2)', teamId: '1' },
-          { id: '3', name: 'Real Madrid (Player 1)', teamId: '2' },
-          { id: '4', name: 'Real Madrid (Player 2)', teamId: '2' },
-          { id: '5', name: 'Cleveland (Player 1)', teamId: '3' },
-          { id: '6', name: 'Cleveland (Player 2)', teamId: '3' },
-          { id: '7', name: 'Miami (Player 1)', teamId: '4' },
-          { id: '8', name: 'Miami (Player 2)', teamId: '4' },
-        ],
-      },
-    },
-  };
-
-  states = [
-    'Alabama',
-    'Alaska',
-    'American Samoa',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'District Of Columbia',
-    'Federated States Of Micronesia',
-    'Florida',
-    'Georgia',
-    'Guam',
-    'Hawaii',
-    'Idaho',
-    'CASTELLANI LUCA',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Marshall Islands',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'ELENA RODKINA',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Northern Mariana Islands',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Palau',
-    'Pennsylvania',
-    'Puerto Rico',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virgin Islands',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming',
-  ];
+  valuesFromObservable(httprequest: any) {
+    this.http.get<[]>(httprequest).subscribe((data: any[]) => {
+      let x: any = data; // Assign the array received from the API to this.Options
+      let result = x['data'];
+      return result;
+    });
+  }
 
   constructor(
     private http: HttpClient,
@@ -764,46 +855,32 @@ export class PracticeDetailComponent {
       this.practiceNumber = params['practice'];
     });
 
-    //// Retrieve all Customers ////
-    await this.fetchAllCustomers();
+    await this.getPractices();
   }
 
   AfterViewInit() {
     this.model = {};
   }
 
-  // ########################################################################
-  // Remove all hidden fields from the field configuration temporarily
-  removeHiddenFields(fields: FormlyFieldConfig[]): FormlyFieldConfig[] {
-  return fields.filter(field => !field.hide);
-  }
-  // ########################################################################
-
-  async fetchAllCustomers() {
-    try {
-      // Execute the API call asynchronously using async/await
-      await this.getAllCustomersFromRestapi('customers', undefined, ['*.*'], undefined, undefined, -1, undefined, undefined, undefined);
-    } catch (error) {
-      console.error('An error occurred while fetching customers:', error);
-      // Handle errors as needed
-    }
-  }
-
   filteredCustomers(input: string) {
     return this.allCustomers.filter((value: any) => value.toLowerCase().includes(input.toLowerCase()));
   }
+
+  // ########################################################################
+  // Remove all hidden fields from the field configuration temporarily
+  removeHiddenFields(fields: FormlyFieldConfig[]): FormlyFieldConfig[] {
+    return fields.filter(field => !field.hide);
+  }
+  // ########################################################################
 
   submit() {
     alert(JSON.stringify(this.model));
   }
 
-  submitdata($event: Event) {
-    console.log($event);
-    console.log(this.form);
+  submitdata($event?: Event) {
+    //console.log($event);
+    //console.log(this.form);
     console.log(this.form.value);
-    //this.form.value as { file?: []};
-    //const flattenedArray = this.flattenNestedArrays(this.form.value);
-    //console.log(flattenedArray);
   }
 
   flattenNestedArrays(formValue: any): { key: string; value: any }[] {
@@ -836,8 +913,8 @@ export class PracticeDetailComponent {
     return flattenedArray;
   }
   /*****************************************************************************/
-  getPractices() {
-    this.getFromRestapi(
+  async getPractices() {
+    this.getPraticesFromRestapi(
       'practices',
       undefined, // id
       ['*.*'], // fields es. ["companyName"] or ["*.*"]
@@ -849,10 +926,9 @@ export class PracticeDetailComponent {
       undefined // search search in all fields and all records
     );
   }
-
   /*************************  Functions <--> Backend **************************/
   // GET Data
-  getFromRestapi(
+  getPraticesFromRestapi(
     collection: string,
     id?: number,
     fields?: string[],
@@ -876,77 +952,30 @@ export class PracticeDetailComponent {
         search // search search in all fields and all records
       )
       .subscribe((Practices: any) => {
-        //console.log('Practices data: ', Practices['data']);
-        //console.log('Practices length: ', Practices['data'].length);
         this.data = Practices['data'];
-        this.datasource = Practices['data'];
+        console.log(Practices['data']);
+        return Practices['data'];
       });
   }
   ////////////////////////////////////////////////////////////////
-  async asyncgenericGetFromRestapi(
-    collection: string,
-    id?: number,
-    fields?: string[],
-    filter?: object,
-    order?: string[],
-    limit?: number,
-    page?: number,
-    offset?: number,
-    search?: string
-  ) {
-    this.globalService
-      .getRecord(
-        collection, //collection
-        id, // id
-        fields, // fields es. ["companyName"] or ["*.*"]
-        filter, //filter
-        order, // order by field  - = inverse es. ["-companyName"]
-        limit, // limit
-        page, // page
-        offset, // offset
-        search // search search in all fields and all records
-      )
-      .subscribe((data: any) => {
-        this.tempResult = data['data'];
-        return  data['data'];
-      });
+  getCustomers(): Observable<any[]> {
+    return this.http.get('api/items/customers').pipe(
+      map((response: any) => {
+        this.allCustomers = response['data'];
+        return this.allCustomers;
+      })
+    );
   }
-  async getAllCustomersFromRestapi(
-    collection: string,
-    id?: number,
-    fields?: string[],
-    filter?: object,
-    order?: string[],
-    limit?: number,
-    page?: number,
-    offset?: number,
-    search?: string
-  ) {
-    this.globalService
-      .getRecord(
-        collection, //collection
-        id, // id
-        fields, // fields es. ["companyName"] or ["*.*"]
-        filter, //filter
-        order, // order by field  - = inverse es. ["-companyName"]
-        limit, // limit
-        page, // page
-        offset, // offset
-        search // search search in all fields and all records
-      )
-      .subscribe((data: any) => {
-        this.allCustomers = data['data'];
-        if (this.allCustomers) {
-          //console.log('CUSTOMERS:', this.allCustomers);
-          this.allCustomers = this.allCustomers.map((item: any) => {
-            return `${item.customerDescription}`;
-            //return `${item.customerDescription} - ${item.customerTown} - ${item.customerProvince}`;
-          });
-          //console.log("CUSTOMERS ARRAY",this.allCustomers)
-        }
-      });
-  }
+
+  /*getDonnee(): Observable<any[]> {
+  this.http.get('http://localhost:8080/groupes').toPromise().then(any => {
+    this.groupes= any['content'];
+  });
+  return of(this.groupes);
+}*/
+
   ////////////////////////////////////////////////////////////////
+
   ////////////////////////////////////////////////////////////////
 
   // UPDATE Data
