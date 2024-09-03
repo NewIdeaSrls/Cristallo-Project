@@ -2,6 +2,7 @@
   <div class="flex p-4">
     <mat-icon>storage</mat-icon>
     <span class="px-1 text-lg font-bold text-decoration-line">DETTAGLIO PRATICA</span>
+    <div class="px-1 ml-2 text-lg font-bold text">({{ time | date: 'HH:mm:ss' }})</div>
     <div>
       <div class="absolute right-0">
         <button class="flex mr-2" mat-raised-button color="primary" (click)="submitdata($event)" *ngIf="form" [disabled]="!form || !form.valid">
@@ -11,14 +12,29 @@
     </div>
     <hr />
   </div>
-  <hr>
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <hr />
+  <form [formGroup]="form">
     <formly-form [model]="model" [fields]="fields" [form]="form"></formly-form>
   </form>
 </div>
 
-<div *ngIf="showAlertDialog">
-<div class="alert">
-  <p>{{ alertMessage }}</p>
+<div *ngIf="dialogIsOpen">
+  <div class="alert">
+    <p>{{ alertMessage }}</p>
+  </div>
 </div>
-</div>
+
+<mat-drawer-container #drawerrightall class="z-50 columns-container xs:left-0 md:left-56" autosize position="end">
+  <mat-drawer #drawerright [mode]="'push'" class="columns-sidenav">
+    <h3>Drawer right</h3>
+    <div>sssssssss</div>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container #drawerleftall class="z-50 columns-container xs:left-0 md:left-56" autosize>
+  <mat-drawer #drawerleft class="columns-sidenav">
+    <h3>Drawer left</h3>
+    <div>ZZZZZ</div>
+  </mat-drawer>
+</mat-drawer-container>
+

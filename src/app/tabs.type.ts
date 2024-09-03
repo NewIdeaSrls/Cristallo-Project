@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Form, FormGroup } from '@angular/forms';
 import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'formly-field-tabs',
@@ -17,17 +18,54 @@ import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
         </ng-container>
       </ng-container>
     </mat-tab-group>
-    {{ model | json }}
+    <!-- {{ model | json }} -->
+    
+    <div class="relative">
+        <button class="flex ml-2 mr-2"  mat-raised-button color="primary">{{feasibility_panel}}</button>
+        <div class="absolute right-0 top-0 mt-2 mr-2">{{feasibility_info}}</div>
+    </div>
   `,
   styles: [
     `
-      ::ng-deep .mat-form-field > .mat-form-field-wrapper {
-        flex-direction: column !important;
+      :host ::ng-deep {
+        .mat-mdc-tab-body.mat-mdc-tab-body-active {
+          position: relative;
+          overflow-x: hidden;
+          overflow-y: scroll;
+          z-index: 1;
+          flex-grow: 1;
+          margin-bottom: 10px;
+          top: 0;
+          height: calc(100vh - 220px) !important;
+        }
+
+        .mat-mdc-tab-body {
+          top: 0;
+          left: 0;
+          right: 0;
+          position: absolute;
+          display: block;
+          overflow-x: hidden;
+          overflow-y: scroll;
+          flex-basis: 100%;
+          height: calc(100vh - 220px) !important;
+        }
+
+        .mat-form-field > .mat-form-field-wrapper {
+          flex-direction: column !important;
+        }
       }
     `,
   ],
 })
 export class FormlyFieldTabs extends FieldType {
+
+  constructor(
+    private translationService: TranslateService,
+  ) {
+    super();
+  }
+
   isValid(field: FormlyFieldConfig): boolean {
     if (field && field.key) {
       return field.formControl ? field.formControl.valid : false;
@@ -35,8 +73,11 @@ export class FormlyFieldTabs extends FieldType {
 
     return field && field.fieldGroup ? field.fieldGroup.every(f => this.isValid(f)) : true;
   }
+
   today = new Date();
-  statusPractice: string = 'AT';
+  feasibility_panel = this.translationService.instant('feasibility_panel');
+  feasibility_info = this.translationService.instant('feasibility_info');
+  statusPractice: string = '';
   statusPracticeList: any = [
     {
       labelProp: 'Chiamare Agenzia',
@@ -77,46 +118,75 @@ export class FormlyFieldTabs extends FieldType {
   ];
 
   enableTabsOn(typeTab: any) {
-    console.log(typeTab.props.label);
-    console.log(this.model.practiceType);
+
+    //console.log(this.model.practiceType)
+    //console.log(typeTab.props.label)
+
     switch (this.model.practiceType) {
-      case 'insurance':
-        return true;
-        break;
-      case 'point':
-        if (typeTab.props.label == 't_insurance') return false;
-        if (typeTab.props.label == 't_feasibility') return false;
-        if (typeTab.props.label == 't_intermediary') return false;
-        if (typeTab.props.label == 't_appointment') return false;
-        if (typeTab.props.label == 't_activityPlanning') return false;
+       case 'point':  
+        //console.log(this.model.practiceType,typeTab.props.label)
+        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
+        if ( typeTab.props.label == this.translationService.instant('point')) return true;
+        if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true;
+        if ( typeTab.props.label == this.translationService.instant('agent')) return true;
+        if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
+        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
         break;
       case 'laboronly':
-        if (typeTab.props.label == 't_insurance') return false;
-        if (typeTab.props.label == 't_feasibility') return false;
-        if (typeTab.props.label == 't_intermediary') return false;
+        //console.log(this.model.practiceType,typeTab.props.label)
+        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
+        if ( typeTab.props.label == this.translationService.instant('activityPlanning')) return true;
+        if ( typeTab.props.label == this.translationService.instant('point')) return true;
+        if ( typeTab.props.label == this.translationService.instant('fitter')) return true;
+        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
         break;
       case 'preventive':
-        if (typeTab.props.label == 't_insurance') return false;
-        if (typeTab.props.label == 't_feasibility') return false;
-        if (typeTab.props.label == 't_intermediary') return false;
-        if (typeTab.props.label == 't_activityPlanning') return false;
+        //console.log(this.model.practiceType,typeTab.props.label)
+        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
+        if ( typeTab.props.label == this.translationService.instant('vehicle')) return true;
+        if ( typeTab.props.label == this.translationService.instant('agent')) return true;
+        if ( typeTab.props.label == this.translationService.instant('activityPlanning')) return true;
+        if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true;
+        if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
+        if ( typeTab.props.label == this.translationService.instant('customer')) return true;
+        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
         break;
       case 'sale':
-        if (typeTab.props.label == 't_insurance') return false;
-        if (typeTab.props.label == 't_feasibility') return false;
-        if (typeTab.props.label == 't_intermediary') return false;
-        if (typeTab.props.label == 't_appointment') return false;
-        if (typeTab.props.label == 't_activityPlanning') return false;
-        if (typeTab.props.label == 't_vehicle') return false;
+        //console.log(this.model.practiceType,typeTab.props.label)
+        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
+        if ( typeTab.props.label == this.translationService.instant('agent')) return true;
+        if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true
+        if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
+        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
+        if ( typeTab.props.label == this.translationService.instant('point')) return true;
         break;
       case 'darkering':
-        if (typeTab.props.label == 't_insurance') return false;
-        if (typeTab.props.label == 't_feasibility') return false;
-        if (typeTab.props.label == 't_intermediary') return false;
-        if (typeTab.props.label == 't_appointment') return false;
+        //console.log(this.model.practiceType,typeTab.props.label)
+        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
+        if ( typeTab.props.label == this.translationService.instant('activityPlanning')) return true;
+        if ( typeTab.props.label == this.translationService.instant('agent')) return true;
+        if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true
+        if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
+        if ( typeTab.props.label == this.translationService.instant('customer')) return true;
+        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
         break;
+      case 'insurance':
+          //console.log(this.model.practiceType,typeTab.props.label)
+          if ( typeTab.props.label == this.translationService.instant('practice')) return true;
+          if ( typeTab.props.label == this.translationService.instant('documents')) return true;
+          if ( typeTab.props.label == this.translationService.instant('customer')) return true;
+          if ( typeTab.props.label == this.translationService.instant('vehicle')) return true;
+          if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
+          if ( typeTab.props.label == this.translationService.instant('point')) return true;
+          if ( typeTab.props.label == this.translationService.instant('fitter')) return true;
+          if ( typeTab.props.label == this.translationService.instant('activityPlanning')) return true;
+          if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true
+          break;
     }
-    return true
+
+    
+
+    return false;
   }
 
   submitdata($event: Event, form: any) {
@@ -129,8 +199,6 @@ export class FormlyFieldTabs extends FieldType {
     };
     const mergedWithPractice = { ...formValues, ...moreData };
     console.log(mergedWithPractice);
-    //const flattenedArray = this.flattenNestedArrays(formValues);
-    //console.log(flattenedArray);
   }
 
   goto($event: Event) {

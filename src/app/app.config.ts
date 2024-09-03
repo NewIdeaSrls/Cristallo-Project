@@ -8,6 +8,7 @@ import { loggerInterceptor } from './services/logger.interceptor';
 import { errorInterceptorInterceptor } from "./services/error-interceptor.interceptor";
 import { successInterceptor } from "./services/success-interceptor.interceptor";
 import { provideToastr } from 'ngx-toastr';
+import { IConfig,provideEnvironmentNgxMask } from 'ngx-mask'
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
         preventDuplicates: true,
         progressBar: true
     }),
+    provideEnvironmentNgxMask(),
     provideHttpClient(withInterceptors([loggerInterceptor, errorInterceptorInterceptor, successInterceptor])),
     provideAnimations()
 ],

@@ -18,13 +18,13 @@ import { data } from 'jquery';
   selector: 'app-file-upload-field',
   template: `
     <div class="upload-wrapper" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
-      <div class="file-container">
-        <!--# show preview #-->
+      <!--<div class="file-container">
+        # show preview #-->
         <!--<div class="file" *ngFor="let file of selectedFiles; let i = index">
           <img [src]="getSanitizedImageUrl(file)" />
           <span class="delete-button" (click)="onDelete(i)">X</span>
-        </div>-->
-      </div>
+        </div>
+      </div>-->
       <div class="upload-container" (click)="openFileInput()">
         <div class="mask"></div>
         <div class="helper-text">

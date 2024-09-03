@@ -74,13 +74,31 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateService } from '@ngx-translate/core';
 import { registerTranslateExtension } from './translate.extension';
 import { FormlyWrapperCard } from './panel.wrapper.component';
-
 import { FormlyWrapperAddons } from './addon.wrapper';
 import { addonsExtension } from './addon.extension';
 import { AutocompleteTypeButtonComponent } from './autocomplete-type-button.component';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { HeadTypeComponent } from './typhead.type';
 import { ButtonComponent } from './button.type.component';
+import { FormlyFieldCustomInput } from './custom-input.component';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { CustomDivComponent } from './div-type.componenet';
+
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { NativeDateAdapter } from '@angular/material/core';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: ['YYYY-MM-DD'], // Formato accettato in input
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',   // Formato visualizzato all'utente
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -98,10 +116,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FormlyWrapperCard,
     FormlyWrapperAddons,
     HeadTypeComponent,
-    ButtonComponent
+    ButtonComponent,
+    FormlyFieldCustomInput,
+    CustomDivComponent
   ],
   exports: [
-    
     CommonModule,
     NgxTranslateModule,
     ReactiveFormsModule,
@@ -165,7 +184,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FormlyModule,
   ],
   imports: [
-
+    NgxMaskDirective, 
+    NgxMaskPipe,
     CommonModule,
     NgxTranslateModule,
     ReactiveFormsModule,
@@ -234,6 +254,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       ],
       extensions: [{ name: 'addons', extension: { onPopulate: addonsExtension } }],
       types: [
+        { 
+          name: 'maskinput',
+          component: FormlyFieldCustomInput,
+        },
         {
           name: 'headtype',
           component: HeadTypeComponent,
@@ -242,13 +266,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         {
           name: 'button',
           component: ButtonComponent,
-          wrappers: ['form-field'],
         },
-       /* {
-          name: 'autocomplete',
-          component: AutocompleteTypeComponent,
-          wrappers: ['form-field'],
-        },*/
+        {
+          name: 'customDiv',
+          component: CustomDivComponent,
+        },
         {
           name: 'autocompletebutton',
           component: AutocompleteTypeButtonComponent,
@@ -276,8 +298,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   providers: [
     ViewportService,
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: DateAdapter, useClass: NativeDateAdapter },
+    { provide: MAT_DATE_LOCALE, useValue: 'it-IT' },
     { provide: FORMLY_CONFIG, multi: true, useFactory: registerTranslateExtension, deps: [TranslateService] },
   ],
   bootstrap: [],
 })
+
 export class AppModule {}
