@@ -23,7 +23,7 @@ interface OptionDef {
           style="width:100%;border-style: ridge;border-width: thin"
           [(value)]="inputdata"
           [placeholder]="'Digita'" />
-        <mat-option (click)="selectOption(option)" *ngFor="let option of Options" [value]="option.id">
+        <mat-option (click)="selectOption(option)" *ngFor="let option of Options; let last = last" [value]="option.id">
           {{ option.toShow }}
         </mat-option>
       </mat-select>
@@ -49,7 +49,7 @@ interface OptionDef {
         }
 
         .mdc-text-field {
-          padding-left:0px!important
+          padding-left: 0px !important;
         }
       }
     `,
@@ -73,25 +73,25 @@ export class HeadTypeComponent extends FieldType<FieldTypeConfig> implements OnI
       this.labeldata = this.props['labelToShow'];
       this.labeldata = this.props['labelToShow'];
 
-        this.AllOptions.forEach((option: any, index: any) => {
-
-          let concatenatedValues = '';
-          this.labeldata.forEach((label:any) => {
-            if (option.hasOwnProperty(label)) {
-              let value = option[label];
-              if (typeof value === 'string') {
-                concatenatedValues +=  value + " ";
+      this.AllOptions.forEach((option: any, index: any) => {
+        let concatenatedValues = '';
+        this.labeldata.forEach((label: any, labelIndex: number) => {
+          if (option.hasOwnProperty(label)) {
+            let value = option[label];
+            if (typeof value === 'string') {
+              concatenatedValues += value;
+              if (labelIndex < this.labeldata.length - 1) {
+                concatenatedValues += ' - ';
+              }
             }
-            }
-          })
-          console.log(concatenatedValues)
-          option.toShow = concatenatedValues || '';
+          }
         });
+        console.log(concatenatedValues);
+        option.toShow = concatenatedValues || '';
+      });
 
-        console.log(this.AllOptions); 
-    
-      } else {
-
+      console.log(this.AllOptions);
+    } else {
       // If 'options' is an observable, subscribe to it and extract the array
       this.props!['options']!.subscribe((data: any[]) => {
         this.x = data; // Assign the array received from the API to this.Options
@@ -100,16 +100,18 @@ export class HeadTypeComponent extends FieldType<FieldTypeConfig> implements OnI
         this.Options = this.x['data'];
 
         this.AllOptions.forEach((option: any, index: any) => {
-
           let concatenatedValues = '';
-          this.labeldata.forEach((label:any) => {
+          this.labeldata.forEach((label: any, labelIndex: number) => {
             if (option.hasOwnProperty(label)) {
               let value = option[label];
               if (typeof value === 'string') {
-                concatenatedValues +=  value + " ";
+                concatenatedValues += value;
+                if (labelIndex < this.labeldata.length - 1) {
+                  concatenatedValues += ' - ';
+                }
+              }
             }
-            }
-          })
+          });
           //console.log(concatenatedValues)
           option.toShow = concatenatedValues || '';
         });
@@ -130,7 +132,7 @@ export class HeadTypeComponent extends FieldType<FieldTypeConfig> implements OnI
     } else {
       this.selected = '';
       this.inputdata = '';
-      this.Options = this.AllOptions
+      this.Options = this.AllOptions;
     }
   }
 
@@ -139,6 +141,6 @@ export class HeadTypeComponent extends FieldType<FieldTypeConfig> implements OnI
     this.formControl.setValue(option.id);
     this.selected = option.labelToShow;
     this.inputdata = '';
-    this.Options = this.AllOptions
+    this.Options = this.AllOptions;
   }
 }

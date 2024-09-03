@@ -5,8 +5,12 @@
     <div class="px-1 ml-2 text-lg font-bold text">({{ time | date: 'HH:mm:ss' }})</div>
     <div>
       <div class="absolute right-0">
-        <button class="flex mr-2" mat-raised-button color="primary" (click)="submitdata($event)" *ngIf="form" [disabled]="!form || !form.valid">
-          Submit
+        <button class="flex mr-2" mat-raised-button color="warn" *ngIf="model.PracticeType !== '-'" (click)="resetPracticeType($event)" > <!--[disabled]="!form || !form.valid"-->
+          Reset Practice Type
+        </button>
+      
+        <button class="flex mr-2" mat-raised-button color="primary" (click)="submitdata($event)"  > <!-- *ngIf="form"[disabled]="!form || !form.valid"-->
+          Submit Data
         </button>
       </div>
     </div>

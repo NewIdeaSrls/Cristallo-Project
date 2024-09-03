@@ -18,11 +18,11 @@ import { TranslateService } from '@ngx-translate/core';
         </ng-container>
       </ng-container>
     </mat-tab-group>
-    <!-- {{ model | json }} -->
-    
+    {{ model | json }} 
+
     <div class="relative">
-        <button class="flex ml-2 mr-2"  mat-raised-button color="primary">{{feasibility_panel}}</button>
-        <div class="absolute right-0 top-0 mt-2 mr-2">{{feasibility_info}}</div>
+      <button class="flex ml-2 mr-2" mat-raised-button color="primary">{{ feasibility_panel }}</button>
+      <div class="absolute right-0 top-0 mt-2 mr-2">{{ feasibility_info }}</div>
     </div>
   `,
   styles: [
@@ -36,7 +36,7 @@ import { TranslateService } from '@ngx-translate/core';
           flex-grow: 1;
           margin-bottom: 10px;
           top: 0;
-          height: calc(100vh - 220px) !important;
+          //height: calc(100vh - 220px) !important;
         }
 
         .mat-mdc-tab-body {
@@ -48,7 +48,7 @@ import { TranslateService } from '@ngx-translate/core';
           overflow-x: hidden;
           overflow-y: scroll;
           flex-basis: 100%;
-          height: calc(100vh - 220px) !important;
+          //height: calc(100vh - 220px) !important;
         }
 
         .mat-form-field > .mat-form-field-wrapper {
@@ -59,177 +59,439 @@ import { TranslateService } from '@ngx-translate/core';
   ],
 })
 export class FormlyFieldTabs extends FieldType {
-
-  constructor(
-    private translationService: TranslateService,
-  ) {
+  constructor(private translationService: TranslateService) {
     super();
-  }
-
-  isValid(field: FormlyFieldConfig): boolean {
-    if (field && field.key) {
-      return field.formControl ? field.formControl.valid : false;
-    }
-
-    return field && field.fieldGroup ? field.fieldGroup.every(f => this.isValid(f)) : true;
   }
 
   today = new Date();
   feasibility_panel = this.translationService.instant('feasibility_panel');
   feasibility_info = this.translationService.instant('feasibility_info');
-  statusPractice: string = '';
-  statusPracticeList: any = [
-    {
-      labelProp: 'Chiamare Agenzia',
-      valueProp: 'CA',
-    },
-    {
-      labelProp: 'Attesa Point',
-      valueProp: 'AP',
-    },
-    {
-      labelProp: 'Attesa',
-      valueProp: 'AT',
-    },
-    {
-      labelProp: 'Da Ordinare',
-      valueProp: 'DO',
-    },
-    {
-      labelProp: 'Ordinato',
-      valueProp: 'OR',
-    },
-    {
-      labelProp: 'Manca Documento',
-      valueProp: 'MD',
-    },
-    {
-      labelProp: 'Manodopera',
-      valueProp: 'MA',
-    },
-    {
-      labelProp: 'Preventivo da Inviare',
-      valueProp: 'PD',
-    },
-    {
-      labelProp: 'Morta',
-      valueProp: 'MO',
-    },
-  ];
+  tabsEnabled: any[] = [];
+  lastModelType: any;
 
   enableTabsOn(typeTab: any) {
-
     //console.log(this.model.practiceType)
     //console.log(typeTab.props.label)
+    // this.enableFields(typeTab);
 
-    switch (this.model.practiceType) {
-       case 'point':  
-        //console.log(this.model.practiceType,typeTab.props.label)
-        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
-        if ( typeTab.props.label == this.translationService.instant('point')) return true;
-        if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true;
-        if ( typeTab.props.label == this.translationService.instant('agent')) return true;
-        if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
-        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
-        break;
-      case 'laboronly':
-        //console.log(this.model.practiceType,typeTab.props.label)
-        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
-        if ( typeTab.props.label == this.translationService.instant('activityPlanning')) return true;
-        if ( typeTab.props.label == this.translationService.instant('point')) return true;
-        if ( typeTab.props.label == this.translationService.instant('fitter')) return true;
-        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
-        break;
-      case 'preventive':
-        //console.log(this.model.practiceType,typeTab.props.label)
-        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
-        if ( typeTab.props.label == this.translationService.instant('vehicle')) return true;
-        if ( typeTab.props.label == this.translationService.instant('agent')) return true;
-        if ( typeTab.props.label == this.translationService.instant('activityPlanning')) return true;
-        if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true;
-        if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
-        if ( typeTab.props.label == this.translationService.instant('customer')) return true;
-        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
-        break;
-      case 'sale':
-        //console.log(this.model.practiceType,typeTab.props.label)
-        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
-        if ( typeTab.props.label == this.translationService.instant('agent')) return true;
-        if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true
-        if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
-        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
-        if ( typeTab.props.label == this.translationService.instant('point')) return true;
-        break;
-      case 'darkering':
-        //console.log(this.model.practiceType,typeTab.props.label)
-        if ( typeTab.props.label == this.translationService.instant('practice')) return true;
-        if ( typeTab.props.label == this.translationService.instant('activityPlanning')) return true;
-        if ( typeTab.props.label == this.translationService.instant('agent')) return true;
-        if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true
-        if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
-        if ( typeTab.props.label == this.translationService.instant('customer')) return true;
-        if ( typeTab.props.label == this.translationService.instant('documents')) return true;
-        break;
-      case 'insurance':
-          //console.log(this.model.practiceType,typeTab.props.label)
-          if ( typeTab.props.label == this.translationService.instant('practice')) return true;
-          if ( typeTab.props.label == this.translationService.instant('documents')) return true;
-          if ( typeTab.props.label == this.translationService.instant('customer')) return true;
-          if ( typeTab.props.label == this.translationService.instant('vehicle')) return true;
-          if ( typeTab.props.label == this.translationService.instant('supplier')) return true;
-          if ( typeTab.props.label == this.translationService.instant('point')) return true;
-          if ( typeTab.props.label == this.translationService.instant('fitter')) return true;
-          if ( typeTab.props.label == this.translationService.instant('activityPlanning')) return true;
-          if ( typeTab.props.label == this.translationService.instant('inquiringSupplier')) return true
-          break;
+    this.lastModelType = this.model.practiceType;
+    if (typeTab.fieldGroup ) {
+      if (typeTab.fieldGroup['key'] == 'practiceType' ) {
+      console.log('fieldsGroup interno practiceType: ', typeTab.fieldGroup);
+      }
+    }
+    if (this.model.practiceType !== this.lastModelType) {
+      console.log('############################################');
+      this.tabsEnabled = [];
     }
 
-    
+    switch (this.model.practiceType) {
+      case 'point':
+        if (typeTab.props.label == this.translationService.instant('practice')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
+            this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
 
+        if (typeTab.props.label == this.translationService.instant('point')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('point'))) {
+            this.tabsEnabled.push(this.translationService.instant('point'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('agent')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('agent'))) {
+            this.tabsEnabled.push(this.translationService.instant('agent'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('supplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('supplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('supplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('documents')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+            this.tabsEnabled.push(this.translationService.instant('documents'));
+          }
+          return true;
+        }
+        break;
+      case 'laboronly':
+        if (typeTab.props.label == this.translationService.instant('practice')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
+            this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('activityPlanning')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('activityPlanning'))) {
+            this.tabsEnabled.push(this.translationService.instant('activityPlanning'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('point')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('point'))) {
+            this.tabsEnabled.push(this.translationService.instant('point'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('fitter')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('fitter'))) {
+            this.tabsEnabled.push(this.translationService.instant('fitter'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('documents')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+            this.tabsEnabled.push(this.translationService.instant('documents'));
+          }
+          return true;
+        }
+        break;
+      case 'preventive':
+        if (typeTab.props.label == this.translationService.instant('practice')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
+            this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('vehicle')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('vehicle'))) {
+            this.tabsEnabled.push(this.translationService.instant('vehicle'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('agent')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('agent'))) {
+            this.tabsEnabled.push(this.translationService.instant('agent'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('activityPlanning')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('activityPlanning'))) {
+            this.tabsEnabled.push(this.translationService.instant('activityPlanning'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('supplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('supplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('supplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('customer')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('customer'))) {
+            this.tabsEnabled.push(this.translationService.instant('customer'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('documents')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+            this.tabsEnabled.push(this.translationService.instant('documents'));
+          }
+          return true;
+        }
+        break;
+      case 'sale':
+        if (typeTab.props.label == this.translationService.instant('practice')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
+            this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('agent')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('agent'))) {
+            this.tabsEnabled.push(this.translationService.instant('agent'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('agent')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('agent'))) {
+            this.tabsEnabled.push(this.translationService.instant('agent'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('supplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('supplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('supplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('documents')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+            this.tabsEnabled.push(this.translationService.instant('documents'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('point')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('point'))) {
+            this.tabsEnabled.push(this.translationService.instant('point'));
+          }
+          return true;
+        }
+        break;
+      case 'darkering':
+        if (typeTab.props.label == this.translationService.instant('practice')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
+            this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('activityPlanning')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('activityPlanning'))) {
+            this.tabsEnabled.push(this.translationService.instant('activityPlanning'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('agent')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('agent'))) {
+            this.tabsEnabled.push(this.translationService.instant('agent'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('supplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('supplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('supplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('customer')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('customer'))) {
+            this.tabsEnabled.push(this.translationService.instant('customer'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('documents')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+            this.tabsEnabled.push(this.translationService.instant('documents'));
+          }
+          return true;
+        }
+        break;
+      case 'insurance':
+        if (typeTab.props.label == this.translationService.instant('practice')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
+            this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('documents')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+            this.tabsEnabled.push(this.translationService.instant('documents'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('customer')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('customer'))) {
+            this.tabsEnabled.push(this.translationService.instant('customer'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('supplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('supplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('supplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('point')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('point'))) {
+            this.tabsEnabled.push(this.translationService.instant('point'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('fitter')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('fitter'))) {
+            this.tabsEnabled.push(this.translationService.instant('fitter'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('activityPlanning')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('activityPlanning'))) {
+            this.tabsEnabled.push(this.translationService.instant('activityPlanning'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
+            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('vehicle')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('vehicle'))) {
+            this.tabsEnabled.push(this.translationService.instant('vehicle'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('documents')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+            this.tabsEnabled.push(this.translationService.instant('documents'));
+          }
+          return true;
+        }
+        break;
+    case '-':
+    if (typeTab.props.label == this.translationService.instant('practice')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
+        this.tabsEnabled.push(this.translationService.instant('practice'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('documents')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+        this.tabsEnabled.push(this.translationService.instant('documents'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('customer')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('customer'))) {
+        this.tabsEnabled.push(this.translationService.instant('customer'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('supplier')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('supplier'))) {
+        this.tabsEnabled.push(this.translationService.instant('supplier'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('point')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('point'))) {
+        this.tabsEnabled.push(this.translationService.instant('point'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('fitter')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('fitter'))) {
+        this.tabsEnabled.push(this.translationService.instant('fitter'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('activityPlanning')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('activityPlanning'))) {
+        this.tabsEnabled.push(this.translationService.instant('activityPlanning'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
+        this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('vehicle')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('vehicle'))) {
+        this.tabsEnabled.push(this.translationService.instant('vehicle'));
+      }
+      return true;
+    }
+    if (typeTab.props.label == this.translationService.instant('documents')) {
+      // this.enableFields(typeTab);
+      if (!this.tabsEnabled.includes(this.translationService.instant('documents'))) {
+        this.tabsEnabled.push(this.translationService.instant('documents'));
+      }
+      return true;
+    }
+    break;
+}
+    //this.disableFields(typeTab);
+    //console.log('ARRAY TAB ABILITATI', this.tabsEnabled);
     return false;
   }
 
-  submitdata($event: Event, form: any) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    const formValues = form.value;
-    const moreData = {
-      practiceStatus: this.statusPractice,
-      practiceDate: this.today,
-    };
-    const mergedWithPractice = { ...formValues, ...moreData };
-    console.log(mergedWithPractice);
+  disableFields(tab: any) {
+    if (tab.fieldGroup) {
+      tab.fieldGroup.forEach((field: FormlyFieldConfig) => {
+        console.log('disabilito :', field);
+        field.props = {
+          ...field.props,
+          disabled: true,
+        };
+      });
+    }
   }
 
-  goto($event: Event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-  }
-
-  flattenNestedArrays(formValue: any): { key: string; value: any }[] {
-    const flattenedArray: { key: string; value: any }[] = [];
-
-    const flattenRecursive = (obj: any, propName?: string) => {
-      if (Array.isArray(obj)) {
-        obj.forEach((item, index) => {
-          flattenRecursive(item, `${propName}[${index}]`);
-        });
-      } else if (typeof obj === 'object') {
-        for (const key in obj) {
-          if (obj.hasOwnProperty(key)) {
-            flattenRecursive(obj[key], propName ? `${propName}.${key}` : key);
-          }
-        }
-      } else {
-        if (propName) {
-          flattenedArray.push({ key: propName, value: obj });
-        } else {
-          flattenedArray.push({ key: 'root', value: obj });
-        }
-      }
-    };
-
-    flattenRecursive(formValue);
-    return flattenedArray;
+  enableFields(tab: any) {
+    if (tab.fieldGroup) {
+      tab.fieldGroup.forEach((field: FormlyFieldConfig) => {
+        console.log('abilito :', field);
+        field.props = {
+          ...field.props,
+          disabled: false,
+        };
+      });
+    }
   }
 }
