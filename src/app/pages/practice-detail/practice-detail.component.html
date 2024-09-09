@@ -17,7 +17,7 @@
     <hr />
   </div>
   <hr />
-  <form [formGroup]="form">
+  <form [formGroup]="form" *ngIf="!isLoading">
     <formly-form [model]="model" [fields]="fields" [form]="form"></formly-form>
   </form>
 </div>
@@ -31,14 +31,14 @@
 <mat-drawer-container #drawerrightall class="z-50 columns-container xs:left-0 md:left-56" autosize position="end">
   <mat-drawer #drawerright [mode]="'push'" class="columns-sidenav">
     <h3>Drawer right</h3>
-    <div>sssssssss</div>
+    <div>DRAWER RIGHT</div>
   </mat-drawer>
 </mat-drawer-container>
 
 <mat-drawer-container #drawerleftall class="z-50 columns-container xs:left-0 md:left-56" autosize>
   <mat-drawer #drawerleft class="columns-sidenav">
     <h3>Drawer left</h3>
-    <div>ZZZZZ</div>
+    <div>DRAWER LEFT</div>
   </mat-drawer>
 </mat-drawer-container>
 

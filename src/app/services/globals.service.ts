@@ -20,6 +20,8 @@ export class GlobalService {
   ) {}
 
   login(data: any): Observable<any> {
+    let params = new HttpParams();
+    params.set('timestamp', Date.now().toString());
     return this.http.post<any[]>('api/auth/login', data).pipe(catchError(this.handleError));
   }
 
@@ -27,6 +29,8 @@ export class GlobalService {
     const url = this.prefixUrl + collection;
     console.log('Add URL:', url);
     console.log('Data to send:', data);
+    let params = new HttpParams();
+    params.set('timestamp', Date.now().toString());
     return this.http.post<any[]>(url, data).pipe(catchError(this.handleError));
   }
 
@@ -34,6 +38,8 @@ export class GlobalService {
     const url = this.prefixUrl + collection + `/${id}`;
     console.log('Update URL:', url);
     console.log('Data to send:', data);
+    let params = new HttpParams();
+    params.set('timestamp', Date.now().toString());
     return  this.http.patch<any[]>(url, data).pipe(catchError(this.handleError));
   }
 
@@ -41,6 +47,8 @@ export class GlobalService {
     const url = this.prefixUrl + collection + `/${id}`;
     console.log('Delete URL:', url);
     console.log('Cancellazione', id);
+    let params = new HttpParams();
+    params.set('timestamp', Date.now().toString());
     return this.http.delete<any[]>(url).pipe(catchError(this.handleError));
   }
 
@@ -88,6 +96,7 @@ export class GlobalService {
     search?: string
   ){
     let params = new HttpParams();
+    params.set('timestamp', Date.now().toString());
     let tofilter: any = filter;
 
     //console.log(this.prefixUrl + collection);
@@ -98,7 +107,7 @@ export class GlobalService {
     if (page) params = params.set('page', page.toString());
     if (offset) params = params.set('offset', offset.toString());
     if (search) params = params.set('search', search.toString());
-
+   
     if (id) {
       //console.log(params);
       return this.http.get<any[]>(this.prefixUrl + collection + `/${id}`).pipe(catchError(this.handleError));

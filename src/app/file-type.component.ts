@@ -11,8 +11,12 @@ import { PDFDocument } from 'pdf-lib';
 
 import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, ObservableInput, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
-import { data } from 'jquery';
+import { map, catchError, tap, switchMap } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { Subject } from 'rxjs';
+
+
+
 
 @Component({
   selector: 'app-file-upload-field',
@@ -20,7 +24,7 @@ import { data } from 'jquery';
     <div class="upload-wrapper" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
       <!--<div class="file-container">
         # show preview #-->
-        <!--<div class="file" *ngFor="let file of selectedFiles; let i = index">
+      <!--<div class="file" *ngFor="let file of selectedFiles; let i = index">
           <img [src]="getSanitizedImageUrl(file)" />
           <span class="delete-button" (click)="onDelete(i)">X</span>
         </div>
@@ -64,24 +68,24 @@ import { data } from 'jquery';
         </ng-container>
 
         <ng-container matColumnDef="date_created">
-          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_DATE' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_DATE' | translate }}</th>
           <td mat-cell *matCellDef="let row">
             <!--{{ row.date_created | date : 'yyyy/MM/dd HH:mm' }}-->
           </td>
         </ng-container>
 
         <ng-container matColumnDef="fileName">
-          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_NAME' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_NAME' | translate }}</th>
           <td mat-cell *matCellDef="let row">{{ row.fileName }}</td>
         </ng-container>
 
         <ng-container matColumnDef="fileMime">
-          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_MIME' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_MIME' | translate }}</th>
           <td mat-cell *matCellDef="let row">{{ row.fileMime }}</td>
         </ng-container>
 
         <ng-container matColumnDef="fileSize">
-          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_SIZE' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'FILE_SIZE' | translate }}</th>
           <td mat-cell *matCellDef="let row">{{ row.fileSize }}</td>
         </ng-container>
 
@@ -92,7 +96,7 @@ import { data } from 'jquery';
             </button>
           </th>
           <td mat-cell *matCellDef="let score; let i = index">
-            <button mat-icon-button (click)="remove($event)" matTooltip="{{ 'FILE_REMOVE_SINGLE' | translate}}">
+            <button mat-icon-button (click)="remove($event)" matTooltip="{{ 'FILE_REMOVE_SINGLE' | translate }}">
               <mat-icon>clear</mat-icon>
             </button>
           </td>
@@ -102,7 +106,7 @@ import { data } from 'jquery';
         <tr mat-row *matRowDef="let file; columns: displayedColumns"></tr>
       </table>
     </div>
-    <mat-paginator #paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons></mat-paginator>
+    <mat-paginator #paginator [pageSizeOptions]="[10,20]" showFirstLastButtons></mat-paginator>
   `,
   styleUrls: ['./file-type.component.scss'],
 })
@@ -110,6 +114,8 @@ export class FileUploadFieldComponent extends FieldType implements OnInit, After
   @ViewChild('fileinput') el!: ElementRef;
   @ViewChild('table') table!: MatTable<any>;
   @ViewChild('paginator') paginator!: MatPaginator;
+
+  private reloadSignal: Subject<void> = new Subject<void>();
 
   dataSource: any;
   selectedFiles: File[] = [];
@@ -128,9 +134,13 @@ export class FileUploadFieldComponent extends FieldType implements OnInit, After
     super();
   }
 
+
+
   ngOnInit() {
-    //this.readFilesFromAPI();
-    this.reloaddata();
+    this.reloadSignal.subscribe(() => {
+      this.reloadData();
+    });
+    this.reloadSignal.next();
   }
 
   ngAfterViewInit(): void {}
@@ -173,86 +183,93 @@ export class FileUploadFieldComponent extends FieldType implements OnInit, After
     if (this.selection.selected.length == 0) {
       return;
     }
-
-    // Create a URL for the Blob
-    //const pdfUrl = URL.createObjectURL(pdfBlob);
-
-    // Open the PDF in a new tab for preview
-    //window.open(pdfUrl, '_blank');
   }
 
   /*######################################################*/
 
-  arrayBufferToBase64(buffer: ArrayBuffer): string {
-    const bytes = new Uint8Array(buffer);
-    let binary = '';
-
-    for (let i = 0; i < bytes.length; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  }
-
-  async inserimentoMassivo() {
+  inserimentoMassivo() {
     if (this.selectedFiles.length > 0) {
       console.log(this.selectedFiles);
-      this.selectedFiles.forEach(async file => {
-        try {
-          console.log(file);
-
-          const binaryData = await this.readBinaryData(file);
-          let dataBase64 = this.arrayBufferToBase64(binaryData);
-
-          const dataToSend = {
-            fileName: file.name,
-            fileMime: file.type,
-            fileSize: file.size,
-            fileReferer: this.to['identifier'],
-            fileData: dataBase64,
-          };
-
-          const response = await this.http.post('/api/items/documentsRepository', dataToSend).toPromise();
-          if (!response) {
-            throw new Error("Errore durante l'inserimento del file");
-          } else {
-            await this.reloaddata();
+  
+      this.selectedFiles.forEach(file => {
+        this.readBinaryData(file).pipe(
+          map(binaryData => this.arrayBufferToBase64(binaryData)), // Utilizza correttamente binaryData
+          switchMap(dataBase64 => {
+            const dataToSend = {
+              fileName: file.name,
+              fileMime: file.type,
+              fileSize: file.size,
+              fileReferer: this.props['identifier'],
+              fileData: dataBase64,
+            };
+            const params = new HttpParams().set('timestamp', Date.now().toString());
+            return this.http.post('/api/items/documentsRepository', dataToSend,{ params });
+          })
+        ).subscribe({
+          next: response => {
+            if (!response) {
+              console.error("Errore durante l'inserimento del file");
+            } else {
+             
+            }
+          },
+          error: error => {
+            console.error('Errore durante l\'inserimento del file:', error);
           }
-        } catch (error) {
-          console.error(error);
-          return;
-        }
+        });
       });
+      this.reloadSignal.next();
     }
   }
+  
+  reloadData() {
+    const params = new HttpParams().set('timestamp', Date.now().toString());
+    const headers = new HttpHeaders({
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
 
-  async reloaddata() {
-    try {
-      const response = await this.http.get<any>('/api/items/documentsRepository').toPromise();
-      this.files = (response as any)['data'];
-      console.log('ReadAll files from Backend');
-      this.dataSource = new MatTableDataSource<any>(this.files);
-      this.dataSource.paginator = this.paginator;
-      this.cdr.detectChanges();
-    } catch (error) {
-      console.error('Error retrieving documents:', error);
-    }
+    this.http.get<any>('/api/items/documentsRepository', { params, headers }).subscribe({
+      next: (response: any) => {
+        let files = response['data'];
+        console.log('Read all files from Backend', files);
+        this.dataSource = new MatTableDataSource<any>(files);
+        this.dataSource.paginator = this.paginator;
+        this.cdr.detectChanges();
+      },
+      error: (error: any) => {
+        console.error('Error retrieving documents:', error);
+      },
+    });
   }
-
-  private readBinaryData(file: File): Promise<ArrayBuffer> {
-    return new Promise((resolve, reject) => {
+  
+  private readBinaryData(file: File): Observable<ArrayBuffer> {
+    return new Observable<ArrayBuffer>(observer => {
       const reader = new FileReader();
-
+  
       reader.onload = () => {
         if (reader.result instanceof ArrayBuffer) {
-          resolve(reader.result);
+          observer.next(reader.result as ArrayBuffer);
+          observer.complete();
         } else {
-          reject(new Error('Failed to read file as binary data.'));
+          observer.error(new Error('Failed to read file as binary data.'));
         }
       };
-
-      reader.onerror = error => reject(error);
+  
+      reader.onerror = error => observer.error(error);
       reader.readAsArrayBuffer(file);
     });
+  }
+  
+  private arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 
   // Handle dragover event

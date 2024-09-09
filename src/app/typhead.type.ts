@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, DoCheck } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/material/form-field';
-import { FieldTypeConfig } from '@ngx-formly/core';
+import { FieldTypeConfig, FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
 
 interface OptionDef {
   id: string;
@@ -16,6 +17,9 @@ interface OptionDef {
   template: `
     <mat-form-field>
       <mat-select [formControl]="formControl">
+      <button mat-icon-button matSuffix (click)="reset()">
+          <mat-icon>close</mat-icon>
+        </button>
         <input
           mat-input
           (input)="onSearch($event)"
@@ -23,8 +27,9 @@ interface OptionDef {
           style="width:100%;border-style: ridge;border-width: thin"
           [(value)]="inputdata"
           [placeholder]="'Digita'" />
+     
         <mat-option (click)="selectOption(option)" *ngFor="let option of Options; let last = last" [value]="option.id">
-          {{ option.toShow }}
+          {{ option.toShow }}  
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -55,7 +60,7 @@ interface OptionDef {
     `,
   ],
 })
-export class HeadTypeComponent extends FieldType<FieldTypeConfig> implements OnInit {
+export class HeadTypeComponent extends FieldType<FieldTypeConfig> implements OnInit, DoCheck {
   Options: any;
   AllOptions: any;
   x: any;
@@ -66,33 +71,21 @@ export class HeadTypeComponent extends FieldType<FieldTypeConfig> implements OnI
   labeldata: any;
 
   ngOnInit(): void {
-    if (Array.isArray(this.props['options'])) {
-      // If 'options' is already an array, assign it directly to this.Options
-      this.Options = this.props['options'];
-      this.AllOptions = this.props['options'];
-      this.labeldata = this.props['labelToShow'];
-      this.labeldata = this.props['labelToShow'];
+    this.checkOptionsArray();
+  }
 
-      this.AllOptions.forEach((option: any, index: any) => {
-        let concatenatedValues = '';
-        this.labeldata.forEach((label: any, labelIndex: number) => {
-          if (option.hasOwnProperty(label)) {
-            let value = option[label];
-            if (typeof value === 'string') {
-              concatenatedValues += value;
-              if (labelIndex < this.labeldata.length - 1) {
-                concatenatedValues += ' - ';
-              }
-            }
-          }
-        });
-        console.log(concatenatedValues);
-        option.toShow = concatenatedValues || '';
-      });
+  ngDoCheck(): void {
+    this.checkOptionsArray();
+  }
 
-      console.log(this.AllOptions);
-    } else {
-      // If 'options' is an observable, subscribe to it and extract the array
+  reset() {
+    // Reset del valore dell'input e del formControl
+    this.inputdata = '';
+    this.formControl.reset(); // Resetta il valore del FormControl associato
+  }
+
+  checkOptionsArray() {
+    if (this.props['options'] instanceof Observable) {
       this.props!['options']!.subscribe((data: any[]) => {
         this.x = data; // Assign the array received from the API to this.Options
         this.labeldata = this.props['labelToShow'];
@@ -112,12 +105,34 @@ export class HeadTypeComponent extends FieldType<FieldTypeConfig> implements OnI
               }
             }
           });
-          //console.log(concatenatedValues)
           option.toShow = concatenatedValues || '';
         });
-
-        //console.log(this.AllOptions); // You can now access and work with the array
+        // console.log(this.Options); // You can now access and work with the array
       });
+      //}
+    } else {
+      // If 'options' is already an array, directly assign it
+      this.labeldata = this.props['labelToShow'];
+      this.AllOptions = this.props['options'];
+      this.Options = this.props['options'];
+      if (this.AllOptions) {
+        this.AllOptions.forEach((option: any, index: any) => {
+          let concatenatedValues = '';
+          this.labeldata.forEach((label: any, labelIndex: number) => {
+            if (option.hasOwnProperty(label)) {
+              let value = option[label];
+              if (typeof value === 'string') {
+                concatenatedValues += value;
+                if (labelIndex < this.labeldata.length - 1) {
+                  concatenatedValues += ' - ';
+                }
+              }
+            }
+          });
+          option.toShow = concatenatedValues || '';
+        });
+      }
+      // console.log(this.Options); // You can now access and work with the array
     }
   }
 

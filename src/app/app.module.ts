@@ -83,6 +83,7 @@ import { ButtonComponent } from './button.type.component';
 import { FormlyFieldCustomInput } from './custom-input.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CustomDivComponent } from './div-type.componenet';
+import { FormlyWrapperNewline } from './newline.wrapper';
 
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -100,6 +101,12 @@ export const MY_DATE_FORMATS = {
   },
 };
 
+interface WrapperOption {
+    name: string;
+    component: any; // Update the type of component as needed
+    template?: string; // Make the template property optional
+}
+
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
 }
@@ -115,6 +122,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     NullTypeComponent,
     FormlyWrapperCard,
     FormlyWrapperAddons,
+    FormlyWrapperNewline,
     HeadTypeComponent,
     ButtonComponent,
     FormlyFieldCustomInput,
@@ -251,6 +259,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       wrappers: [
         { name: 'card', component: FormlyWrapperCard },
         { name: 'addons', component: FormlyWrapperAddons },
+        { name: 'newline', component: FormlyWrapperNewline}
       ],
       extensions: [{ name: 'addons', extension: { onPopulate: addonsExtension } }],
       types: [
