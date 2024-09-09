@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
       </ng-container>
     </mat-tab-group>
     
-    {{ model | json }}
+    <!--{{ model | json }}-->
 
     <div class="relative">
       <button class="flex ml-2 mr-2" mat-raised-button color="primary">{{ feasibility_panel }}</button>
@@ -55,7 +55,7 @@ import { TranslateService } from '@ngx-translate/core';
           flex-grow: 1;
           margin-bottom: 10px;
           top: 0;
-          //height: calc(100vh - 220px) !important;
+          height: calc(100vh - 220px) !important;
         }
 
         .mat-mdc-tab-body {
@@ -67,7 +67,7 @@ import { TranslateService } from '@ngx-translate/core';
           overflow-x: hidden;
           overflow-y: scroll;
           flex-basis: 100%;
-          //height: calc(100vh - 220px) !important;
+          height: calc(100vh - 220px) !important;
         }
 
         .mat-form-field > .mat-form-field-wrapper {

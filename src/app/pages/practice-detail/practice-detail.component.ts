@@ -93,6 +93,7 @@ export class PracticeDetailComponent {
   selectedCustomer: any;
   selectedInsurance: any;
   selectedInsuranceOffice: any;
+  selectedinsuranceLimitsAndDeductible: any;
   selectedPointWorkPlace: any;
   selectedFitter1: any;
   selectedFitter2: any;
@@ -1234,6 +1235,7 @@ export class PracticeDetailComponent {
                 hooks: {
                   onInit: field => {
                     const control = this.form.get('selectedInsurance');
+
                     control?.valueChanges.subscribe(async (selectedValue: string) => {
                       if (selectedValue == undefined) {
                         field.form?.get('insuranceDescription')?.patchValue(null);
@@ -1244,6 +1246,7 @@ export class PracticeDetailComponent {
                         field.form?.get('insuranceGreenPhone')?.patchValue(null);
                         field.form?.get('insuranceOpenAccidentPhone')?.patchValue(null);
                         field.form?.get('insuranceUseAgency')?.patchValue(null);
+
                         field.form?.get('selectedInsuranceOffice')?.patchValue(null);
                         field.form?.get('insuranceOfficeDescription')?.patchValue(null);
                         field.form?.get('insuranceOfficeAddress')?.patchValue(null);
@@ -1345,22 +1348,194 @@ export class PracticeDetailComponent {
                   disabled: true,
                 },
               },
-
+              {
+                wrappers: ['newline'],
+              },
               {
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
                 key: 'insuranceUseAgency',
                 type: 'input',
-                //hide:true,
+                hide:true,
                 props: {
                   translate: true,
                   label: 'p_insuranceUseAgency',
-                  description: 'p_insuranceUseAgency_Description',
+                  description: 'p_insuranceUseAgency',
+                  required: false,
+                  disabled: true,
+                },
+              },
+             /*
+             {
+                wrappers: ['newline'],
+              },
+              */
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+                key: 'selectedinsuranceLimitsAndDeductible',
+                type: 'headtype',
+                props: {
+                  translate: true,
+                  description: 'p_selectedinsuranceLimitsAndDeductible_Description',
+                  label: ' ',
+                  options: [],
+                  labelToShow: ['insuranceLimitsAndDeductibleType', 'insuranceLimitsAndDeductibleDescription'],
+                },
+                hooks: {
+                  onInit: field => {
+                    const control = this.form.get('selectedinsuranceLimitsAndDeductible');
+                    control?.valueChanges.subscribe(async (selectedValue: string) => {
+                      if (selectedValue == undefined) {
+                        field.form?.get('insuranceLimitsAndDeductibleDescription')?.patchValue(null);
+                        field.form?.get('insuranceLimitsAndDeductibleType')?.patchValue(null);
+                        field.form?.get('insuranceLimitsAndDeductibleTypeYearly')?.patchValue(null);
+                      } else {
+                        this.http.get<[]>('api/items/insuranceLimitsAndDeductible/' + selectedValue).subscribe((data: any[]) => {
+                          let x: any = data; // Assign the array received from the API to this.Options
+                          let limitsAndDeductible = x['data'];
+                          let row = limitsAndDeductible;
+                          field.form?.get('insuranceLimitsAndDeductibleDescription')?.patchValue(row.insuranceLimitsAndDeductibleDescription);
+                          field.form?.get('insuranceLimitsAndDeductibleType')?.patchValue(row.insuranceLimitsAndDeductibleType);
+                          field.form?.get('insuranceLimitsAndDeductibleTypeYearly')?.patchValue(row.insuranceLimitsAndDeductibleTypeYearly);
+                          this.selectedinsuranceLimitsAndDeductible = row;
+                        });
+                      }
+                    });
+
+                    const controInsurance = this.form.get('selectedInsurance');
+                    controInsurance?.valueChanges.subscribe(async (selectedValue: string) => {
+                      const insurance = this.form.get('selectedInsurance');
+                      const insuranceId = insurance?.value;
+                      if (insuranceId) {
+                        this.http.get<any>('api/items/insuranceLimitsAndDeductible').subscribe(response => {
+                          let x = response.data;
+                          const insurance = this.form.get('selectedInsurance');
+                          const insuranceId = insurance?.value;
+                          console.log(insuranceId);
+                          console.log(x);
+                          const filteredData = x.filter((item: any) => item.insuranceLimitsAndDeductibleAssosiationTo === insuranceId);
+                          console.log(filteredData);
+
+                          if (field && field.props?.options) {
+                            field.props.options = filteredData;
+                          }
+                        });
+                      } else {
+                        if (field && field.props?.options) {
+                          field.props.options = [];
+                        }
+                      }
+                    });
+                  },
+                  afterViewInit: field => {},
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceLimitsAndDeductibleDescription',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceLimitsAndDeductibleDescription',
+                  description: 'p_insuranceLimitsAndDeductibleDescription_Description',
                   required: false,
                   disabled: true,
                 },
               },
               {
-                wrappers: ['newline'],
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceLimitsAndDeductibleType',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceLimitsAndDeductibleType',
+                  description: 'p_insuranceLimitsAndDeductibleType_Description',
+                  required: false,
+                  disabled: true,
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceLimitsAndDeductibleTypeYearly',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceLimitsAndDeductibleTypeYearly',
+                  description: 'p_insuranceLimitsAndDeductibleTypeYearly_Description',
+                  required: false,
+                  disabled: true,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceCode',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceCode',
+                  description: 'p_insuranceCode_Description',
+                  required: false,
+                  disabled: false,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceExpiration',
+                type: 'datepicker',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceExpiration',
+                  description: 'p_insuranceExpiration_Description',
+                  required: false,
+                  disabled: false,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceSendAfterDate',
+                type: 'datepicker',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceSendAfterDate',
+                  description: 'p_insuranceSendAfterDate_Description',
+                  required: false,
+                  disabled: false,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceAccidenNumber',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceAccidentNumber',
+                  description: 'p_insuranceAccidentNumber_Description',
+                  required: false,
+                  disabled: false,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceAccidentDate',
+                type: 'datepicker',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceAccidentDate',
+                  description: 'p_insuranceAccidentDate_Description',
+                  required: false,
+                  disabled: false,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'insuranceAccidentPlace',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_insuranceAccidentPlace',
+                  description: 'p_insuranceAccidentPlace_Description',
+                  required: false,
+                  disabled: false,
+                },
               },
               {
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
@@ -1485,7 +1660,7 @@ export class PracticeDetailComponent {
               },
               {
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
-                key: 'agencyProvince',
+                key: 'insuranceOfficeProvince',
                 type: 'input',
                 props: {
                   translate: true,
@@ -1507,7 +1682,7 @@ export class PracticeDetailComponent {
                   required: false,
                   disabled: true,
                 },
-                hideExpression: 'model.insuranceUseAgency == "false "',
+                hideExpression: 'model.insuranceUseAgency == "false"',
               },
               {
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',

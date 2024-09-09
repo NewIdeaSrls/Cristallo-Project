@@ -17,9 +17,9 @@ interface OptionDef {
   template: `
     <mat-form-field>
       <mat-select [formControl]="formControl">
-      <button mat-icon-button matSuffix (click)="reset()">
+        <!--<button mat-icon-button matSuffix (click)="reset()">
           <mat-icon>close</mat-icon>
-        </button>
+        </button>-->
         <input
           mat-input
           (input)="onSearch($event)"
@@ -27,11 +27,12 @@ interface OptionDef {
           style="width:100%;border-style: ridge;border-width: thin"
           [(value)]="inputdata"
           [placeholder]="'Digita'" />
-     
+
         <mat-option (click)="selectOption(option)" *ngFor="let option of Options; let last = last" [value]="option.id">
-          {{ option.toShow }}  
+          {{ option.toShow }}
         </mat-option>
       </mat-select>
+      <mat-icon class="iconpos" (click)="reset()">close</mat-icon>
     </mat-form-field>
   `,
   styles: [
@@ -55,6 +56,12 @@ interface OptionDef {
 
         .mdc-text-field {
           padding-left: 0px !important;
+        }
+
+        .iconpos {
+          position: absolute !important;
+          padding: 0px !important;
+          font-size:20px!important;
         }
       }
     `,
