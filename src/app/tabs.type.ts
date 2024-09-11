@@ -1,7 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Form, FormGroup } from '@angular/forms';
 import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Input, Output, EventEmitter } from '@angular/core';
+import { SharedDataService } from './services/shared-data.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { CommandService } from './services/command-service.service';
+
+interface FeasibilityInfo {
+  // Define the properties of the feasibility information
+  // Example properties, adjust as per your actual data structure
+  msg: string;
+}
 
 @Component({
   selector: 'formly-field-tabs',
@@ -18,12 +28,12 @@ import { TranslateService } from '@ngx-translate/core';
         </ng-container>
       </ng-container>
     </mat-tab-group>
-    
+
     <!--{{ model | json }}-->
 
     <div class="relative">
-      <button class="flex ml-2 mr-2" mat-raised-button color="primary">{{ feasibility_panel }}</button>
-      <div class="absolute right-0 top-0 mt-2 mr-2">{{ feasibility_info }}</div>
+      <button *ngIf="showBottomInfo" class="flex ml-2 mr-2" mat-raised-button (click)="openfeasibility()" color="{{feasibility_button_color}}">{{ feasibility_button }}</button>
+      <div *ngIf="showBottomInfo" class="absolute right-0 top-0 mt-2 mr-2 font-medium">{{ feasibility_info }}</div>
     </div>
   `,
   styles: [
@@ -33,14 +43,14 @@ import { TranslateService } from '@ngx-translate/core';
           padding-top: 14px!important;
           padding-bottom: 0px!important;
         }*/
-          .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+        .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
           padding-top: 9px;
           padding-bottom: 16px;
-          }
+        }
 
         .mat-mdc-text-field-wrapper {
-        height: 56px!important;
-        flex: auto;
+          height: 56px !important;
+          flex: auto;
         }
 
         .mdc-text-field--filled.mdc-text-field--disabled .mdc-text-field__input {
@@ -77,19 +87,43 @@ import { TranslateService } from '@ngx-translate/core';
     `,
   ],
 })
-export class FormlyFieldTabs extends FieldType {
-  constructor(private translationService: TranslateService) {
+export class FormlyFieldTabs extends FieldType implements OnInit {
+  constructor(
+    private translationService: TranslateService,
+    private sharedDataService: SharedDataService,
+    private commandService: CommandService,
+    private cdr: ChangeDetectorRef
+  ) {
     super();
   }
 
   today = new Date();
-  feasibility_panel = this.translationService.instant('feasibility_panel');
-  feasibility_info = this.translationService.instant('feasibility_info');
+  feasibility_button = this.translationService.instant('feasibility_panel');
+  feasibility_button_color = 'primary'
+  feasibility_info: string = ''; // this.translationService.instant('feasibility_info');
   tabsEnabled: any[] = [];
   lastModelType: any;
+  showBottomInfo: boolean = true
+
+  ngOnInit(): void {
+
+    this.sharedDataService.feasibilityInfo$.subscribe(info => {
+      this.feasibility_info = info;
+      this.cdr.detectChanges();
+    });
+    this.sharedDataService.feasibilityCommandColor$.subscribe(color => {
+      this.feasibility_button_color = color;
+      this.cdr.detectChanges();
+    });
+  }
+
+  openfeasibility() {
+    this.commandService.triggerCommand();
+  }
 
   enableTabsOn(typeTab: any) {
     // this.enableFields(typeTab);
+
     this.lastModelType = this.model.practiceType;
     if (typeTab.fieldGroup) {
       if (typeTab.fieldGroup['key'] == 'practiceType') {
@@ -505,6 +539,7 @@ export class FormlyFieldTabs extends FieldType {
     }
     //this.disableFields(typeTab);
     //console.log('ARRAY TAB ABILITATI', this.tabsEnabled);
+    
     return false;
   }
 

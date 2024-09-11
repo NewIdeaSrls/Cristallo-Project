@@ -35,7 +35,8 @@ import { ElementRef } from '@angular/core';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { log } from 'console';
 import { threadId } from 'worker_threads';
-import { HeadTypeComponent } from '../../typhead.type';
+import { SharedDataService } from '../../services/shared-data.service';
+import { CommandService } from '../../services/command-service.service';
 
 export interface DialogData {
   alertMessage: string;
@@ -56,7 +57,6 @@ interface CounterData {
 export class PracticeDetailComponent {
   @ViewChild('drawerright') drawerright!: MatDrawer;
   @ViewChild('drawerleft') drawerleft!: MatDrawer;
-  @ViewChild(HeadTypeComponent) HeadTypeComponent!: HeadTypeComponent;
 
   dialog = inject(MatDialog);
 
@@ -86,6 +86,7 @@ export class PracticeDetailComponent {
 
   selectedPoint: any;
   selectedVehicleModel: any;
+  selectedVehicleModelInfo: any;
   selectedVehicle: any;
   selectedAgent: any;
   selectedBroker: any;
@@ -110,6 +111,7 @@ export class PracticeDetailComponent {
   formlyBuilder: any;
 
   brokers: Observable<any>[] = [];
+  costs:any
 
   constructor(
     private http: HttpClient,
@@ -118,7 +120,9 @@ export class PracticeDetailComponent {
     private translationService: TranslateService,
     private route: ActivatedRoute,
     private fbuilder: FormBuilder,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private sharedDataService: SharedDataService,
+    private commandService:CommandService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -150,25 +154,74 @@ export class PracticeDetailComponent {
 
     this.translationService.reloadLang('it').subscribe(() => {
       this.loadFormlyFields();
-      //this.subscribeGlobalsChanges();
       this.isLoading = false;
     });
+
+      this.sharedDataService.setFeasibilityInfo("Benvenuto Carlo");
+    
+      let isPrimaryColor = true;
+
+      // Function to toggle the color and set it using sharedDataService
+      const toggleCommandColor = () => {
+          const colorToSet = isPrimaryColor ? 'primary' : 'warn';
+          this.sharedDataService.setfeasibilityCommandColor(colorToSet);
+          isPrimaryColor = !isPrimaryColor; // Toggle the color for the next iteration
+      };
+
+      setInterval(() => {
+        toggleCommandColor();
+      }, 4000); 
+    
+
+    this.commandService.command$.subscribe(() => {
+      this.openFeasibilityDrawer();
+    });
+  }
+
+  openFeasibilityDrawer() {
+    this.costs = [
+      {
+        from: 'Point',
+        cost: 60
+      },
+      {
+        from: 'Broker',
+        cost: 20
+      },
+      {
+        from: 'Agent',
+        subject: 'Message Subject 2',
+        cost: 10
+      },
+      {
+        from: 'Fitters',
+        cost: 50
+      },
+      {
+        from: 'Materials',
+        cost: 100
+      },
+    ]
+    this.drawerright.toggle()
+
+  }
+
+  showAlerts($event: Event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    this.drawerleft.toggle()
   }
 
   AfterViewInit() {
     this.model = {};
-    /**************** preload Agents  = Broker */
-
-    /*this.http.get<any[]>('api/items/agents').pipe(
-      map(agents => agents.filter(agent => agent.agentType === 'Broker'))
-    ).subscribe(filteredAgents => {
-      console.log(filteredAgents)
-      this.brokers = filteredAgents;
-    });*/
   }
 
   ngOnDestroy() {
     clearInterval(this.intervalId);
+  }
+
+  handleButtonClick(): void {
+    console.log('Funzione eseguita nel componente genitore');
   }
 
   findFieldByKey(fields: FormlyFieldConfig[], key: string): FormlyFieldConfig | undefined {
@@ -255,9 +308,13 @@ export class PracticeDetailComponent {
       if (this.selectedSupplier) console.log(this.selectedSupplier);
       if (this.selectedInsuranceOffice) console.log(this.selectedInsuranceOffice);
       if (this.selectedVehicle) console.log(this.selectedVehicle);
+      if (this.selectedVehicleModelInfo) console.log(this.selectedVehicleModelInfo);
       if (this.selectedVehicleModel) console.log(this.selectedVehicleModel);
       if (this.selectedPointWorkPlace) console.log(this.selectedPointWorkPlace);
       console.log(this.model);
+
+      this.sharedDataService.setFeasibilityInfo("Tutto Salvato");
+
     }
   }
 
@@ -304,13 +361,14 @@ export class PracticeDetailComponent {
         this.data = Practice['data'];
         console.log(Practice['data']);
         this.model = {
-          id: Practice['data']['id'],
+          practiceId: Practice['data']['id'],
           practiceStatus: Practice['data']['practiceStatus'],
           practiceType: Practice['data']['practiceType'],
           practiceOrigin: Practice['data']['practiceOrigin'],
           practiceEmailOrigin: Practice['data']['practiceEmailOrigin'],
           practiceWhatsappNumberOrigin: Practice['data']['practiceWhatsappNumberOrigin'],
           practiceDate: Practice['data']['practiceDate'],
+          practiceLastUpdate: Practice['data']['practiceLastUpdate'],
           practiceCode: Practice['data']['practiceCode'],
           practiceNote: Practice['data']['practiceNote'],
           practiceAdministrationNote: Practice['data']['practiceAdministrationNote'],
@@ -455,7 +513,7 @@ export class PracticeDetailComponent {
                 },
                 expressionProperties: {
                   //'props.label': () => this.translationService.instant('p_practiceType'),
-                  'props.description': () => this.translationService.instant('p_practiceTypeDescription'),
+                  'props.description': () => this.translationService.instant('p_practiceType_Description'),
                 },
                 expressions: {
                   'props.disabled': (field: FormlyFieldConfig) => {
@@ -468,7 +526,7 @@ export class PracticeDetailComponent {
                 },
               },
               {
-                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 radioField',
                 key: 'practiceStatus',
                 type: 'select',
                 defaultValue: 'CA',
@@ -541,20 +599,20 @@ export class PracticeDetailComponent {
                 },
               },
               {
-                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 radioField',
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 radioField',
                 key: 'practiceCode',
                 type: 'input',
                 defaultValue: this.translationService.instant('newPractice'),
                 props: {
                   type: 'text',
-                  label: '',
+                  label: 'p_practiceCode',
                   required: false,
                   disabled: true,
-                  description: '',
+                  description: 'p_practiceCode_Description',
                 },
                 expressionProperties: {
                   'props.label': () => this.translationService.instant('p_practiceCode'),
-                  'props.description': () => this.translationService.instant('p_practiceCodeDescription'),
+                  'props.description': () => this.translationService.instant('p_practiceCode_Description'),
                 },
                 expressions: {
                   'props.disabled': (field: FormlyFieldConfig) => {
@@ -566,12 +624,12 @@ export class PracticeDetailComponent {
                 },
               },
               {
-                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
                 key: 'practiceDate',
                 type: 'datepicker',
                 props: {
                   label: 'p_practiceDate',
-                  description: 'p_practiceDateDescription',
+                  description: 'p_practiceDate_Description',
                   datepickerOptions: {
                     format: 'DD-MM-YYYY', //
                   },
@@ -593,7 +651,39 @@ export class PracticeDetailComponent {
                 },
                 expressionProperties: {
                   'props.label': () => this.translationService.instant('p_practiceDate'),
-                  'props.description': () => this.translationService.instant('p_practiceDateDescription'),
+                  'props.description': () => this.translationService.instant('p_practiceDate_Description'),
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 radioField',
+                key: 'practiceLastUpdate',
+                type: 'datepicker',
+                defaultValue : new Date(),
+                props: {
+                  label: 'p_practiceLastUpdate',
+                  description: 'p_practiceLastUpdate_Description',
+                  datepickerOptions: {
+                    format: 'DD-MM-YYYY', //
+                  },
+                  hourFormat: '24',
+                  numberOfMonths: 2,
+                  selectionMode: 'single',
+                  required: false,
+                  readonlyInput: false,
+                  showTime: true,
+                  showButtonBar: true,
+                  showIcon: false,
+                  showOtherMonths: true,
+                  selectOtherMonths: true,
+                  monthNavigator: true,
+                  yearNavigator: true,
+                  yearRange: '2020:2030',
+                  inline: false,
+                  updateOn: 'change',
+                },
+                expressionProperties: {
+                  'props.label': () => this.translationService.instant('p_practiceLastUpdate'),
+                  'props.description': () => this.translationService.instant('p_practiceLastUpdate_Description'),
                 },
               },
               {
@@ -612,7 +702,7 @@ export class PracticeDetailComponent {
                 },
                 expressionProperties: {
                   //'props.label': () => this.translationService.instant('p_practiceOrigin'),
-                  'props.description': () => this.translationService.instant('p_practiceOriginDescription'),
+                  'props.description': () => this.translationService.instant('p_practiceOrigin_Description'),
                 },
               },
               {
@@ -620,17 +710,17 @@ export class PracticeDetailComponent {
                 key: 'practiceWhatsappNumberOrigin',
                 type: 'input',
                 props: {
-                  label: '',
+                  label: 'p_practiceWhatsappNumberOrigin',
                   required: true,
                   disabled: false,
-                  description: '',
+                  description: 'p_practiceWhatsappNumberOrigin_Description',
                   maskConfig: {
                     //mask: '000 000000000||+00 000 000000000',
                   },
                 },
                 expressionProperties: {
                   'props.label': () => this.translationService.instant('p_praticeWhatsappOriginNumbern'),
-                  'props.description': () => this.translationService.instant('p_praticeWhatsappOriginNumberDescription'),
+                  'props.description': () => this.translationService.instant('p_praticeWhatsappOriginNumber_Description'),
                 },
                 expressions: { hide: 'model.practiceOrigin !== "whatsapp"' },
               },
@@ -640,10 +730,10 @@ export class PracticeDetailComponent {
                 type: 'input',
                 props: {
                   type: 'text',
-                  label: '',
+                  label: 'p_practiceEmailOrigin',
                   required: true,
                   disabled: false,
-                  description: '',
+                  description: 'p_practiceEmailOrigin_Description',
                   maskConfig: {
                     //mask: "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",
                     //validation:true
@@ -652,7 +742,7 @@ export class PracticeDetailComponent {
                 },
                 expressionProperties: {
                   'props.label': () => this.translationService.instant('p_practiceEmailOrigin'),
-                  'props.description': () => this.translationService.instant('p_practiceEmailOriginDescription'),
+                  'props.description': () => this.translationService.instant('p_practiceEmailOrigin_Description'),
                 },
                 expressions: { hide: 'model.practiceOrigin !== "email"' },
               },
@@ -661,14 +751,14 @@ export class PracticeDetailComponent {
                 key: 'practiceNote',
                 type: 'textarea',
                 props: {
-                  label: '',
-                  description: '',
+                  label: 'p_practiceNote',
+                  description: 'p_practiceNote_Description',
                   required: false,
                   rows: 3,
                 },
                 expressionProperties: {
                   'props.label': () => this.translationService.instant('p_practiceNote'),
-                  'props.description': () => this.translationService.instant('p_practiceNoteDescription'),
+                  'props.description': () => this.translationService.instant('p_practiceNote_Description'),
                 },
                 validation: { show: true },
               },
@@ -684,7 +774,7 @@ export class PracticeDetailComponent {
                 },
                 expressionProperties: {
                   'props.label': () => this.translationService.instant('p_practiceAdministrationNote'),
-                  'props.description': () => this.translationService.instant('p_practiceAdministrationNoteDescription'),
+                  'props.description': () => this.translationService.instant('p_practiceAdministrationNote_Description'),
                 },
               },
               {
@@ -699,7 +789,7 @@ export class PracticeDetailComponent {
                 },
                 expressionProperties: {
                   'props.label': () => this.translationService.instant('p_practiceAlert'),
-                  'props.description': () => this.translationService.instant('p_practiceAlert'),
+                  'props.description': () => this.translationService.instant('p_practiceAlert_Description'),
                 },
               },
             ],
@@ -971,6 +1061,14 @@ export class PracticeDetailComponent {
                         field.form?.get('vehicleDischarge')?.patchValue(null);
                         field.form?.get('vehicleImported')?.patchValue(null);
                         field.form?.get('vehicleRegistrationDate')?.patchValue(null);
+                        field.form?.get('vehicleModelAlert')?.patchValue(null);
+                        field.form?.get('vehicleModelLogisticNote')?.patchValue(null);
+                        field.form?.get('vehicleModelOrderNote')?.patchValue(null);
+                        field.form?.get('vehicleModelTechnicalNote')?.patchValue(null);
+                        field.form?.get('vehicleModeNeedBigVehicle')?.patchValue(null);
+                        field.form?.get('vehicleModelNumberOfFitters')?.patchValue(null);
+                        field.form?.get('vehicleModelProcessingTimeMins')?.patchValue(null);
+                        field.form?.get('ehicleModelOnlyOriginalParts')?.patchValue(null);
                       } else {
                         this.http.get<[]>('api/items/vehicles/' + selectedValue).subscribe((data: any[]) => {
                           let x: any = data; // Assign the array received from the API to this.Options
@@ -996,7 +1094,6 @@ export class PracticeDetailComponent {
                 key: 'vehicleType',
                 type: 'radio',
                 props: {
-                  label: ' ',
                   description: 'p_vehicleType_Description',
                   required: false,
                   disabled: false,
@@ -1094,6 +1191,7 @@ export class PracticeDetailComponent {
                       const filteredOptions = options.filter((option: { value: any }) => option.value === vehicleModelValue);
                       console.log(filteredOptions);
                       this.selectedVehicleModel = filteredOptions;
+
                       if (
                         !this.dialogIsOpen &&
                         filteredOptions.length > 0 &&
@@ -1121,8 +1219,8 @@ export class PracticeDetailComponent {
                 hooks: {
                   onInit: field => {
                     //############### Load Options on vehicleBrand availability and Alert #####################
-                    let control = this.form.get('vehicleBrand'); //async
-                    control?.valueChanges.subscribe((changedValues: string) => {
+                    let controlBrand = this.form.get('vehicleBrand');
+                    controlBrand?.valueChanges.subscribe((changedValues: string) => {
                       const vehicleTypeField = field.form?.get('vehicleType');
                       const vehicleTypeId = vehicleTypeField?.value;
                       console.log(vehicleTypeId);
@@ -1150,6 +1248,36 @@ export class PracticeDetailComponent {
                         console.log(xoptions);
                         field.props!.options = [...xoptions];
                       });
+                    });
+
+
+                    let controlModel = this.form.get('vehicleModel');
+                    controlModel?.valueChanges.subscribe((changedValues: string) => {
+                      let idToSearch = '';
+                      if (changedValues !== null) {
+                        idToSearch = changedValues;
+                      } else {
+                        idToSearch = this.model.vehicleModel
+                      }
+                      if(idToSearch !== null) {
+                      this.http.get<[]>('api/items/vehicleModels/' + idToSearch).subscribe((data: any[]) => {
+                        let x: any = data; // Assign the array received from the API to this.Options
+                        let vehicle = x['data'];
+                        let row = vehicle;
+                        console.log(row);
+
+                        field.form?.get('vehicleModelAlert')?.patchValue(row.vehicleModelAlert);
+                        field.form?.get('vehicleModelLogisticNote')?.patchValue(row.vehicleModelLogisticNote);
+                        field.form?.get('vehicleModelOrderNote')?.patchValue(row.vehicleModelOrderNote);
+                        field.form?.get('vehicleModelTechnicalNote')?.patchValue(row.vehicleModelTechnicalNote);
+                        field.form?.get('vehicleModelNeedBigVehicle')?.patchValue(row.vehicleModeNeedBigVehicle);
+                        field.form?.get('vehicleModelNumberOfFitters')?.patchValue(row.vehicleModelNumberOfFitters);
+                        field.form?.get('vehicleModelProcessingTimeMins')?.patchValue(row.vehicleModelProcessingTimeMins);
+                        field.form?.get('ehicleModelOnlyOriginalParts')?.patchValue(row.ehicleModelOnlyOriginalParts);
+
+                        this.selectedVehicleModelInfo = row;
+                      });
+                    }
                     });
                   },
                 },
@@ -1208,9 +1336,117 @@ export class PracticeDetailComponent {
                   disabled: false,
                 },
               },
-              { template: '<br>' },
+              {
+                className: 'w-full h-6', // Classe per far sì che l'HR occupi tutta la larghezza del form
+                template: '<hr>',
+              },
+
+              {
+                className: '2xl:w-1/2 xl:w-1/2 lg:w-1/2 xs:w-1/2 sm:w-full  px-2 ',
+                key: 'vehicleAlert',
+                type: 'textarea',
+                props: {
+                  translate: true,
+                  label: 'p_vehicleAlert',
+                  required: false,
+                  disabled: false,
+                  rows: 1,
+                  description: 'p_vehicleAlert_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/2 xl:w-1/2 lg:w-1/2 xs:w-1/2 sm:w-full  px-2 ',
+                key: 'vehicleModelLogisticNote',
+                type: 'textarea',
+                props: {
+                  translate: true,
+                  label: 'p_vehicleModelLogisticNote',
+                  required: false,
+                  disabled: false,
+                  rows: 1,
+                  description: 'p_vehicleModelLogisticNote_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/2 xl:w-1/2 lg:w-1/2 xs:w-1/2 sm:w-full  px-2 ',
+                key: 'vehicleModelOrderNote',
+                type: 'textarea',
+                props: {
+                  translate: true,
+                  label: 'p_vehicleModelOrderNote',
+                  required: false,
+                  disabled: false,
+                  rows: 1,
+                  description: 'p_vehicleModelOrderNote_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/2 xl:w-1/2 lg:w-1/2 xs:w-1/2 sm:w-full  px-2 ',
+                key: 'vehicleModelTechnicalNote',
+                type: 'textarea',
+                props: {
+                  translate: true,
+                  label: 'p_vehicleModelTechnicalNote',
+                  required: false,
+                  disabled: false,
+                  rows: 1,
+                  description: 'p_vehicleModelTechnicalNote_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                key: 'vehicleModelNeedBigVehicle',
+                type: 'checkbox',
+                props: {
+                  translate: true,
+                  required: false,
+                  label: 'p_vehicleModeNeedBigVehicle',
+                  disabled: true,
+                  description: 'p_vehicleModelNeedBigVehicle_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                key: 'vehicleModelOnlyOriginalParts',
+                type: 'checkbox',
+                props: {
+                  translate: true,
+                  label: 'p_vehicleModelOnlyOriginalParts',
+                  required: false,
+                  disabled: true,
+                  rows: 1,
+                  description: 'p_vehicleModelOnlyOriginalParts_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                key: 'vehicleModelNumberOfFitters',
+                type: 'input',
+                props: {
+                  translate: true,
+                  type: 'number',
+                  label: 'p_vehicleModelNumberOfFitters',
+                  required: false,
+                  disabled: true,
+                  description: 'p_vehicleModelNumberOfFitters_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                key: 'vehicleModelProcessingTimeMins',
+                type: 'input',
+                props: {
+                  translate: true,
+                  type: 'number',
+                  label: 'p_vehicleModelProcessingTimeMins',
+                  required: false,
+                  disabled: true,
+                  description: 'p_vehicleModelProcessingTimeMins_Description',
+                },
+              },
             ],
           },
+
           {
             props: {
               translate: true,
@@ -1348,14 +1584,14 @@ export class PracticeDetailComponent {
                   disabled: true,
                 },
               },
-              {
+              /*{
                 wrappers: ['newline'],
-              },
+              },*/
               {
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
                 key: 'insuranceUseAgency',
                 type: 'input',
-                hide:true,
+
                 props: {
                   translate: true,
                   label: 'p_insuranceUseAgency',
@@ -1364,7 +1600,7 @@ export class PracticeDetailComponent {
                   disabled: true,
                 },
               },
-             /*
+              /*
              {
                 wrappers: ['newline'],
               },
@@ -1466,6 +1702,10 @@ export class PracticeDetailComponent {
                 },
               },
               {
+                className: 'w-full h-6', // Classe per far sì che l'HR occupi tutta la larghezza del form
+                template: '<hr>',
+              },
+              {
                 className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
                 key: 'insuranceCode',
                 type: 'input',
@@ -1536,6 +1776,10 @@ export class PracticeDetailComponent {
                   required: false,
                   disabled: false,
                 },
+              },
+              {
+                className: 'w-full h-6', // Classe per far sì che l'HR occupi tutta la larghezza del form
+                template: '<hr>',
               },
               {
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
@@ -1737,7 +1981,14 @@ export class PracticeDetailComponent {
                         field.form?.get('pointRefererName')?.patchValue(null);
                         field.form?.get('pointRefererPhone')?.patchValue(null);
                         field.form?.get('pointCommercialRefererName')?.patchValue(null);
-                        field.form?.get('pointCommercialRefererPhone')?.patchValue(null);
+                        field.form?.get('selectedAgent')?.patchValue(null);
+                        field.form?.get('agentType')?.patchValue(null);
+                        field.form?.get('agentDescription')?.patchValue(null);
+                        field.form?.get('agentAddress')?.patchValue(null);
+                        field.form?.get('agentTown')?.patchValue(null);
+                        field.form?.get('agentZip')?.patchValue(null);
+                        field.form?.get('agentProvince')?.patchValue(null);
+                        field.form?.get('agentPhone')?.patchValue(null);
                       } else {
                         this.http.get<[]>('api/items/points/' + selectedValue).subscribe((data: any[]) => {
                           let x: any = data; // Assign the array received from the API to this.Options
@@ -1755,7 +2006,14 @@ export class PracticeDetailComponent {
                           field.form?.get('pointRefererName')?.patchValue(row.pointRefererName);
                           field.form?.get('pointRefererPhone')?.patchValue(row.pointRefererPhone);
                           field.form?.get('pointCommercialRefererName')?.patchValue(row.pointCommercialRefererName);
-                          field.form?.get('pointCommercialRefererPhone')?.patchValue(row.pointCommercialRefererPhone);
+                          field.form?.get('selectedAgent')?.patchValue(null);
+                          field.form?.get('agentType')?.patchValue(null);
+                          field.form?.get('agentDescription')?.patchValue(null);
+                          field.form?.get('agentAddress')?.patchValue(null);
+                          field.form?.get('agentTown')?.patchValue(null);
+                          field.form?.get('agentZip')?.patchValue(null);
+                          field.form?.get('agentProvince')?.patchValue(null);
+                          field.form?.get('agentPhone')?.patchValue(null);
                           this.selectedPoint = row;
                         });
                       }
@@ -1936,7 +2194,7 @@ export class PracticeDetailComponent {
                     const control = this.form.get('selectedAgent');
                     control?.valueChanges.subscribe(async (selectedValue: string) => {
                       if (selectedValue == undefined) {
-                        field.form?.get('id')?.patchValue(null);
+                        //field.form?.get('id')?.patchValue(null);
                         field.form?.get('agentType')?.patchValue(null);
                         field.form?.get('agentDescription')?.patchValue(null);
                         field.form?.get('agentAddress')?.patchValue(null);
@@ -1944,13 +2202,14 @@ export class PracticeDetailComponent {
                         field.form?.get('agentZip')?.patchValue(null);
                         field.form?.get('agentProvince')?.patchValue(null);
                         field.form?.get('agentPhone')?.patchValue(null);
+
                       } else {
                         this.http.get<[]>('api/items/agents/' + selectedValue).subscribe((data: any[]) => {
                           let x: any = data; // Assign the array received from the API to this.Options
                           let agents = x['data'];
                           let row = agents;
                           console.log(row);
-                          field.form?.get('id')?.patchValue(row.id);
+                          //field.form?.get('id')?.patchValue(row.id);
                           field.form?.get('agentType')?.patchValue(row.agentType);
                           field.form?.get('agentDescription')?.patchValue(row.agentDescription);
                           field.form?.get('agentAddress')?.patchValue(row.agentAddress);

@@ -85,7 +85,7 @@
         </div>
       </ng-container>
 
-      <!-- ricerca su colonna -->
+      <!-- Search on Column -->
       <tr>
         <th *ngFor="let item of datacolumns; let i = index">
           <input class="form-control" (keyup)="filter($event, item)" type="text" />
@@ -93,7 +93,7 @@
       </tr>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <!-- riga dettaglio -->
+      <!-- Row Detail  -->
       <ng-container matColumnDef="expandedDetail" *ngIf="showExpandedDetail" >
         <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length" class="bg-slate-400">
           
@@ -108,7 +108,7 @@
         </td>
       </ng-container>
       
-      <!-- riga tabella -->
+      <!-- Row table -->
       <tr mat-row *matRowDef="let row; columns: displayedColumns" pointer (click)="toggleRow(row)">
         <ng-container *ngFor="let column of displayedColumns">
           <td mat-cell *matCellDef="let element" [ngStyle]="{ background: element['BGColor'], color: element['FGColor'] }">
