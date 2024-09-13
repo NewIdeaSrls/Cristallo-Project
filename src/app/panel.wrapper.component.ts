@@ -5,7 +5,7 @@ import { FieldWrapper } from '@ngx-formly/core';
   selector: 'formly-wrapper-card',
   template: `
     <mat-card>
-      <!--<mat-card-title>{{ getTitle() }}</mat-card-title>-->
+      <!--<mat-card-title *ngif="this.field.props?.label !== ''">{{ getTitle() }}</mat-card-title>-->
       <mat-card-content>
         <ng-container #fieldComponent></ng-container>
       </mat-card-content>
@@ -21,7 +21,7 @@ import { FieldWrapper } from '@ngx-formly/core';
           margin: 4px;
           border-radius: 5px;
           border-color: darkgrey !important;
-          border-width: 2px !important;
+          border-width: 1px !important;
         }
         .mat-expansion-panel {
           border: darkgrey !important;
@@ -46,8 +46,8 @@ import { FieldWrapper } from '@ngx-formly/core';
 })
 export class FormlyWrapperCard extends FieldWrapper {
   getTitle(): string {
-    if (this.field && this.field.templateOptions && this.field.templateOptions.label) {
-      return this.field.templateOptions.label;
+    if (this.field && this.field.props && this.field.props.label) {
+      return this.field.props?.label;
     }
     return '';
   }

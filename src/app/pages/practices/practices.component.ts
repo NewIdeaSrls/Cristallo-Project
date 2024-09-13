@@ -42,7 +42,6 @@ export class PracticesComponent implements OnInit {
   expandedElement: any | null = null;
   elementToDelete: any;
 
-
   dataconfig = ['add', 'search', 'columns', 'reload'];
 
   datacolumns = [
@@ -85,13 +84,13 @@ export class PracticesComponent implements OnInit {
     this.addPropertyToData();
   }
 
-   // Add property 'Action' to array on Insert
+   // Add property 'Action' 
    addPropertyToData() {
     this.data = this.data.map(object => {
-      return { ...object, Action: 'delete,menu' };
+      return { ...object, Action: 'delete,menu',BGColor: this.getRandomBackgrounfColor(),FGColor: this.foregroundColor };
     });
-  }
-
+   }
+   
 /*****************************************************************************/
   getPractices() {
     this.getFromRestapi(
@@ -160,8 +159,9 @@ export class PracticesComponent implements OnInit {
         console.log('Practices data: ', Practices['data']);
         console.log('Practices length: ', Practices['data'].length);
         this.data = Practices['data'];
-        this.datasource = Practices['data'];
         this.addPropertyToData()
+        this.datasource = this.data;
+        console.log(this.data)
       });
   }
 

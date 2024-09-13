@@ -152,10 +152,10 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           }
           return true;
         }
-        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+        if (typeTab.props.label == this.translationService.instant('materials')) {
           // this.enableFields(typeTab);
-          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
-            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          if (!this.tabsEnabled.includes(this.translationService.instant('materials'))) {
+            this.tabsEnabled.push(this.translationService.instant('materials'));
           }
           return true;
         }
@@ -247,10 +247,10 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           }
           return true;
         }
-        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+        if (typeTab.props.label == this.translationService.instant('materials')) {
           // this.enableFields(typeTab);
-          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
-            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          if (!this.tabsEnabled.includes(this.translationService.instant('materials'))) {
+            this.tabsEnabled.push(this.translationService.instant('materials'));
           }
           return true;
         }
@@ -342,10 +342,10 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           }
           return true;
         }
-        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+        if (typeTab.props.label == this.translationService.instant('materials')) {
           // this.enableFields(typeTab);
-          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
-            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          if (!this.tabsEnabled.includes(this.translationService.instant('materials'))) {
+            this.tabsEnabled.push(this.translationService.instant('materials'));
           }
           return true;
         }
@@ -435,10 +435,10 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           }
           return true;
         }
-        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+        if (typeTab.props.label == this.translationService.instant('materials')) {
           // this.enableFields(typeTab);
-          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
-            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          if (!this.tabsEnabled.includes(this.translationService.instant('materials'))) {
+            this.tabsEnabled.push(this.translationService.instant('materials'));
           }
           return true;
         }
@@ -514,10 +514,10 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           }
           return true;
         }
-        if (typeTab.props.label == this.translationService.instant('inquiringSupplier')) {
+        if (typeTab.props.label == this.translationService.instant('materials')) {
           // this.enableFields(typeTab);
-          if (!this.tabsEnabled.includes(this.translationService.instant('inquiringSupplier'))) {
-            this.tabsEnabled.push(this.translationService.instant('inquiringSupplier'));
+          if (!this.tabsEnabled.includes(this.translationService.instant('materials'))) {
+            this.tabsEnabled.push(this.translationService.instant('materials'));
           }
           return true;
         }
