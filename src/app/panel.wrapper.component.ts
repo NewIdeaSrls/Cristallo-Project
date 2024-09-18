@@ -25,19 +25,19 @@ import { FieldWrapper } from '@ngx-formly/core';
         }
         .mat-expansion-panel {
           border: darkgrey !important;
-          border-style: solid !important;
+          //border-style: solid !important;
           border-width: 1px !important;
         }
 
         .mat-expansion-panel-header {
           border: darkgrey !important;
-          border-style: solid !important;
+          //border-style: solid !important;
           border-width: 1px !important;
         }
 
         .mat-expansion-panel-content {
           border: darkgrey !important;
-          border-style: solid !important;
+          //border-style: solid !important;
           border-width: 1px !important;
         }
       }

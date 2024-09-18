@@ -84,6 +84,7 @@ import { FormlyFieldCustomInput } from './custom-input.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CustomDivComponent } from './div-type.componenet';
 import { FormlyWrapperNewline } from './newline.wrapper';
+import { RepeatTypeComponent } from './repeat-section.component';
 
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -126,7 +127,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     HeadTypeComponent,
     ButtonComponent,
     FormlyFieldCustomInput,
-    CustomDivComponent
+    CustomDivComponent,
+    RepeatTypeComponent
   ],
   exports: [
     CommonModule,
@@ -294,6 +296,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         { name: 'object', component: ObjectTypeComponent },
         { name: 'file-upload', component: FileUploadFieldComponent },
         { name: 'accordion', component: AccordionTypeComponent },
+        { name: 'repeat', component: RepeatTypeComponent },
       ],
     }),
     HttpClientModule,

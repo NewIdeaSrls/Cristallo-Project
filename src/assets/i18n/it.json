@@ -185,7 +185,8 @@
   "documents": "Documenti",
   "darkering": "Oscuramento",
   "supplier": "Fornitore",
-  "agent": "Agente/Broker",
+  "agent": "Agente",
+  "broker" : "Broker",
 
   "p_practiceType": "Tipo pratica",
   "p_practiceTypeDescription": "Tipo pratica",

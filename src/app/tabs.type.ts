@@ -166,6 +166,13 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           }
           return true;
         }
+        if (typeTab.props.label == this.translationService.instant('broker')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('broker'))) {
+            this.tabsEnabled.push(this.translationService.instant('broker'));
+          }
+          return true;
+        }
         if (typeTab.props.label == this.translationService.instant('supplier')) {
           // this.enableFields(typeTab);
           if (!this.tabsEnabled.includes(this.translationService.instant('supplier'))) {
@@ -186,6 +193,14 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           // this.enableFields(typeTab);
           if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
             this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
+
+        if (typeTab.props.label == this.translationService.instant('broker')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('broker'))) {
+            this.tabsEnabled.push(this.translationService.instant('broker'));
           }
           return true;
         }
@@ -240,6 +255,14 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           }
           return true;
         }
+
+        if (typeTab.props.label == this.translationService.instant('broker')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('broker'))) {
+            this.tabsEnabled.push(this.translationService.instant('broker'));
+          }
+          return true;
+        }
         if (typeTab.props.label == this.translationService.instant('activityPlanning')) {
           // this.enableFields(typeTab);
           if (!this.tabsEnabled.includes(this.translationService.instant('activityPlanning'))) {
@@ -284,6 +307,13 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           }
           return true;
         }
+        if (typeTab.props.label == this.translationService.instant('broker')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('broker'))) {
+            this.tabsEnabled.push(this.translationService.instant('broker'));
+          }
+          return true;
+        }
         if (typeTab.props.label == this.translationService.instant('agent')) {
           // this.enableFields(typeTab);
           if (!this.tabsEnabled.includes(this.translationService.instant('agent'))) {
@@ -325,6 +355,13 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           // this.enableFields(typeTab);
           if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
             this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('broker')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('broker'))) {
+            this.tabsEnabled.push(this.translationService.instant('broker'));
           }
           return true;
         }
@@ -376,6 +413,13 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           // this.enableFields(typeTab);
           if (!this.tabsEnabled.includes(this.translationService.instant('practice'))) {
             this.tabsEnabled.push(this.translationService.instant('practice'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('broker')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('broker'))) {
+            this.tabsEnabled.push(this.translationService.instant('broker'));
           }
           return true;
         }
@@ -462,6 +506,13 @@ export class FormlyFieldTabs extends FieldType implements OnInit {
           // this.enableFields(typeTab);
           if (!this.tabsEnabled.includes(this.translationService.instant('insurance'))) {
             this.tabsEnabled.push(this.translationService.instant('insurance'));
+          }
+          return true;
+        }
+        if (typeTab.props.label == this.translationService.instant('broker')) {
+          // this.enableFields(typeTab);
+          if (!this.tabsEnabled.includes(this.translationService.instant('broker'))) {
+            this.tabsEnabled.push(this.translationService.instant('broker'));
           }
           return true;
         }

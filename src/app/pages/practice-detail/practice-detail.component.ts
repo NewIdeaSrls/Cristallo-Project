@@ -1143,7 +1143,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                   options: this.http.get<any>('api/items/vehicleBrands').pipe(map(response => response.data)),
                 },
                 expressionProperties: {
-                 // 'templateOptions.disabled': '!model.vehicleType',
+                  // 'templateOptions.disabled': '!model.vehicleType',
                 },
                 hooks: {
                   onInit: field => {
@@ -1442,17 +1442,230 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 },
               },
               {
-                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
-                key: 'vehicleModelProcessingTimeMins',
-                type: 'input',
-                props: {
-                  translate: true,
-                  type: 'number',
-                  label: 'p_vehicleModelProcessingTimeMins',
-                  required: false,
-                  disabled: true,
-                  description: 'p_vehicleModelProcessingTimeMins_Description',
-                },
+                props: { label: 'Accordions' },
+                className: '2xl:w-full xl:w-full lg:w-full xs:w-full sm:w-full  px-2 ',
+                fieldGroup: [
+                  {
+                    key: 'accordion',
+                    type: 'accordion',
+                    fieldGroup: [
+                      {
+                        key: 'processingTime',
+                        fieldGroupClassName: 'flex flex-wrap p2',
+                        templateOptions: {
+                          translate: true,
+                          label: 'p_processingTime',
+                        },
+                        fieldGroup: [
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime1',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime1',
+                              description: 'p_processingTime1_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime2',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime2',
+                              description: 'p_processingTime2_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime3',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime3',
+                              description: 'p_processingTime3_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime4',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime4',
+                              description: 'p_processingTime4_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime5',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime5',
+                              description: 'p_processingTime5_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime6',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime6',
+                              description: 'p_processingTime6_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime7',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime7',
+                              description: 'p_processingTime7_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime8',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime8',
+                              description: 'p_processingTime8_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime9',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime9',
+                              description: 'p_processingTime9_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime10',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime10',
+                              description: 'p_processingTime10_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime11',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime11',
+                              description: 'p_processingTime11_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime12',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime12',
+                              description: 'p_processingTime12_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime13',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime13',
+                              description: 'p_processingTime13_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime14',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime14',
+                              description: 'p_processingTime14_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime15',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime15',
+                              description: 'p_processingTime15_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime16',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime16',
+                              description: 'p_processingTime16_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-1/4 sm:w-full  px-2 ',
+                            key: 'processingTime17',
+                            type: 'input',
+                            props: {
+                              translate: true,
+                              label: 'p_processingTime17',
+                              description: 'p_processingTime17_Description',
+                              required: false,
+                              type: 'number',
+                            },
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
               },
             ],
           },
@@ -2176,6 +2389,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
               },
             ],
           },
+
           {
             props: {
               translate: true,
@@ -2203,11 +2417,8 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                     this.http.get<any[]>('api/items/agents').subscribe((data: any[]) => {
                       let x: any = data; // Assign the array received from the API to this.Options
                       let result = x['data'];
-                      let brokers = result.filter((agent: { agentType: string }) => agent.agentType === 'Broker');
                       if (field && field.props?.options) {
-                        this.brokers = brokers;
-                        field.props.options = brokers;
-                        console.log('BROKERS TESTA', brokers);
+                        field.props.options = result;
                       }
                     });
 
@@ -2218,11 +2429,8 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                         this.http.get<any[]>('api/items/agents').subscribe((data: any[]) => {
                           let x: any = data; // Assign the array received from the API to this.Options
                           let result = x['data'];
-                          let brokers = result.filter((agent: { agentType: string }) => agent.agentType === 'Broker');
                           if (field && field.props?.options) {
-                            this.brokers = brokers;
-                            field.props.options = brokers;
-                            console.log('BROKERS TESTA', brokers);
+                            field.props.options = result;
                           }
                         });
                       }
@@ -2357,6 +2565,134 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
               },
             ],
           },
+
+          {
+            props: {
+              translate: true,
+              label: 'broker',
+            },
+            expressionProperties: {
+              'props.label': () => this.translationService.instant('broker'),
+            },
+            fieldGroupClassName: 'flex flex-wrap p2',
+            fieldGroup: [
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'selectedBroker',
+                type: 'headtype',
+                props: {
+                  translate: true,
+                  description: 'p_selectedBroker_Description',
+                  label: ' ',
+                  options: [],
+                  labelToShow: ['brokerDescription', 'brokerTown'],
+                },
+                hooks: {
+                  onInit: field => {
+                    // load Brokers as default
+                    this.http.get<any[]>('api/items/brokers').subscribe((data: any[]) => {
+                      let x: any = data; // Assign the array received from the API to this.Options
+                      let result = x['data'];
+                      if (field && field.props?.options) {
+                        field.props.options = result;
+                      }
+                    });
+
+                    // load Agents on selecteBroker
+                    const control = this.form.get('selectedBroker');
+                    control?.valueChanges.subscribe(async (selectedValue: string) => {
+                      if (selectedValue == undefined) {
+                        //field.form?.get('id')?.patchValue(null);
+                        field.form?.get('brokerDescription')?.patchValue(null);
+                        field.form?.get('brokerAddress')?.patchValue(null);
+                        field.form?.get('brokerTown')?.patchValue(null);
+                        field.form?.get('brokerZip')?.patchValue(null);
+                        field.form?.get('brokerProvince')?.patchValue(null);
+                        field.form?.get('brokerPhone')?.patchValue(null);
+                      } else {
+                        this.http.get<[]>('api/items/brokers/' + selectedValue).subscribe((data: any[]) => {
+                          let x: any = data; // Assign the array received from the API to this.Options
+                          let agents = x['data'];
+                          let row = agents;
+                          console.log(row);
+                          field.form?.get('brokerDescription')?.patchValue(row.brokerDescription);
+                          field.form?.get('brokerAddress')?.patchValue(row.brokerAddress);
+                          field.form?.get('brokerTown')?.patchValue(row.brokerTown);
+                          field.form?.get('brokerZip')?.patchValue(row.brokerZip);
+                          field.form?.get('brokerProvince')?.patchValue(row.brokerProvince);
+                          field.form?.get('brokerPhone')?.patchValue(row.brokerPhone);
+                          this.selectedBroker = row;
+                        });
+                      }
+                    });
+                  },
+                },
+              },
+
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'brokerDescription',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_brokerDescription',
+                  description: 'p_brokerDescription_Description',
+                  required: true,
+                  disabled: true,
+                },
+              },
+
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'brokerAddress',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_brokerAddress',
+                  description: 'p_brokerAddress_Description',
+                  required: false,
+                  disabled: true,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'brokerTown',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_brokerTown',
+                  description: 'p_brokerTown_Description',
+                  required: false,
+                  disabled: true,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'brokerZip',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_brokerZip',
+                  description: 'p_brokerZip_Description',
+                  required: false,
+                  disabled: true,
+                },
+              },
+              {
+                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
+                key: 'brokerPhone',
+                type: 'input',
+                props: {
+                  translate: true,
+                  label: 'p_brokerPhone',
+                  description: 'p_brokerPhone_Description',
+                  required: false,
+                  disabled: true,
+                },
+              },
+            ],
+          },
+
           {
             props: {
               translate: true,
@@ -2367,36 +2703,40 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
             },
             fieldGroupClassName: 'flex flex-wrap p2',
             fieldGroup: [
-              /*{
-                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+              {
+                className: '2xl:w-2/3 xl:w-2/3 lg:w-2/3 xs:w-full sm:w-full  px-2 ',
                 key: 'vehicleType',
-                type: 'input',
-
+                type: 'radio',
                 props: {
-                  translate: true,
-                  label: 'p_vehicleType',
                   description: 'p_vehicleType_Description',
                   required: false,
-                  disabled: true,
+                  disabled: false,
+                  options: [
+                    { value: 'car', label: 'p_vehicleType_Car' },
+                    { value: 'truck', label: 'p_vehicleType_Truck' },
+                    { value: 'van', label: 'p_vehicleType_Van' },
+                    { value: 'motorhomes', label: 'p_vehicleType_Motorhomes' },
+                    { value: 'microcar', label: 'p_vehicleType_Microcar' },
+                  ].map(option => ({ ...option, label: this.translationService.instant(option.label) })),
                 },
               },
               {
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
                 key: 'vehiclePlate',
                 type: 'input',
-                defaultValue: this.form.get('vehiclePlate'),
                 props: {
                   translate: true,
                   label: 'p_vehiclePlate',
                   required: false,
-                  disabled: true,
+                  disabled: false,
                   description: 'p_vehiclePlate_Description',
                 },
-              },*/
+              },
+
               /*{
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
                 key: 'vehicleBrand',
-                type: 'select',
+                type: 'input',
 
                 props: {
                   translate: true,
@@ -2404,156 +2744,19 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                   description: 'p_vehicleCarBrand_Description',
                   required: false,
                   disabled: true,
-                  options: this.http.get<any>('api/items/vehicleBrands').pipe(map(response => response.data)),
                 },
-                expressionProperties: {
-                  //'templateOptions.disabled': '!model.vehicleType',
-                },
-                hooks: {
-                  onInit: field => {
-                    const typeControl = this.form.get('vehicleType');
-                    typeControl?.valueChanges.subscribe((changedValues: string) => {
-                      const vehicleTypeField = field.form?.get('vehicleType');
-                      const vehicleTypeId = vehicleTypeField?.value;
-                      console.log(vehicleTypeId);
+              },
 
-                      const vehicleBrandField = field.form?.get('vehicleBrand');
-                      const vehicleBrandId = vehicleBrandField?.value;
-                      console.log(vehicleBrandId);
-
-                      const vehicleModelField = field.form?.get('vehicleModel');
-                      const vehicleModelFieldId = vehicleModelField?.value;
-                      console.log(vehicleModelFieldId);
-
-                      // On typeVehicle clean brand and model
-                      vehicleBrandField?.patchValue(null);
-                      vehicleModelField?.patchValue(null);
-
-                      this.http.get<any>('api/items/vehicleBrands').subscribe(response => {
-                        console.log(response.data);
-                        let x = response.data;
-                        console.log(vehicleTypeId);
-                        const filteredData = x.filter((item: any) => item.vehicleType === vehicleTypeId);
-                        console.log(filteredData);
-                        const xoptions = filteredData.map((item: any) => ({ label: item.vehicleBrand, value: item.id }));
-                        console.log(xoptions);
-                        field.props!.options = [...xoptions];
-                      });
-                    });
-                  },
-                },
-              },*/
-              /*{
+              {
                 className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
                 key: 'vehicleModel',
-                type: 'select',
+                type: 'input',
                 props: {
                   translate: true,
                   label: 'p_vehicleModel',
                   description: 'p_vehicleModel_Description',
                   required: false,
                   disabled: true,
-                  options: this.http.get<any>('api/items/vehicleModels').pipe(map(response => response.data)),
-
-                  change: async (field: FormlyFieldConfig, event: {}) => {
-                    //######## Intercept changes on Selection and Show eventual Alert
-                    const options = Array.isArray(field.props?.options)
-                      ? field.props?.options
-                      : await field.props?.options?.pipe(toArray()).toPromise();
-                    console.log(options);
-                    let vehicleModelValue = field?.form?.value['vehicleModel'];
-                    if (options) {
-                      const filteredOptions = options.filter((option: { value: any }) => option.value === vehicleModelValue);
-                      console.log(filteredOptions);
-                      this.selectedVehicleModel = filteredOptions;
-
-                      if (
-                        !this.dialogIsOpen &&
-                        filteredOptions.length > 0 &&
-                        filteredOptions[0].alert !== null &&
-                        filteredOptions[0].alert !== undefined
-                      ) {
-                        this.dialogIsOpen = true;
-                        this.dialog
-                          .open(DialogDataDialog, {
-                            data: {
-                              alertMessage: filteredOptions[0].alert,
-                            },
-                          })
-                          .afterClosed()
-                          .subscribe(() => {
-                            this.dialogIsOpen = false;
-                          });
-                      }
-                    }
-                  },
-                },
-                expressions: {
-                  //'props.disabled': 'true',
-                },
-                hooks: {
-                  onInit: field => {
-                    //############### Load Options on vehicleBrand availability and Alert #####################
-                    let controlBrand = this.form.get('vehicleBrand');
-                    controlBrand?.valueChanges.subscribe((changedValues: string) => {
-                      const vehicleTypeField = field.form?.get('vehicleType');
-                      const vehicleTypeId = vehicleTypeField?.value;
-                      console.log(vehicleTypeId);
-
-                      const vehicleCarBrandField = field.form?.get('vehicleBrand');
-                      const vehicleBrandId = vehicleCarBrandField?.value;
-                      console.log(vehicleBrandId);
-
-                      const vehicleModelField = field.form?.get('vehicleModel');
-                      const vehicleModelFieldId = vehicleModelField?.value;
-                      console.log(vehicleModelFieldId);
-
-                      this.http.get<any>('api/items/vehicleModels').subscribe(response => {
-                        console.log(response.data);
-                        let x = response.data;
-                        const filteredData = x.filter(
-                          (item: any) => item.vehicleModelBrand === vehicleBrandId && item.vehicleModelType === vehicleTypeId
-                        );
-                        console.log(filteredData);
-                        const xoptions = filteredData.map((item: any) => ({
-                          label: item.vehicleModel,
-                          value: item.id,
-                          alert: item.vehicleModelAlert,
-                        }));
-                        console.log(xoptions);
-                        field.props!.options = [...xoptions];
-                      });
-                    });
-
-                    let controlModel = this.form.get('vehicleModel');
-                    controlModel?.valueChanges.subscribe((changedValues: string) => {
-                      let idToSearch = '';
-                      if (changedValues !== null) {
-                        idToSearch = changedValues;
-                      } else {
-                        idToSearch = this.model.vehicleModel;
-                      }
-                      if (idToSearch !== null) {
-                        this.http.get<[]>('api/items/vehicleModels/' + idToSearch).subscribe((data: any[]) => {
-                          let x: any = data; // Assign the array received from the API to this.Options
-                          let vehicle = x['data'];
-                          let row = vehicle;
-                          console.log(row);
-
-                          field.form?.get('vehicleModelAlert')?.patchValue(row.vehicleModelAlert);
-                          field.form?.get('vehicleModelLogisticNote')?.patchValue(row.vehicleModelLogisticNote);
-                          field.form?.get('vehicleModelOrderNote')?.patchValue(row.vehicleModelOrderNote);
-                          field.form?.get('vehicleModelTechnicalNote')?.patchValue(row.vehicleModelTechnicalNote);
-                          field.form?.get('vehicleModelNeedBigVehicle')?.patchValue(row.vehicleModeNeedBigVehicle);
-                          field.form?.get('vehicleModelNumberOfFitters')?.patchValue(row.vehicleModelNumberOfFitters);
-                          field.form?.get('vehicleModelProcessingTimeMins')?.patchValue(row.vehicleModelProcessingTimeMins);
-                          field.form?.get('vehicleModelOnlyOriginalParts')?.patchValue(row.vehicleModelOnlyOriginalParts);
-
-                          this.selectedVehicleModelInfo = row;
-                        });
-                      }
-                    });
-                  },
                 },
               },*/
 
@@ -2566,441 +2769,528 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                   label: 'p_btPlus',
                 },
               },*/
+              /*{
+                fieldGroupClassName: 'flex flex-wrap p2',
+                key: 'materialsUsed',
+                type: 'repeat',
+                props: {
+                  addText: '+',
+                },
+                fieldArray: {
 
+
+
+                }
+              } ,*/
+              
               {
                 fieldGroupClassName: 'flex flex-wrap p2',
                 key: 'materialGroup',
                 wrappers: ['card'],
                 fieldGroup: [
-                  {
-                    className: '2xl:w-3/12 xl:w-3/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialType',
-                    type: 'select',
-                    props: {
-                      translate: true,
-                      label: 'p_materialType',
-                      description: 'p_materialType_Description',
-                      required: false,
-                      disabled: false,
-                      options: [],
-                      labelProp: 'glassType',
-                      valueProp: 'id',
-                    },
-                    hooks: {
-                      onInit: field => {
-                        this.http.get<any>('api/items/glasses').subscribe(response => {
-                          let x = response.data;
-                          if (field && field.props?.options) {
-                            field.props.options = x;
-                          }
-                        });
-                      },
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialEuroCode',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialEuroCode',
-                      description: 'p_materialEuroCode_Description',
-                      required: false,
-                      disabled: false,
-                    },
-                  },
-                  {
-                    className: '2xl:w-6/12 xl:w-6/12 lg:w-6/12 xs:w-full sm:w-full px-2',
-                    key: 'btOpenWeb',
-                    type: 'button',
-                    props: {
-                      translate: true,
-                      label: 'Ricerca  EuroCode',
-                      icon: 'open_in_browser',
-                    },
-                  },
-                  {
-                    wrappers: ['newline'],
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialCost',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialCostPrice',
-                      description: 'p_materialCost_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialEndUsertPrice',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialEndUserPrice',
-                      description: 'p_materialEndUserPrice_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialEndUserDiscount',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialEndUserDiscount',
-                      description: 'p_materialEndUserDiscount_Description',
-                      addonLeft: {
-                        text: '%',
-                      },
-                      required: false,
-                      disabled: false,
-                    },
-                  },
-                  {
-                    className: '2xl:w-6/12 xl:w-6/12 lg:w-6/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialDescription',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialDescription',
-                      description: 'p_materialDescription_Description',
-                      rows: 3,
-                      required: false,
-                      disabled: false,
-                    },
-                  },
+                 
 
-                  /////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
 
                   {
-                    className: '2xl:w-4/12 xl:w-4/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialSensor',
-                    type: 'checkbox',
-                    defaultValue: false,
+                    fieldGroupClassName: 'flex flex-wrap p2',
+                    key: 'materialsUsed',
+                    type: 'repeat',
                     props: {
-                      translate: true,
-                      label: 'p_materialSensor',
-                      description: 'p_materialSensor_Description',
-                      required: false,
-                      disabled: false,
+                      addText: '+',
                     },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialSensorQuantity',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialSensorQuantity',
-                      description: 'p_materialSensorQuantity_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialSensor == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialSensorCost',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialSensorCost',
-                      description: 'p_materialSensorCost_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialSensor == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialSensorEndUsertPrice',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialSensorEndUserPrice',
-                      description: 'p_materialSensorEndUserPrice_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialSensor == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialSensorEndUserDiscount',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialSensorEndUserDiscount',
-                      description: 'p_materialSensorEndUserDiscount_Description',
-                      addonLeft: {
-                        text: '%',
-                      },
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialSensor == true',
-                    },
-                  },
+                    fieldArray: {
+                      fieldGroup: [
+                        {
+                          className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                          key: 'materialType',
+                          type: 'select',
+                          props: {
+                            translate: true,
+                            label: 'p_materialType',
+                            description: 'p_materialType_Description',
+                            required: false,
+                            disabled: false,
+                            options: [],
+                            labelProp: 'glassType',
+                            valueProp: 'id',
+                          },
+                          hooks: {
+                            onInit: field => {
+                              this.http.get<any>('api/items/glasses').subscribe(response => {
+                                let x = response.data;
+                                if (field && field.props?.options) {
+                                  field.props.options = x;
+                                }
+                              });
+                            },
+                          },
+                        },
+                        {
+                          className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                          key: 'materialEuroCode',
+                          type: 'input',
+                          props: {
+                            translate: true,
+                            label: 'p_materialEuroCode',
+                            description: 'p_materialEuroCode_Description',
+                            required: false,
+                            disabled: false,
+                          },
+                        },
+                        {
+                          className: '2xl:w-6/12 xl:w-6/12 lg:w-4/12 xs:w-full sm:w-full px-2',
+                          key: 'btOpenWeb',
+                          type: 'button',
+                          props: {
+                            translate: true,
+                            label: 'Ricerca  EuroCode',
+                            icon: 'open_in_browser',
+                          },
+                        },
+                        {
+                          props: { label: 'materialsAccordion' },
+                          fieldGroup: [
+                            {
+                              key: 'accordionMaterial',
+                              type: 'accordion',
+                              fieldGroup: [
+                                {
+                                  key: 'materialsGroups',
+                                  templateOptions: {
+                                    translate: true,
+                                    label: 'materialsGroup1',
+                                  },
+                                  fieldGroupClassName: 'flex flex-wrap p2',
+                                  fieldGroup: [
+                                    {
+                                      className: '2xl:w-12/12 xl:w-12/12 lg:w-12/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialDescription',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialDescription',
+                                        description: 'p_materialDescription_Description',
+                                        rows: 3,
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialCost',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialCostPrice',
+                                        description: 'p_materialCost_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialEndUsertPrice',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialEndUserPrice',
+                                        description: 'p_materialEndUserPrice_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialEndUserDiscount',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialEndUserDiscount',
+                                        description: 'p_materialEndUserDiscount_Description',
+                                        addonLeft: {
+                                          text: '%',
+                                        },
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
 
-                  ////////////////////////////////
-                  {
-                    className: '2xl:w-4/12 xl:w-4/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGasket',
-                    type: 'checkbox',
-                    defaultValue: false,
-                    props: {
-                      translate: true,
-                      label: 'p_materialGasket',
-                      description: 'p_materialGasket_Description',
-                      required: false,
-                      disabled: false,
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGasketQuantity',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGasketQuantity',
-                      description: 'p_materialGasketQuantity_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialGasket == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGasketCost',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGasketCost',
-                      description: 'p_materialGasketCost_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialGasket == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGasketEndUsertPrice',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGasketEndUserPrice',
-                      description: 'p_materialGasketEndUserPrice_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialGasket == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGasketEndUserDiscount',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGasketEndUserDiscount',
-                      description: 'p_materialGasketEndUserDiscount_Description',
-                      addonLeft: {
-                        text: '%',
-                      },
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialGasket == true',
-                    },
-                  },
+                                    {
+                                      className: '2xl:w-6/12 xl:w-6/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
+                                      wrappers: ['newline'],
+                                    },
 
-                  /////////////////////////////////
+                                    /////////////////////////////////////
 
-                  /////////////////////////////////
+                                    /*{
+                                                  fieldGroupClassName: 'flex flex-wrap p2',
+                                                  key: 'materialsUsed',
+                                                  type: 'repeat',
+                                                  props: {
+                                                    addText: '+t',
+                                                  },
+                                                  fieldArray: {
+                                                    fieldGroup: [
+                                                      {
+                                                        className: '2xl:w-2/12 xl:w-2/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
+                                                        type: 'input',
+                                                        key: 'investmentName',
+                                                        templateOptions: {
+                                                          label: 'Name of Investment:',
+                                                          required: true,
+                                                        },
+                                                      },
+                                                      {
+                                                        type: 'repeat-delete',
+                                                        templateOptions: {
+                                                          label: 'Remove'
+                                                        }
+                                                      }
+                                                    ],
+                                                  },
+                                                },*/
 
-                  {
-                    className: '2xl:w-4/12 xl:w-4/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGlue',
-                    type: 'checkbox',
-                    defaultValue: false,
-                    props: {
-                      translate: true,
-                      label: 'p_materialGlue',
-                      description: 'p_materialGlue_Description',
-                      required: false,
-                      disabled: false,
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGlueQuantity',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGlueQuantity',
-                      description: 'p_materialGlueQuantity_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialGlue == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGlueCost',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGlueCost',
-                      description: 'p_materialGlueCost_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialGlue == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGlueEndUsertPrice',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGlueEndUserPrice',
-                      description: 'p_materialGlueEndUserPrice_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialGlue == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGlueEndUserDiscount',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGlueEndUserDiscount',
-                      description: 'p_materialGlueEndUserDiscount_Description',
-                      addonLeft: {
-                        text: '%',
-                      },
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialGlue == true',
-                    },
-                  },
-                  ////////////////////////////////////////////////////////////////
-                  {
-                    className: '2xl:w-4/12 xl:w-4/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialWorkInHours',
-                    type: 'checkbox',
-                    defaultValue: false,
-                    props: {
-                      translate: true,
-                      label: 'p_materialWorkInHours',
-                      description: 'p_materialWorkInHours_Description',
-                      required: false,
-                      disabled: false,
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialWorkInHoursQuantity',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialWorkInHoursQuantity',
-                      description: 'p_materialWorkInHoursQuantity_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialWorkInHours == true',
-                    },
-                  },
+                                    /////////////////////////////////////
 
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialWorkInHoursEndUsertPrice',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialWorkInHoursEndUserPrice',
-                      description: 'p_materialWorkInHoursEndUserPrice_Description',
-                      type: 'number',
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialWorkInHours == true',
+                                    {
+                                      className: '2xl:w-4/12 xl:w-4/12 lg:w-8/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialSensor',
+                                      type: 'checkbox',
+                                      defaultValue: false,
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialSensor',
+                                        description: 'p_materialSensor_Description',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialSensorQuantity',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialSensorQuantity',
+                                        description: 'p_materialSensorQuantity_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialSensor == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialSensorCost',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialSensorCost',
+                                        description: 'p_materialSensorCost_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialSensor == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialSensorEndUsertPrice',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialSensorEndUserPrice',
+                                        description: 'p_materialSensorEndUserPrice_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialSensor == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialSensorEndUserDiscount',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialSensorEndUserDiscount',
+                                        description: 'p_materialSensorEndUserDiscount_Description',
+                                        addonLeft: {
+                                          text: '%',
+                                        },
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialSensor == true',
+                                      },
+                                    },
+
+                                    ////////////////////////////////
+                                    {
+                                      className: '2xl:w-4/12 xl:w-4/12 lg:w-8/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGasket',
+                                      type: 'checkbox',
+                                      defaultValue: false,
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGasket',
+                                        description: 'p_materialGasket_Description',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGasketQuantity',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGasketQuantity',
+                                        description: 'p_materialGasketQuantity_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialGasket == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGasketCost',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGasketCost',
+                                        description: 'p_materialGasketCost_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialGasket == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGasketEndUsertPrice',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGasketEndUserPrice',
+                                        description: 'p_materialGasketEndUserPrice_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialGasket == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGasketEndUserDiscount',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGasketEndUserDiscount',
+                                        description: 'p_materialGasketEndUserDiscount_Description',
+                                        addonLeft: {
+                                          text: '%',
+                                        },
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialGasket == true',
+                                      },
+                                    },
+
+                                    /////////////////////////////////
+
+                                    /////////////////////////////////
+
+                                    {
+                                      className: '2xl:w-4/12 xl:w-4/12 lg:w-8/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGlue',
+                                      type: 'checkbox',
+                                      defaultValue: false,
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGlue',
+                                        description: 'p_materialGlue_Description',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGlueQuantity',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGlueQuantity',
+                                        description: 'p_materialGlueQuantity_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialGlue == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGlueCost',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGlueCost',
+                                        description: 'p_materialGlueCost_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialGlue == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGlueEndUsertPrice',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGlueEndUserPrice',
+                                        description: 'p_materialGlueEndUserPrice_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialGlue == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGlueEndUserDiscount',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGlueEndUserDiscount',
+                                        description: 'p_materialGlueEndUserDiscount_Description',
+                                        addonLeft: {
+                                          text: '%',
+                                        },
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialGlue == true',
+                                      },
+                                    },
+                                    ////////////////////////////////////////////////////////////////
+                                    {
+                                      className: '2xl:w-4/12 xl:w-4/12 lg:w-8/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialWorkInHours',
+                                      type: 'checkbox',
+                                      defaultValue: false,
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialWorkInHours',
+                                        description: 'p_materialWorkInHours_Description',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialWorkInHoursQuantity',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialWorkInHoursQuantity',
+                                        description: 'p_materialWorkInHoursQuantity_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialWorkInHours == true',
+                                      },
+                                    },
+
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialWorkInHoursEndUsertPrice',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialWorkInHoursEndUserPrice',
+                                        description: 'p_materialWorkInHoursEndUserPrice_Description',
+                                        type: 'number',
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialWorkInHours == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialWorkInHoursEndUserDiscount',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialWorkInHoursEndUserDiscount',
+                                        description: 'p_materialWorkInHoursEndUserDiscount_Description',
+                                        addonLeft: {
+                                          text: '%',
+                                        },
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                      expressions: {
+                                        'props.disabled': '!model.materialWorkInHours == true',
+                                      },
+                                    },
+                                    {
+                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                                      key: 'materialGadgetCost',
+                                      type: 'input',
+                                      props: {
+                                        translate: true,
+                                        label: 'p_materialGadgetCost',
+                                        description: 'p_materialGadgetCost_Description',
+                                        rows: 3,
+                                        required: false,
+                                        disabled: false,
+                                      },
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
                     },
                   },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialWorkInHoursEndUserDiscount',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialWorkInHoursEndUserDiscount',
-                      description: 'p_materialWorkInHoursEndUserDiscount_Description',
-                      addonLeft: {
-                        text: '%',
-                      },
-                      required: false,
-                      disabled: false,
-                    },
-                    expressions: {
-                      'props.disabled': '!model.materialWorkInHours == true',
-                    },
-                  },
-                  {
-                    className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                    key: 'materialGadgetCost',
-                    type: 'input',
-                    props: {
-                      translate: true,
-                      label: 'p_materialGadgetCost',
-                      description: 'p_materialGadgetCost_Description',
-                      rows: 3,
-                      required: false,
-                      disabled: false,
-                    },
-                  },
+//////////////////////////////////////////////////////////////////////////////      
+
+
+
                 ],
               },
             ],
@@ -3044,7 +3334,6 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                         field.form?.get('fitterTown1')?.patchValue(null);
                         field.form?.get('fitterPhone1')?.patchValue(null);
                         field.form?.get('fitterFleetVehicle1')?.patchValue(null);
-                        
                       } else {
                         this.http.get<[]>('api/items/fitters/' + selectedValue).subscribe((data: any[]) => {
                           let x: any = data; // Assign the array received from the API to this.Options
@@ -3100,16 +3389,16 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
               },
               {
                 className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
-                  key: 'fitterFleetVehicle1',
-                  type: 'headtype',
-                  props: {
-                    translate: true,
-                    description: 'Digita automezzo',
-                    label: ' ',
-                    options: this.http.get<[]>('api/items/fleets'),
-                    labelToShow: ['fleetDescription', 'fleetPlate'],
-                  },
-                  /*hooks: {
+                key: 'fitterFleetVehicle1',
+                type: 'headtype',
+                props: {
+                  translate: true,
+                  description: 'Digita automezzo',
+                  label: ' ',
+                  options: this.http.get<[]>('api/items/fleets'),
+                  labelToShow: ['fleetDescription', 'fleetPlate'],
+                },
+                /*hooks: {
                     onInit: field => {
                       const control = this.form.get('selecteFitter1');
                       control?.valueChanges.subscribe(async (selectedValue: string) => {
@@ -3286,14 +3575,14 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
               {
                 className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
                 key: 'fitterFleetVehicle3',
-                  type: 'headtype',
-                  props: {
-                    translate: true,
-                    description: 'Digita automezzo',
-                    label: ' ',
-                    options: this.http.get<[]>('api/items/fleets'),
-                    labelToShow: ['fleetDescription', 'fleetPlate'],
-                  },
+                type: 'headtype',
+                props: {
+                  translate: true,
+                  description: 'Digita automezzo',
+                  label: ' ',
+                  options: this.http.get<[]>('api/items/fleets'),
+                  labelToShow: ['fleetDescription', 'fleetPlate'],
+                },
               },
               {
                 className: '2xl:w-4/12 xl:w-4/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
@@ -3369,14 +3658,14 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
               {
                 className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
                 key: 'fitterFleetVehicle4',
-                  type: 'headtype',
-                  props: {
-                    translate: true,
-                    description: 'Digita automezzo',
-                    label: ' ',
-                    options: this.http.get<[]>('api/items/fleets'),
-                    labelToShow: ['fleetDescription', 'fleetPlate'],
-                  },
+                type: 'headtype',
+                props: {
+                  translate: true,
+                  description: 'Digita automezzo',
+                  label: ' ',
+                  options: this.http.get<[]>('api/items/fleets'),
+                  labelToShow: ['fleetDescription', 'fleetPlate'],
+                },
               },
             ],
           },
