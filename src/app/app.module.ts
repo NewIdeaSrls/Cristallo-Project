@@ -85,6 +85,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CustomDivComponent } from './div-type.componenet';
 import { FormlyWrapperNewline } from './newline.wrapper';
 import { RepeatTypeComponent } from './repeat-section.component';
+import { RepeatDeleteTypeComponent } from './repeat-delete';
 
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -95,7 +96,7 @@ export const MY_DATE_FORMATS = {
     dateInput: ['YYYY-MM-DD'], // Formato accettato in input
   },
   display: {
-    dateInput: 'DD/MM/YYYY',   // Formato visualizzato all'utente
+    dateInput: 'DD/MM/YYYY', // Formato visualizzato all'utente
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
@@ -103,9 +104,9 @@ export const MY_DATE_FORMATS = {
 };
 
 interface WrapperOption {
-    name: string;
-    component: any; // Update the type of component as needed
-    template?: string; // Make the template property optional
+  name: string;
+  component: any; // Update the type of component as needed
+  template?: string; // Make the template property optional
 }
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -128,7 +129,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ButtonComponent,
     FormlyFieldCustomInput,
     CustomDivComponent,
-    RepeatTypeComponent
+    RepeatTypeComponent,
+    RepeatDeleteTypeComponent,
   ],
   exports: [
     CommonModule,
@@ -194,7 +196,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FormlyModule,
   ],
   imports: [
-    NgxMaskDirective, 
+    NgxMaskDirective,
     NgxMaskPipe,
     CommonModule,
     NgxTranslateModule,
@@ -261,11 +263,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       wrappers: [
         { name: 'card', component: FormlyWrapperCard },
         { name: 'addons', component: FormlyWrapperAddons },
-        { name: 'newline', component: FormlyWrapperNewline}
+        { name: 'newline', component: FormlyWrapperNewline },
       ],
       extensions: [{ name: 'addons', extension: { onPopulate: addonsExtension } }],
       types: [
-        { 
+        {
           name: 'maskinput',
           component: FormlyFieldCustomInput,
         },
@@ -297,6 +299,16 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         { name: 'file-upload', component: FileUploadFieldComponent },
         { name: 'accordion', component: AccordionTypeComponent },
         { name: 'repeat', component: RepeatTypeComponent },
+        {
+          name: 'repeat-delete',
+          component: RepeatDeleteTypeComponent,
+          defaultOptions: {
+            templateOptions: {
+              btnType: 'default',
+              type: 'button',
+            },
+          },
+        },
       ],
     }),
     HttpClientModule,
@@ -317,5 +329,4 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   bootstrap: [],
 })
-
 export class AppModule {}

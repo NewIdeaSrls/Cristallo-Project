@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'formly-type-button',
   template: `
-    <button mat-button mat-raised-button color="{{ props['buttonColor'] }}" (click)="onClickOn($event)">
+    <button class="mb-2" mat-button mat-raised-button color="{{ props['buttonColor'] }}" (click)="onClickOn($event)">
       <div *ngIf="props.label !== ''">{{ props.label }}</div>
       <mat-icon *ngIf="props['icon'] && props['icon'] !== ''">{{ props['icon'] }}</mat-icon>
     </button>
