@@ -47,6 +47,12 @@ interface CounterData {
   practiceCounter: string; // Adjust the type based on the actual data type
 }
 
+class CarSelectionData {
+  typelabel: string = '';
+  brandlabel: string = '';
+  modellabel: string = '';
+}
+
 @Component({
   selector: 'app-practice-detail',
   standalone: true,
@@ -104,6 +110,8 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
 
   vehicleBrandOptions: any[] = [];
   vehicleModelOptions: any[] = [];
+
+  vehicleDataForShow: any = new CarSelectionData();
 
   optionsArray: any[] = [];
 
@@ -505,7 +513,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
         fieldGroup: [
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'practice',
             },
             expressionProperties: {
@@ -710,7 +718,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'practiceOrigin',
                 type: 'radio',
                 props: {
-                  label: ' ',
+                  label: '',
                   description: '',
                   required: false,
                   disabled: false,
@@ -815,7 +823,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
           },
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'customer',
             },
             expressionProperties: {
@@ -828,7 +836,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selectedCustomer',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'Digita il cliente da cercare',
                   label: ' ',
                   options: this.http.get<[]>('api/items/customers'),
@@ -900,7 +908,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerDescription',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerDescription',
                   required: false,
                   disabled: false,
@@ -913,7 +921,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 type: 'input',
 
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerAddress',
                   required: false,
                   disabled: false,
@@ -925,7 +933,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerTown',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerTown',
                   required: false,
                   disabled: false,
@@ -937,7 +945,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerZip',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerZip',
                   required: false,
                   disabled: false,
@@ -949,7 +957,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerProvince',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerProvince',
                   required: false,
                   disabled: false,
@@ -961,7 +969,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerVatcode',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerVatcode',
                   required: false,
                   disabled: false,
@@ -976,7 +984,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerSDI',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerSDI',
                   required: false,
                   disabled: false,
@@ -991,7 +999,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerEmail',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerEmail',
                   required: false,
                   disabled: false,
@@ -1004,7 +1012,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerPec',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerPec',
                   required: false,
                   disabled: false,
@@ -1020,7 +1028,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerCIG',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerCIG',
                   required: false,
                   disabled: false,
@@ -1035,7 +1043,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'customerPACode',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_customerPACode',
                   required: false,
                   disabled: false,
@@ -1049,7 +1057,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
           },
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'vehicle',
             },
             expressionProperties: {
@@ -1062,7 +1070,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selectedVehicle',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'Digita il veicolo da cercare',
                   label: ' ',
                   options: this.http.get<[]>('api/items/vehicles'),
@@ -1138,7 +1146,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehiclePlate',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehiclePlate',
                   required: false,
                   disabled: false,
@@ -1150,7 +1158,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleBrand',
                 type: 'select',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleCarBrand',
                   description: 'p_vehicleCarBrand_Description',
                   required: false,
@@ -1201,7 +1209,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleModel',
                 type: 'select',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleModel',
                   description: 'p_vehicleModel_Description',
                   required: false,
@@ -1280,6 +1288,8 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
 
                     let controlModel = this.form.get('vehicleModel');
                     controlModel?.valueChanges.subscribe((changedValues: string) => {
+                      let topush = new CarSelectionData();
+
                       let idToSearch = '';
                       if (changedValues !== null) {
                         idToSearch = changedValues;
@@ -1290,26 +1300,19 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                         this.http.get<[]>('api/items/vehicleModels/' + idToSearch).subscribe((data: any[]) => {
                           let x: any = data; // Assign the array received from the API to this.Options
                           let vehicleModel = x['data'];
-                          let row = vehicleModel;
-                          console.log(row);
+                          let rowmodel = vehicleModel;
+                          console.log(rowmodel);
 
-                          field.form?.get('vehicleModelAlert')?.patchValue(row.vehicleModelAlert);
-                          field.form?.get('vehicleModelLogisticNote')?.patchValue(row.vehicleModelLogisticNote);
-                          field.form?.get('vehicleModelOrderNote')?.patchValue(row.vehicleModelOrderNote);
-                          field.form?.get('vehicleModelTechnicalNote')?.patchValue(row.vehicleModelTechnicalNote);
-                          field.form?.get('vehicleModelNeedBigVehicle')?.patchValue(row.vehicleModeNeedBigVehicle);
-                          field.form?.get('vehicleModelNumberOfFitters')?.patchValue(row.vehicleModelNumberOfFitters);
-                          field.form?.get('vehicleModelProcessingTimeMins')?.patchValue(row.vehicleModelProcessingTimeMins);
-                          field.form?.get('vehicleModelOnlyOriginalParts')?.patchValue(row.vehicleModelOnlyOriginalParts);
-                          this.selectedVehicleModelInfo = row;
-
-                          console.log(this.selectedVehicleModelInfo.vehicleModelBrand);
-                          this.http.get<[]>('api/items/vehicleBrands/' + this.selectedVehicleModelInfo.vehicleModelBrand).subscribe((data: any[]) => {
-                            let x: any = data;
-                            let vehicleBrand = x['data'];
-                            let row = vehicleBrand;
-                            console.log(row);
-                          });
+                          field.form?.get('vehicleModelAlert')?.patchValue(rowmodel.vehicleModelAlert);
+                          field.form?.get('vehicleModelLogisticNote')?.patchValue(rowmodel.vehicleModelLogisticNote);
+                          field.form?.get('vehicleModelOrderNote')?.patchValue(rowmodel.vehicleModelOrderNote);
+                          field.form?.get('vehicleModelTechnicalNote')?.patchValue(rowmodel.vehicleModelTechnicalNote);
+                          field.form?.get('vehicleModelNeedBigVehicle')?.patchValue(rowmodel.vehicleModeNeedBigVehicle);
+                          field.form?.get('vehicleModelNumberOfFitters')?.patchValue(rowmodel.vehicleModelNumberOfFitters);
+                          field.form?.get('vehicleModelProcessingTimeMins')?.patchValue(rowmodel.vehicleModelProcessingTimeMins);
+                          field.form?.get('vehicleModelOnlyOriginalParts')?.patchValue(rowmodel.vehicleModelOnlyOriginalParts);
+                          this.selectedVehicleModelInfo = rowmodel;
+                          this.vehicleDataForShow.modellabel = rowmodel.vehicleModel;
                         });
                       }
                     });
@@ -1346,7 +1349,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleImported',
                 type: 'checkbox',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleImported',
                   description: 'p_vehicleImported_Description',
                   required: false,
@@ -1358,7 +1361,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleDischarge',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   className: 'pt-0 pb-0 ',
                   type: 'number',
                   label: 'p_vehicleDischarge',
@@ -1380,7 +1383,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleAlert',
                 type: 'textarea',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleAlert',
                   required: false,
                   disabled: false,
@@ -1393,7 +1396,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleModelLogisticNote',
                 type: 'textarea',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleModelLogisticNote',
                   required: false,
                   disabled: false,
@@ -1406,7 +1409,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleModelOrderNote',
                 type: 'textarea',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleModelOrderNote',
                   required: false,
                   disabled: false,
@@ -1419,7 +1422,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleModelTechnicalNote',
                 type: 'textarea',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleModelTechnicalNote',
                   required: false,
                   disabled: false,
@@ -1432,7 +1435,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleModelNeedBigVehicle',
                 type: 'checkbox',
                 props: {
-                  translate: true,
+                  translate: false,
                   required: false,
                   label: 'p_vehicleModeNeedBigVehicle',
                   disabled: true,
@@ -1444,7 +1447,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleModelOnlyOriginalParts',
                 type: 'checkbox',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleModelOnlyOriginalParts',
                   required: false,
                   disabled: true,
@@ -1457,7 +1460,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleModelNumberOfFitters',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   type: 'number',
                   label: 'p_vehicleModelNumberOfFitters',
                   required: false,
@@ -1477,7 +1480,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                         key: 'processingTime',
                         fieldGroupClassName: 'flex flex-wrap p2',
                         templateOptions: {
-                          translate: true,
+                          translate: false,
                           label: 'p_processingTime',
                         },
                         fieldGroup: [
@@ -1486,7 +1489,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime1',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime1',
                               description: 'p_processingTime1_Description',
                               required: false,
@@ -1498,7 +1501,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime2',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime2',
                               description: 'p_processingTime2_Description',
                               required: false,
@@ -1510,7 +1513,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime3',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime3',
                               description: 'p_processingTime3_Description',
                               required: false,
@@ -1522,7 +1525,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime4',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime4',
                               description: 'p_processingTime4_Description',
                               required: false,
@@ -1534,7 +1537,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime5',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime5',
                               description: 'p_processingTime5_Description',
                               required: false,
@@ -1546,7 +1549,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime6',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime6',
                               description: 'p_processingTime6_Description',
                               required: false,
@@ -1558,7 +1561,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime7',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime7',
                               description: 'p_processingTime7_Description',
                               required: false,
@@ -1570,7 +1573,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime8',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime8',
                               description: 'p_processingTime8_Description',
                               required: false,
@@ -1582,7 +1585,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime9',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime9',
                               description: 'p_processingTime9_Description',
                               required: false,
@@ -1594,7 +1597,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime10',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime10',
                               description: 'p_processingTime10_Description',
                               required: false,
@@ -1606,7 +1609,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime11',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime11',
                               description: 'p_processingTime11_Description',
                               required: false,
@@ -1618,7 +1621,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime12',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime12',
                               description: 'p_processingTime12_Description',
                               required: false,
@@ -1630,7 +1633,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime13',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime13',
                               description: 'p_processingTime13_Description',
                               required: false,
@@ -1642,7 +1645,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime14',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime14',
                               description: 'p_processingTime14_Description',
                               required: false,
@@ -1654,7 +1657,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime15',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime15',
                               description: 'p_processingTime15_Description',
                               required: false,
@@ -1666,7 +1669,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime16',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime16',
                               description: 'p_processingTime16_Description',
                               required: false,
@@ -1678,7 +1681,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                             key: 'processingTime17',
                             type: 'input',
                             props: {
-                              translate: true,
+                              translate: false,
                               label: 'p_processingTime17',
                               description: 'p_processingTime17_Description',
                               required: false,
@@ -1696,7 +1699,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
 
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'insurance',
             },
             expressionProperties: {
@@ -1709,7 +1712,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selectedInsurance',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedInsurance_Description',
                   label: ' ',
                   options: this.http.get<[]>('api/items/insurances'),
@@ -1764,7 +1767,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceDescription',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceDescription',
                   description: 'p_insuranceDescription_Description',
                   required: false,
@@ -1776,7 +1779,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceTypeOpenAccident',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceTypeOpenAccident',
                   description: 'p_insuranceTypeOpenAccident_Description',
                   required: false,
@@ -1788,7 +1791,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceOpenAccidentPhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceOpenAccidentPhone',
                   description: 'p_insuranceOpenAccidentPhone_Description',
                   required: false,
@@ -1800,7 +1803,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceGreenPhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceGreenPhone',
                   description: 'p_insuranceGreenPhone_Description',
                   required: false,
@@ -1812,7 +1815,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insurancePhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insurancePhone',
                   description: 'p_insurancePhone_Description',
                   required: false,
@@ -1824,7 +1827,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceMail',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceMail',
                   description: 'p_insuranceMail_Description',
                   required: false,
@@ -1840,7 +1843,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 type: 'input',
 
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceUseAgency',
                   description: 'p_insuranceUseAgency',
                   required: false,
@@ -1857,7 +1860,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selectedinsuranceLimitsAndDeductible',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedinsuranceLimitsAndDeductible_Description',
                   label: ' ',
                   options: [],
@@ -1920,7 +1923,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceLimitsAndDeductibleDescription',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceLimitsAndDeductibleDescription',
                   description: 'p_insuranceLimitsAndDeductibleDescription_Description',
                   required: false,
@@ -1932,7 +1935,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceLimitsAndDeductibleType',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceLimitsAndDeductibleType',
                   description: 'p_insuranceLimitsAndDeductibleType_Description',
                   required: false,
@@ -1944,7 +1947,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceLimitsAndDeductibleTypeYearly',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceLimitsAndDeductibleTypeYearly',
                   description: 'p_insuranceLimitsAndDeductibleTypeYearly_Description',
                   required: false,
@@ -1960,7 +1963,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceCode',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceCode',
                   description: 'p_insuranceCode_Description',
                   required: false,
@@ -1972,7 +1975,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceExpiration',
                 type: 'datepicker',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceExpiration',
                   description: 'p_insuranceExpiration_Description',
                   required: false,
@@ -1984,7 +1987,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceSendAfterDate',
                 type: 'datepicker',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceSendAfterDate',
                   description: 'p_insuranceSendAfterDate_Description',
                   required: false,
@@ -1996,7 +1999,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceAccidenNumber',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceAccidentNumber',
                   description: 'p_insuranceAccidentNumber_Description',
                   required: false,
@@ -2008,7 +2011,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceAccidentDate',
                 type: 'datepicker',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceAccidentDate',
                   description: 'p_insuranceAccidentDate_Description',
                   required: false,
@@ -2020,7 +2023,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceAccidentPlace',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceAccidentPlace',
                   description: 'p_insuranceAccidentPlace_Description',
                   required: false,
@@ -2036,7 +2039,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selectedInsuranceOffice',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedAgency_Description',
                   label: ' ',
                   options: [],
@@ -2105,7 +2108,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceOfficeDescription',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceOfficeyDescription',
                   description: 'p_insuranceOfficeDescription_Description',
                   required: false,
@@ -2118,7 +2121,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceOfficeAddress',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceOfficeAddress',
                   description: 'p_insuranceOfficeAddress_Description',
                   required: false,
@@ -2131,7 +2134,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceOfficeTown',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_agencyTown',
                   description: 'p_insuranceOfficeTown_Description',
                   required: false,
@@ -2144,7 +2147,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceOfficeZip',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceOfficeZip',
                   description: 'p_insuranceOfficeZip_Description',
                   required: false,
@@ -2157,7 +2160,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceOfficeProvince',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceOfficeProvince',
                   description: 'p_insuranceOfficeProvince_Description',
                   required: false,
@@ -2170,7 +2173,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceOfficePhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceOfficePhone',
                   description: 'p_insuranceOfficePhone_Description',
                   required: false,
@@ -2183,7 +2186,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'insuranceOfficeEmail',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_insuranceOfficeEmail',
                   description: 'p_agencyEmail_Description',
                   required: false,
@@ -2195,7 +2198,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
           },
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'point',
             },
             expressionProperties: {
@@ -2208,7 +2211,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selectedPoint',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedPoint_Description',
                   label: ' ',
                   options: this.http.get<[]>('api/items/points'),
@@ -2284,7 +2287,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointDescription',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointDescription',
                   description: 'p_pointDescription_Description',
                   required: false,
@@ -2296,7 +2299,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointType',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointType',
                   description: 'p_pointType_Description',
                   required: false,
@@ -2308,7 +2311,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointInternalCodification',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointInternalCodification',
                   description: 'p_pointInternalCodification_Description',
                   required: false,
@@ -2320,7 +2323,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointAddress',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointAddress',
                   description: 'p_pointAddress_Description',
                   required: false,
@@ -2332,7 +2335,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointTown',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointTown',
                   description: 'p_pointTown_Description',
                   required: false,
@@ -2344,7 +2347,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointZip',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointZip',
                   description: 'p_pointZip_Description',
                   required: false,
@@ -2356,7 +2359,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointPhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointPhone',
                   description: 'p_pointPhone_Description',
                   required: false,
@@ -2368,7 +2371,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointRefererName',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointRefererName',
                   description: 'p_pointRefererName_Description',
                   required: false,
@@ -2380,7 +2383,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointRefererPhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointRefererPhone',
                   description: 'p_pointRefererPhone_Description',
                   required: false,
@@ -2392,7 +2395,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointCommercialRefererName',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointCommercialRefererName',
                   description: 'p_pointCommercialRefererName_Description',
                   required: false,
@@ -2404,7 +2407,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'pointCommercialRefererPhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_pointCommercialRefererPhone',
                   description: 'p_pointCommercialRefererPhone_Description',
                   required: false,
@@ -2416,7 +2419,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
 
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'agent',
             },
             expressionProperties: {
@@ -2429,36 +2432,14 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selectedAgent',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedAgent_Description',
                   label: ' ',
-                  options: this.brokers,
-                  labelToShow: ['agentType', 'agentDescription', 'agentTown'],
+                  options: [],
+                  labelToShow: ['agentDescription', 'agentTown'],
                 },
                 hooks: {
                   onInit: field => {
-                    // load Brokers as default
-                    this.http.get<any[]>('api/items/agents').subscribe((data: any[]) => {
-                      let x: any = data; // Assign the array received from the API to this.Options
-                      let result = x['data'];
-                      if (field && field.props?.options) {
-                        field.props.options = result;
-                      }
-                    });
-
-                    // reload Brokers on Reset selectedPoint
-                    const controlSelectedPoint = this.form.get('selectedPoint'); // campo che forza l'update
-                    controlSelectedPoint?.valueChanges.subscribe((selectedValue: string) => {
-                      if (selectedValue == undefined) {
-                        this.http.get<any[]>('api/items/agents').subscribe((data: any[]) => {
-                          let x: any = data; // Assign the array received from the API to this.Options
-                          let result = x['data'];
-                          if (field && field.props?.options) {
-                            field.props.options = result;
-                          }
-                        });
-                      }
-                    });
 
                     // load Agents on selectedAgent
                     const control = this.form.get('selectedAgent');
@@ -2477,6 +2458,11 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                           let x: any = data; // Assign the array received from the API to this.Options
                           let agents = x['data'];
                           let row = agents;
+
+                          const vehicleCarBrandField = field.form?.get('vehicleBrand');
+                          const vehicleBrandId = vehicleCarBrandField?.value;
+                          console.log(vehicleBrandId);
+
                           console.log(row);
                           //field.form?.get('id')?.patchValue(row.id);
                           field.form?.get('agentType')?.patchValue(row.agentType);
@@ -2495,20 +2481,38 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                     controInsurance?.valueChanges.subscribe(async (selectedValue: string) => {
                       const point = this.form.get('selectedPoint');
                       const pointId = point?.value;
-                      if (pointId) {
+
+                      console.log(pointId);
+                      if (pointId !== undefined) {
+
                         this.http.get<any>('api/items/agents').subscribe(response => {
                           let x = response.data;
                           const point = this.form.get('selectedPoint');
                           const pointId = point?.value;
                           console.log(pointId);
                           console.log(x);
-                          const filteredData = x.filter((item: any) => item.agentAssociatedTo === pointId);
+                          const filteredData = x.filter((item: any) => item.agentPointAssociatedTo === pointId);
                           console.log(filteredData);
 
                           if (field && field.props?.options) {
                             field.props.options = filteredData;
                           }
                         });
+
+                        this.http.get<any>('api/items/groupLeader').subscribe(response => {
+                          let x = response.data;
+                          const point = this.form.get('selectedPoint');
+                          const pointId = point?.value;
+                          console.log(pointId);
+                          console.log(x);
+                          const filteredData = x.filter((item: any) => item.agentGroupAssociatedTo === pointId);
+                          console.log(filteredData);
+                        });
+
+                      } else {
+                        if (field && field.props?.options) {
+                          field.props.options = [];
+                        }
                       }
                     });
                   },
@@ -2516,35 +2520,22 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
               },
               {
                 className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
-                key: 'agentType',
-                type: 'input',
-                props: {
-                  translate: true,
-                  label: 'p_agentType',
-                  description: 'p_agentType_Description',
-                  required: false,
-                  disabled: true,
-                },
-              },
-              {
-                className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
                 key: 'agentDescription',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_agentDescription',
                   description: 'p_agentDescriptionn_Description',
                   required: true,
                   disabled: true,
                 },
               },
-
               {
                 className: '2xl:w-1/3 xl:w-1/3 lg:w-1/3 xs:w-full sm:w-full  px-2 ',
                 key: 'agentAddress',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_agentAddress',
                   description: 'p_agentAddress_Description',
                   required: false,
@@ -2556,7 +2547,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'agentTown',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_agentTown',
                   description: 'p_agentTown_Description',
                   required: false,
@@ -2568,7 +2559,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'agentZip',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_agentZip',
                   description: 'p_agentZip_Description',
                   required: false,
@@ -2580,7 +2571,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'agentPhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_agentPhone',
                   description: 'p_agentPhone_Description',
                   required: false,
@@ -2592,7 +2583,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
 
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'broker',
             },
             expressionProperties: {
@@ -2605,7 +2596,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selectedBroker',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedBroker_Description',
                   label: ' ',
                   options: [],
@@ -2658,7 +2649,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'brokerDescription',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_brokerDescription',
                   description: 'p_brokerDescription_Description',
                   required: true,
@@ -2671,7 +2662,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'brokerAddress',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_brokerAddress',
                   description: 'p_brokerAddress_Description',
                   required: false,
@@ -2683,7 +2674,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'brokerTown',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_brokerTown',
                   description: 'p_brokerTown_Description',
                   required: false,
@@ -2695,7 +2686,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'brokerZip',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_brokerZip',
                   description: 'p_brokerZip_Description',
                   required: false,
@@ -2707,7 +2698,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'brokerPhone',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_brokerPhone',
                   description: 'p_brokerPhone_Description',
                   required: false,
@@ -2719,7 +2710,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
 
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'materials',
             },
             expressionProperties: {
@@ -2732,7 +2723,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleBrandShow',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleBrand',
                   required: false,
                   disabled: true,
@@ -2744,7 +2735,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehicleModelShow',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehicleModel',
                   required: false,
                   disabled: true,
@@ -2756,7 +2747,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'vehiclePlateShow',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_vehiclePlate',
                   required: false,
                   disabled: true,
@@ -2769,33 +2760,13 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 type: 'checkbox',
                 defaultValue: false,
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_requiredOriginaParts',
                   description: 'p_requiredOriginaPartsr_Description',
                   required: false,
                   disabled: false,
                 },
               },
-              /*{
-                className: '2xl:w-6/12 xl:w-6/12 lg:w-4/12 xs:w-full sm:w-full px-2',
-                key: 'btSendSupplierRequest',
-                type: 'button',
-                props: {
-                  translate: true,
-                  label: 'sent_to_suppliers_request',
-                  icon: 'email',
-                },
-                hideExpression: (model: any) => {
-                  console.log(model);
-                  const materialRepeaterArray = model.materialRepeater;
-                  console.log(materialRepeaterArray);
-
-                  if (materialRepeaterArray == undefined || materialRepeaterArray.length == 0) {
-                    return true;
-                  }
-                  return false;
-                },
-              },*/
 
               {
                 className: 'w-full h-2', // Classe per far sì che l'HR occupi tutta la larghezza del form
@@ -2806,7 +2777,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'materialRepeater',
                 type: 'repeat',
                 props: {
-                  translate: true,
+                  translate: false,
                   addText: 'Inserisci',
                   removeText: 'Elimina',
                 },
@@ -2819,7 +2790,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                       fieldGroup: [
                         {
                           props: {
-                            translate: true,
+                            translate: false,
                             label: 'materialDetail',
                           },
                           fieldGroupClassName: 'flex flex-wrap p2',
@@ -2829,7 +2800,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                               key: 'materialType',
                               type: 'select',
                               props: {
-                                translate: true,
+                                translate: false,
                                 label: 'p_materialType',
                                 description: 'p_materialType_Description',
                                 required: false,
@@ -2854,7 +2825,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                               key: 'materialEuroCodtemplate',
                               type: 'input',
                               props: {
-                                translate: true,
+                                translate: false,
                                 label: 'p_materialEuroCode',
                                 description: 'p_materialEuroCode_Description',
                                 required: false,
@@ -2866,7 +2837,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                               key: 'materialOriginalCode',
                               type: 'input',
                               props: {
-                                translate: true,
+                                translate: false,
                                 label: 'p_materialOriginalCode',
                                 description: 'p_materialOriginalCode_Description',
                                 required: false,
@@ -2878,7 +2849,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                               key: 'btOpenWeb',
                               type: 'button',
                               props: {
-                                translate: true,
+                                translate: false,
                                 label: 'Ricerca  EuroCode',
                                 icon: 'open_in_browser',
                               },
@@ -2894,7 +2865,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                 {
                                   key: 'materialConsumables',
                                   templateOptions: {
-                                    translate: true,
+                                    translate: false,
                                     label: 'materialConsumables',
                                   },
                                   fieldGroupClassName: 'flex flex-wrap p2',
@@ -2904,7 +2875,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialDescription',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialDescription',
                                         description: 'p_materialDescription_Description',
                                         rows: 3,
@@ -2917,7 +2888,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialCost',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialCostPrice',
                                         description: 'p_materialCost_Description',
                                         type: 'number',
@@ -2930,7 +2901,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialEndUsertPrice',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialEndUserPrice',
                                         description: 'p_materialEndUserPrice_Description',
                                         type: 'number',
@@ -2943,7 +2914,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialEndUserDiscount',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialEndUserDiscount',
                                         description: 'p_materialEndUserDiscount_Description',
                                         addonLeft: {
@@ -2964,7 +2935,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       type: 'checkbox',
                                       defaultValue: false,
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialSensor',
                                         description: 'p_materialSensor_Description',
                                         required: false,
@@ -2976,7 +2947,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialSensorQuantity',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialSensorQuantity',
                                         description: 'p_materialSensorQuantity_Description',
                                         type: 'number',
@@ -2992,7 +2963,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialSensorCost',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialSensorCost',
                                         description: 'p_materialSensorCost_Description',
                                         type: 'number',
@@ -3008,7 +2979,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialSensorEndUsertPrice',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialSensorEndUserPrice',
                                         description: 'p_materialSensorEndUserPrice_Description',
                                         type: 'number',
@@ -3024,7 +2995,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialSensorEndUserDiscount',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialSensorEndUserDiscount',
                                         description: 'p_materialSensorEndUserDiscount_Description',
                                         addonLeft: {
@@ -3045,7 +3016,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       type: 'checkbox',
                                       defaultValue: false,
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGasket',
                                         description: 'p_materialGasket_Description',
                                         required: false,
@@ -3057,7 +3028,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGasketQuantity',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGasketQuantity',
                                         description: 'p_materialGasketQuantity_Description',
                                         type: 'number',
@@ -3073,7 +3044,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGasketCost',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGasketCost',
                                         description: 'p_materialGasketCost_Description',
                                         type: 'number',
@@ -3089,7 +3060,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGasketEndUsertPrice',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGasketEndUserPrice',
                                         description: 'p_materialGasketEndUserPrice_Description',
                                         type: 'number',
@@ -3105,7 +3076,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGasketEndUserDiscount',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGasketEndUserDiscount',
                                         description: 'p_materialGasketEndUserDiscount_Description',
                                         addonLeft: {
@@ -3129,7 +3100,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       type: 'checkbox',
                                       defaultValue: false,
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGlue',
                                         description: 'p_materialGlue_Description',
                                         required: false,
@@ -3141,7 +3112,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGlueQuantity',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGlueQuantity',
                                         description: 'p_materialGlueQuantity_Description',
                                         type: 'number',
@@ -3157,7 +3128,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGlueCost',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGlueCost',
                                         description: 'p_materialGlueCost_Description',
                                         type: 'number',
@@ -3173,7 +3144,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGlueEndUsertPrice',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGlueEndUserPrice',
                                         description: 'p_materialGlueEndUserPrice_Description',
                                         type: 'number',
@@ -3189,7 +3160,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGlueEndUserDiscount',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGlueEndUserDiscount',
                                         description: 'p_materialGlueEndUserDiscount_Description',
                                         addonLeft: {
@@ -3209,7 +3180,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       type: 'checkbox',
                                       defaultValue: false,
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialWorkInHours',
                                         description: 'p_materialWorkInHours_Description',
                                         required: false,
@@ -3221,7 +3192,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialWorkInHoursQuantity',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialWorkInHoursQuantity',
                                         description: 'p_materialWorkInHoursQuantity_Description',
                                         type: 'number',
@@ -3238,7 +3209,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialWorkInHoursEndUsertPrice',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialWorkInHoursEndUserPrice',
                                         description: 'p_materialWorkInHoursEndUserPrice_Description',
                                         type: 'number',
@@ -3254,7 +3225,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialWorkInHoursEndUserDiscount',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialWorkInHoursEndUserDiscount',
                                         description: 'p_materialWorkInHoursEndUserDiscount_Description',
                                         addonLeft: {
@@ -3272,7 +3243,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                                       key: 'materialGadgetCost',
                                       type: 'input',
                                       props: {
-                                        translate: true,
+                                        translate: false,
                                         label: 'p_materialGadgetCost',
                                         description: 'p_materialGadgetCost_Description',
                                         rows: 3,
@@ -3296,7 +3267,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
           },
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'supplier',
             },
             expressionProperties: {
@@ -3305,84 +3276,103 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
             fieldGroupClassName: 'flex flex-wrap p2',
             fieldGroup: [
               {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+                key: 'vehicleBrandShow',
+                type: 'input',
+                props: {
+                  translate: false,
+                  label: 'p_vehicleBrand',
+                  required: false,
+                  disabled: true,
+                  description: 'p_vehicleBrand_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+                key: 'vehicleModelShow',
+                type: 'input',
+                props: {
+                  translate: false,
+                  label: 'p_vehicleModel',
+                  required: false,
+                  disabled: true,
+                  description: 'p_vehicleModel_Description',
+                },
+              },
+              {
+                className: '2xl:w-1/4 xl:w-1/4 lg:w-1/4 xs:w-full sm:w-full  px-2 ',
+                key: 'vehiclePlateShow',
+                type: 'input',
+                props: {
+                  translate: false,
+                  label: 'p_vehiclePlate',
+                  required: false,
+                  disabled: true,
+                  description: 'p_vehiclePlate_Description',
+                },
+              },
+              {
                 className: '2xl:w-12/12 xl:w-12/12 lg:w-12/12 xs:w-full sm:w-full  px-2 ',
                 key: 'supplierRepeater',
                 type: 'repeat',
                 props: {
-                  addText: 'Inserisci',
-                  removeText: 'Elimina',
+                  addText: 'Inserisci fornitore',
+                  removeText: 'Elimina fornitore',
                 },
                 fieldArray: {
                   fieldGroup: [
                     {
-                      key: 'supplierGroupAccordion',
+                      key: 'supplierGroup',
                       type: 'accordion',
                       className: '2xl:w-12/12 xl:w-12/12 lg:w-12/12 xs:w-full sm:w-full  px-2 ',
                       fieldGroup: [
                         {
                           props: {
-                            translate: true,
+                            translate: false,
                             label: 'supplierDetail',
                           },
                           fieldGroupClassName: 'flex flex-wrap p2',
                           fieldGroup: [
-                            /* {
-                              className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                            {
+                              className: '2xl:w-4/12 xl:w-4/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
                               key: 'selectedSupplier',
                               type: 'headtype',
                               props: {
-                                translate: true,
-                                label: '',
+                                translate: false,
+                                label: ' ',
                                 description: 'p_selectedSupplier_Description',
                                 required: false,
                                 disabled: false,
                                 options: this.http.get<[]>('api/items/suppliers'),
                                 labelToShow: ['supplierDescription', 'supplierTown'],
                               },
-                            }, */
+                              /*hooks: {
+                                onInit: field => {
+                                  const control = this.form.get('selectedSupplier');
+                                  control?.valueChanges.subscribe(async (selectedValue: string) => {
+                                    if (selectedValue == undefined) {
+                                      field.form?.get('supplierDescription')?.patchValue(null);
+                                    
+                                    } else {
+                                      this.http.get<[]>('api/items/suppliers/' + selectedValue).subscribe((data: any[]) => {
+                                        let x: any = data; // Assign the array received from the API to this.Options
+                                        let suppliers = x['data'];
+                                        let row = suppliers;
+                                        console.log(row);
+                                        field.form?.get('supplierDescription')?.patchValue(row.supplierDescription);
+                                      });
+                                    }
+                                  });
+                                },
+                              },*/
+                            },
 
                             {
-                              className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                              key: 'supplierDescription',
-                              type: 'input',
-                              props: {
-                                translate: true,
-                                label: 'p_supplierDescription',
-                                description: 'p_supplierDescription_Description',
-                                required: false,
-                                disabled: true,
-                              },
-                            },
-                            {
-                              className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                              key: 'supplierOfferData',
-                              type: 'datepicker',
-                              props: {
-                                translate: true,
-                                label: 'p_supplierOfferData',
-                                description: 'p_supplierOfferData_Description',
-                                required: false,
-                                disabled: false,
-                              },
-                            },
-                            {
-                              className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                              key: 'supplierOfferDataEnd',
-                              type: 'datepicker',
-                              props: {
-                                translate: true,
-                                label: 'p_supplierOfferDataEnd',
-                                description: 'p_supplierOfferDataEnd_Description',
-                                required: false,
-                                disabled: false,
-                              },
-                            },
-                            {
-                              className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                              className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
                               key: 'supplierMaterialAvailable',
                               type: 'checkbox',
                               props: {
-                                translate: true,
+                                translate: false,
                                 label: 'p_supplierMaterialAvailable',
                                 description: 'p_supplierMaterialAvailable_Description',
                                 required: false,
@@ -3390,431 +3380,143 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                               },
                             },
                             {
-                              className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                              className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
                               key: 'supplierAvailableFrom',
                               type: 'datepicker',
                               props: {
-                                translate: true,
+                                translate: false,
                                 label: 'p_supplierAvailableFrom',
                                 description: 'p_supplierAvailableFrom_Description',
                                 required: false,
                                 disabled: false,
-                              },
-                            },
-                            {
-                              className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                              key: 'supplierEuroCodtemplate',
-                              type: 'input',
-                              props: {
-                                translate: true,
-                                label: 'p_supplierEuroCodtemplate',
-                                description: 'p_supplierEuroCodtemplate_Description',
-                                required: false,
-                                disabled: false,
-                              },
-                            },
-                            {
-                              className: '2xl:w-3/12 xl:w-3/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                              key: 'supplierOriginalCode',
-                              type: 'input',
-                              props: {
-                                translate: true,
-                                label: 'p_materialOriginalCode',
-                                description: 'p_materialOriginalCode_Description',
-                                required: false,
-                                disabled: false,
+                                datepickerOptions: {
+                                  format: 'DD-MM-YYYY', //
+                                },
+                                hourFormat: '24',
+                                numberOfMonths: 2,
+                                selectionMode: 'single',
+                                readonlyInput: false,
+                                showTime: true,
+                                showButtonBar: true,
+                                showIcon: false,
+                                showOtherMonths: true,
+                                selectOtherMonths: true,
+                                monthNavigator: true,
+                                yearNavigator: true,
+                                yearRange: '2020:2030',
+                                inline: false,
+                                updateOn: 'change',
                               },
                             },
 
                             {
-                              key: 'materialAccordionDetail',
-                              type: 'accordion',
+                              className: '2xl:w-4/12 xl:w-4/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
+                              key: 'supplierLoadingPlace',
+                              type: 'select',
+                              props: {
+                                translate: false,
+                                label: 'p_supplierLoadingPlace',
+                                description: 'p_supplierLoadingPlace_Description',
+                                required: false,
+                                disabled: false,
+                                options: [
+                                  { value: 'ourdeposit', label: 'Spediscono al ns. Magazzino' },
+                                  { value: 'bank', label: 'Ritiro al Banco' },
+                                  { value: 'speedcach', label: 'Ritiro alla Cassa Veloce' },
+                                ],
+                              },
+                            },
+
+                            {
+                              className: '2xl:w-12/12 xl:w-12/12 lg:w-12/12 xs:w-full sm:w-full  px-2 ',
                               fieldGroup: [
                                 {
-                                  key: 'materialConsumables',
-                                  templateOptions: {
-                                    translate: true,
-                                    label: 'materialConsumables',
+                                  key: 'supplierMaterialsRepeater',
+                                  type: 'repeat',
+                                  props: {
+                                    addText: 'Inserisci vetri forniti',
+                                    removeText: 'Elimina vetri forniti',
                                   },
-                                  fieldGroupClassName: 'flex flex-wrap p2',
-                                  fieldGroup: [
-                                    {
-                                      className: '2xl:w-12/12 xl:w-12/12 lg:w-12/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialDescription',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialDescription',
-                                        description: 'p_materialDescription_Description',
-                                        rows: 3,
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialCost',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialCostPrice',
-                                        description: 'p_materialCost_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialEndUsertPrice',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialEndUserPrice',
-                                        description: 'p_materialEndUserPrice_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialEndUserDiscount',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialEndUserDiscount',
-                                        description: 'p_materialEndUserDiscount_Description',
-                                        addonLeft: {
-                                          text: '%',
+                                  fieldArray: {
+                                    fieldGroupClassName: 'flex flex-wrap p2',
+                                    fieldGroup: [
+                                      {
+                                        className: '2xl:w-3/12 xl:w-3/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
+                                        key: 'supplierMaterialType',
+                                        type: 'select',
+                                        props: {
+                                          translate: false,
+                                          label: 'p_supplierMaterialType',
+                                          description: 'p_supplierMaterialType_Description',
+                                          required: false,
+                                          disabled: false,
+                                          options: [],
+                                          labelProp: 'glassType',
+                                          valueProp: 'id',
                                         },
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-
-                                    {
-                                      className: '2xl:w-6/12 xl:w-6/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
-                                      wrappers: ['newline'],
-                                    },
-                                    {
-                                      className: '2xl:w-4/12 xl:w-4/12 lg:w-8/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialSensor',
-                                      type: 'checkbox',
-                                      defaultValue: false,
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialSensor',
-                                        description: 'p_materialSensor_Description',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialSensorQuantity',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialSensorQuantity',
-                                        description: 'p_materialSensorQuantity_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialSensor == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialSensorCost',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialSensorCost',
-                                        description: 'p_materialSensorCost_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialSensor == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialSensorEndUsertPrice',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialSensorEndUserPrice',
-                                        description: 'p_materialSensorEndUserPrice_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialSensor == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialSensorEndUserDiscount',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialSensorEndUserDiscount',
-                                        description: 'p_materialSensorEndUserDiscount_Description',
-                                        addonLeft: {
-                                          text: '%',
+                                        hooks: {
+                                          onInit: field => {
+                                            this.http.get<any>('api/items/glasses').subscribe(response => {
+                                              let x = response.data;
+                                              if (field && field.props?.options) {
+                                                field.props.options = x;
+                                              }
+                                            });
+                                          },
                                         },
-                                        required: false,
-                                        disabled: false,
                                       },
-                                      expressions: {
-                                        'props.disabled': '!model.materialSensor == true',
-                                      },
-                                    },
-
-                                    ////////////////////////////////
-                                    {
-                                      className: '2xl:w-4/12 xl:w-4/12 lg:w-8/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGasket',
-                                      type: 'checkbox',
-                                      defaultValue: false,
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGasket',
-                                        description: 'p_materialGasket_Description',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGasketQuantity',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGasketQuantity',
-                                        description: 'p_materialGasketQuantity_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialGasket == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGasketCost',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGasketCost',
-                                        description: 'p_materialGasketCost_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialGasket == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGasketEndUsertPrice',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGasketEndUserPrice',
-                                        description: 'p_materialGasketEndUserPrice_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialGasket == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGasketEndUserDiscount',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGasketEndUserDiscount',
-                                        description: 'p_materialGasketEndUserDiscount_Description',
-                                        addonLeft: {
-                                          text: '%',
+                                      {
+                                        className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
+                                        key: 'supplierMaterialEuroCode',
+                                        type: 'input',
+                                        props: {
+                                          translate: false,
+                                          label: 'p_supplierMaterialEuroCode',
+                                          description: 'p_supplierMaterialEuroCode_Description',
+                                          required: false,
+                                          disabled: false,
                                         },
-                                        required: false,
-                                        disabled: false,
                                       },
-                                      expressions: {
-                                        'props.disabled': '!model.materialGasket == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-4/12 xl:w-4/12 lg:w-8/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGlue',
-                                      type: 'checkbox',
-                                      defaultValue: false,
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGlue',
-                                        description: 'p_materialGlue_Description',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGlueQuantity',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGlueQuantity',
-                                        description: 'p_materialGlueQuantity_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialGlue == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGlueCost',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGlueCost',
-                                        description: 'p_materialGlueCost_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialGlue == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGlueEndUsertPrice',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGlueEndUserPrice',
-                                        description: 'p_materialGlueEndUserPrice_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialGlue == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGlueEndUserDiscount',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGlueEndUserDiscount',
-                                        description: 'p_materialGlueEndUserDiscount_Description',
-                                        addonLeft: {
-                                          text: '%',
+                                      {
+                                        className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
+                                        key: 'supplierMaterialOriginalCode',
+                                        type: 'input',
+                                        props: {
+                                          translate: false,
+                                          label: 'p_supplierMaterialOriginalCode',
+                                          description: 'p_supplierMaterialOriginalCode_Description',
+                                          required: false,
+                                          disabled: false,
                                         },
-                                        required: false,
-                                        disabled: false,
                                       },
-                                      expressions: {
-                                        'props.disabled': '!model.materialGlue == true',
-                                      },
-                                    },
-                                    ////////////////////////////////////////////////////////////////
-                                    {
-                                      className: '2xl:w-4/12 xl:w-4/12 lg:w-8/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialWorkInHours',
-                                      type: 'checkbox',
-                                      defaultValue: false,
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialWorkInHours',
-                                        description: 'p_materialWorkInHours_Description',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialWorkInHoursQuantity',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialWorkInHoursQuantity',
-                                        description: 'p_materialWorkInHoursQuantity_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialWorkInHours == true',
-                                      },
-                                    },
-
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialWorkInHoursEndUsertPrice',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialWorkInHoursEndUserPrice',
-                                        description: 'p_materialWorkInHoursEndUserPrice_Description',
-                                        type: 'number',
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                      expressions: {
-                                        'props.disabled': '!model.materialWorkInHours == true',
-                                      },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialWorkInHoursEndUserDiscount',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialWorkInHoursEndUserDiscount',
-                                        description: 'p_materialWorkInHoursEndUserDiscount_Description',
-                                        addonLeft: {
-                                          text: '%',
+                                      {
+                                        className: '2xl:w-2/12 xl:w-2/12 lg:w-2/12 xs:w-full sm:w-full  px-2 ',
+                                        key: 'supplierMaterialCost',
+                                        type: 'input',
+                                        props: {
+                                          translate: false,
+                                          label: 'p_supplierMaterialCost',
+                                          description: 'p_supplierMaterialCost_Description',
+                                          type: 'number',
+                                          required: false,
+                                          disabled: false,
                                         },
-                                        required: false,
-                                        disabled: false,
                                       },
-                                      expressions: {
-                                        'props.disabled': '!model.materialWorkInHours == true',
+                                      {
+                                        className: '2xl:w-3/12 xl:w-3/12 lg:w-3/12 xs:w-full sm:w-full  px-2 ',
+                                        key: 'supplierMaterialConfirmed',
+                                        type: 'checkbox',
+                                        defaultValue: false,
+                                        props: {
+                                          translate: false,
+                                          label: 'p_supplierMaterialConfirmed',
+                                          description: 'p_supplierMaterialConfirmed_Description',
+                                          required: false,
+                                          disabled: false,
+                                        },
                                       },
-                                    },
-                                    {
-                                      className: '2xl:w-2/12 xl:w-2/12 lg:w-4/12 xs:w-full sm:w-full  px-2 ',
-                                      key: 'materialGadgetCost',
-                                      type: 'input',
-                                      props: {
-                                        translate: true,
-                                        label: 'p_materialGadgetCost',
-                                        description: 'p_materialGadgetCost_Description',
-                                        rows: 3,
-                                        required: false,
-                                        disabled: false,
-                                      },
-                                    },
-                                  ],
+                                    ],
+                                  },
                                 },
                               ],
                             },
@@ -3829,11 +3531,11 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
           },
           {
             props: {
-              translate: true,
-              label: 'fitter',
+              translate: false,
+              label: 'activityPlanning',
             },
             expressionProperties: {
-              'props.label': () => this.translationService.instant('fitter'),
+              'props.label': () => this.translationService.instant('activityPlanning'),
             },
             fieldGroupClassName: 'flex flex-wrap p2',
             fieldGroup: [
@@ -3842,7 +3544,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selecteFitter1',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedFitter1_Description',
                   label: ' ',
                   options: this.http.get<[]>('api/items/fitters'),
@@ -3879,7 +3581,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterDescription1',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterDescription1',
                   description: 'p_fitterDescription1_Description',
                   required: false,
@@ -3891,7 +3593,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterTown1',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterTown1',
                   description: 'p_fitterTown1_Description',
                   required: false,
@@ -3903,7 +3605,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterPhone1',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterPhone1',
                   description: 'p_fitterPhone_Description1',
                   required: false,
@@ -3915,7 +3617,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterFleetVehicle1',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'Digita automezzo',
                   label: ' ',
                   options: this.http.get<[]>('api/items/fleets'),
@@ -3945,7 +3647,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selecteFitter2',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedFitter2_Description',
                   label: ' ',
                   options: this.http.get<[]>('api/items/fitters'),
@@ -3981,7 +3683,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterDescription2',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterDescription2',
                   description: 'p_fitterDescription2_Description',
                   required: false,
@@ -3993,7 +3695,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterTown2',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterTown2',
                   description: 'p_fitterTown2_Description',
                   required: false,
@@ -4005,7 +3707,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterPhone2',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterPhone2',
                   description: 'p_fitterPhone2_Description',
                   required: false,
@@ -4017,7 +3719,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterFleetVehicle2',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'Digita automezzo',
                   label: ' ',
                   options: this.http.get<[]>('api/items/fleets'),
@@ -4029,7 +3731,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selecteFitter3',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedFitter3_Description',
                   label: ' ',
                   options: this.http.get<[]>('api/items/fitters'),
@@ -4064,7 +3766,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterDescription3',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterDescription3',
                   description: 'p_fitterDescriptionn3_Description',
                   required: false,
@@ -4076,7 +3778,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterTown3',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterTown3',
                   description: 'p_fitterTown3_Description',
                   required: false,
@@ -4088,7 +3790,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterPhone3',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterPhone3',
                   description: 'p_fitterPhone3_Description',
                   required: false,
@@ -4100,7 +3802,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterFleetVehicle3',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'Digita automezzo',
                   label: ' ',
                   options: this.http.get<[]>('api/items/fleets'),
@@ -4112,7 +3814,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'selecteFitter4',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'p_selectedFitter4_Description',
                   label: ' ',
                   options: this.http.get<[]>('api/items/fitters'),
@@ -4147,7 +3849,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterDescription4',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterDescription4',
                   description: 'p_fitterDescription4_Description',
                   required: false,
@@ -4159,7 +3861,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterTown4',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterTown4',
                   description: 'p_fitterTown4_Description',
                   required: false,
@@ -4171,7 +3873,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterPhone4',
                 type: 'input',
                 props: {
-                  translate: true,
+                  translate: false,
                   label: 'p_fitterPhone4',
                   description: 'p_fitterPhone_Description4',
                   required: false,
@@ -4183,7 +3885,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'fitterFleetVehicle4',
                 type: 'headtype',
                 props: {
-                  translate: true,
+                  translate: false,
                   description: 'Digita automezzo',
                   label: ' ',
                   options: this.http.get<[]>('api/items/fleets'),
@@ -4194,16 +3896,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
           },
           {
             props: {
-              translate: true,
-              label: 'activityPlanning',
-            },
-            expressionProperties: {
-              'props.label': () => this.translationService.instant('activityPlanning'),
-            },
-          },
-          {
-            props: {
-              translate: true,
+              translate: false,
               label: 'darkering',
             },
             expressionProperties: {
@@ -4212,7 +3905,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
           },
           {
             props: {
-              translate: true,
+              translate: false,
               label: 'documents',
             },
             expressionProperties: {
@@ -4223,7 +3916,7 @@ export class PracticeDetailComponent implements OnInit, AfterViewInit, OnDestroy
                 key: 'file',
                 type: 'file-upload',
                 props: {
-                  translate: true,
+                  translate: false,
                   multiple: true,
                   label: 'Files upload',
                   description: 'files managements',
